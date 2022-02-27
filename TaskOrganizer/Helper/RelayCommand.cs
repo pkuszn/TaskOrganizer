@@ -7,15 +7,15 @@ using System.Windows.Input;
 
 namespace TaskOrganizer
 {
+    /// <summary>
+    /// Class responsible for handling commands
+    /// </summary>
     public class RelayCommand : ICommand
     {
         // Interfejs pomiędzy warstwą prezentacji, a warstwą logiki biznesowej
         //Zamiast
-
-
-        //CanExecute - sprawdzane cały czas w pętli programu.
-
         public event EventHandler CanExecuteChanged;
+
         private Action mAction;
 
         public RelayCommand(Action action)

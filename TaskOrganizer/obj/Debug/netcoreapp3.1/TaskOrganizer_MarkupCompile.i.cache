@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\App.xaml
-4-1413013969
+4601892324
 
-16-798843173
+18-1589697069
 192-1533232326
-MainWindow.xaml;View\MenuView.xaml;View\PomodoroView.xaml;View\TodoView.xaml;
+MainWindow.xaml;View\PomodoroView.xaml;View\SettingsView.xaml;View\TodoView.xaml;
 
 True
 

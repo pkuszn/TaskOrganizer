@@ -6,7 +6,41 @@
              xmlns:local="clr-namespace:TaskOrganizer.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
-            
+    <Grid Background="GhostWhite">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.33*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBox Width="50" Height="15" Grid.Row="0"/>
+                    <TextBlock Text="Enter a value" HorizontalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="MinWidth" Value="75"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Content="Start"/>
+                        <Button Content="Stop"/>
+                        
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+        </Grid>
+        
     </Grid>
 </UserControl>

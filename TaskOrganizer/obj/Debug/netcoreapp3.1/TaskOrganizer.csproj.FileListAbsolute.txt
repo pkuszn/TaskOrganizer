@@ -17,12 +17,12 @@ C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.dll
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.pdb
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.genruntimeconfig.cache
-C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\MenuView.g.cs
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\TodoView.g.cs
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
-C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\MenuView.baml
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\TodoView.baml
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.csproj.AssemblyReference.cache
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\PomodoroView.g.cs
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\PomodoroView.baml
 C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\App.baml
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\SettingsView.g.cs
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\View\SettingsView.baml

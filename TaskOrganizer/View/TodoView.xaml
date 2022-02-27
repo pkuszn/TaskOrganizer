@@ -4,13 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TaskOrganizer.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TodoViewModel}"
+             mc:Ignorable="d" Height="507" Width="799">
     <Grid>
-        <StackPanel Grid.Column="2" Background="BlanchedAlmond">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Background="BlanchedAlmond">
             <Label Content="ToDo List" HorizontalAlignment="Center" FontFamily="Fira Code" FontSize="30" />
             <Label Content="Enter a new task:" HorizontalAlignment="Left" Margin="20,0,0,0"/>
-            <TextBox Width="150" Height="80" Text="{Binding TodoViewModel.NewTask, Mode=TwoWay}">
+            <TextBox Width="150" Height="80" Text="{Binding NewTask, Mode=OneWay}">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -22,26 +26,24 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Add" Command="{Binding TodoViewModel.AddNewTaskCommand}"/>
+                <Button Grid.Column="0" Content="Add" Command="{Binding AddNewTaskCommand}"/>
                 <Button Grid.Column="1" Content="Delete"/>
             </Grid>
-
-            <Grid Height="500">
-                <StackPanel Margin="0,10">
-                    <TextBlock Text="Your tasks:" Margin="10" HorizontalAlignment="Left"/>
-                    <ScrollViewer Height="330" Margin="0,0,0,0">
-                        <ItemsControl ItemsSource="{Binding TodoViewModel.TodoList}" Background="White">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </StackPanel>
-            </Grid>
-
-
         </StackPanel>
 
+        <Grid Height="Auto" Grid.Column="1">
+            <StackPanel Margin="0,10">
+                <TextBlock Text="Your tasks:" Margin="10" HorizontalAlignment="Left"/>
+                <ScrollViewer Height="330" Margin="0,0,0,0">
+                    <ItemsControl ItemsSource="{Binding TodoList}" Background="White">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

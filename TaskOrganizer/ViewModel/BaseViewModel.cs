@@ -11,7 +11,7 @@ namespace TaskOrganizer.ViewModel
     /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
 
         protected void OnPropertyChanged(string name)
         {

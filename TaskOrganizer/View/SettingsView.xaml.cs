@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace TaskOrganizer.View
 {
     /// <summary>
-    /// Interaction logic for MenuView.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class MenuView : UserControl
+    public partial class SettingsView : UserControl
     {
-        public MenuView()
+        public SettingsView()
         {
             InitializeComponent();
         }

@@ -30,7 +30,6 @@ namespace TaskOrganizer.ViewModel
             TodoList.Add(NewTaskInstantion);
             Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
             NewTask = string.Empty;
-
             OnPropertyChanged(nameof(NewTask));
 
         }

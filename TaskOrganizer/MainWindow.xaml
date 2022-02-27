@@ -25,7 +25,7 @@
             <TextBlock Text="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
             <Button Content="Todo" Command="{Binding UpdateViewCommand}" CommandParameter="Todo"/>
             <Button Content="Pomodoro" Command="{Binding UpdateViewCommand}" CommandParameter="Pomodoro"/>
-            <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settigns"/>
+            <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings"/>
         </StackPanel>
         
     </Grid>

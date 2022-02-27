@@ -32,6 +32,9 @@ namespace TaskOrganizer.Helper
                 case "Pomodoro":
                     viewModel.SelectedViewModel = new PomodoroViewModel();
                     break;
+                case "Settings":
+                    viewModel.SelectedViewModel = new SettingsViewModel();
+                    break;
             }
         }
     }
