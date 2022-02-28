@@ -15,10 +15,13 @@ namespace TaskOrganizer.ViewModel
 
         public ICommand AddNewTaskCommand { get; set; }
 
+
         public TodoViewModel()
         {
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
         }
+
+ 
 
         private void AddNewTaskToList()
         {
@@ -27,6 +30,7 @@ namespace TaskOrganizer.ViewModel
                 Task = NewTask,
                 CreatedDate = DateTime.Now
             };
+            Debug.WriteLine(NewTaskInstantion);
             TodoList.Add(NewTaskInstantion);
             Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
             NewTask = string.Empty;

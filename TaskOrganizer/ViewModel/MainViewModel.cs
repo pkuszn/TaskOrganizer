@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using TaskOrganizer.Helper;
@@ -18,6 +19,7 @@ namespace TaskOrganizer.ViewModel
             set
             {
                 _selectedViewModel = value;
+                Debug.WriteLine(SelectedViewModel);
                 OnPropertyChanged(nameof(SelectedViewModel));
             }
         }

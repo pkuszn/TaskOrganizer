@@ -8,6 +8,6 @@ namespace TaskOrganizer.Model
     public class PomodoroModel : BaseViewModel
     {
         //Time property for pomodoro counter
-        public DateTime time { get; set; }
+        public int time { get; set; }
     }
 }
