@@ -11,6 +11,7 @@ namespace TaskOrganizer.ViewModel
         public ICommand StartCountingCommand { get; set; }
         
         public int Time { get; set; }
+        public int timeMinutes { get; set; }
       
 
         public PomodoroViewModel()
@@ -21,13 +22,19 @@ namespace TaskOrganizer.ViewModel
 
         private void UpdateTime()
         {
-            Random rnd = new Random();
-            Time = rnd.Next();
             var newTime = new PomodoroModel()
             {   
                 time = Time
             };
-            OnPropertyChanged(nameof(Time));
+            timeMinutes = Time * 60;
+            while(timeMinutes <= 0)
+            {
+                timeMinutes--;
+                OnPropertyChanged(nameof(timeMinutes));
+            }
+            OnPropertyChanged(nameof(timeMinutes));
         }
+
+
     }
 }

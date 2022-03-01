@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaskOrganizer.View" xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:PomodoroViewModel}"
+             xmlns:local="clr-namespace:TaskOrganizer.View" xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModel" IsEnabled="True" d:DataContext="{d:DesignInstance Type=viewmodel:PomodoroViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="GhostWhite">
@@ -12,7 +12,9 @@
                 <RowDefinition/>
                 <RowDefinition Height="0.33*"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Text="{Binding Time}" HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Row="0" Text="{Binding timeMinutes}" HorizontalAlignment="Center"/>
+            <TextBox Width="70" Height="15" IsEnabled="True" Text="{Binding Time}" Grid.Row="1"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -24,7 +26,6 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBox Width="50" Height="15" Grid.Row="0"/>
                     <TextBlock Text="Enter a value" HorizontalAlignment="Center"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel.Resources>
