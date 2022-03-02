@@ -13,7 +13,7 @@ namespace TaskOrganizer.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
 
-        protected void OnPropertyChanged(string name)
+        protected void OnPropertyChanged(string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
