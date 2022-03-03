@@ -12,9 +12,23 @@ namespace TaskOrganizer.ViewModel
 {
     public class TodoViewModel : BaseViewModel
     {
+        private string _newTask;
+
         //Lista zadań do realizacji.
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
-        public string NewTask { get; set; }
+        public string NewTask
+        {
+            get
+            {
+                return _newTask;
+            }
+            set
+            {
+                if (_newTask != value)
+                    _newTask = value;
+                OnPropertyChanged(nameof(NewTask));
+            }
+        }
         public ICommand AddNewTaskCommand { get; set; }
 
         public TodoViewModel()
@@ -34,7 +48,6 @@ namespace TaskOrganizer.ViewModel
             TodoList.Add(NewTaskInstantion);
             Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
             NewTask = string.Empty;
-            OnPropertyChanged(nameof(NewTask));
         }
     }
 }

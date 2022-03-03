@@ -13,6 +13,11 @@
                 <RowDefinition Height="0.33*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <Grid.Resources>
+                    <DataTemplate x:Key="PomodoroTemplate">
+                        <Image Source="{Binding Path=ImageFilePath}"/>
+                    </DataTemplate>
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -30,6 +35,17 @@
                 <StackPanel Grid.Column="1"  VerticalAlignment="Center">
                     <TextBlock Text="{Binding strTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50" Width="100" Margin="0,100,0,0">
+                    <Canvas>
+                        <ItemsControl ItemsSource="{Binding ListOfPomodoros}" Background="White">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -44,6 +60,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Select a value from the list" HorizontalAlignment="Center"/>
                     <ComboBox Width="140" Height="20" IsEnabled="True"  Margin="0,-60,0,0" Text="{Binding CurrentPomodoroTick, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
+                        <ComboBoxItem>0.25</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
                         <!-- Test value -->

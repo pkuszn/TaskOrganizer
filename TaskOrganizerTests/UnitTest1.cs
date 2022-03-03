@@ -5,9 +5,11 @@ namespace TaskOrganizerTests
     [TestClass]
     public class UnitTest1
     {
+        //Image tests
         [TestMethod]
-        public void TestMethod1()
+        public void ImageExist()
         {
+
         }
     }
 }

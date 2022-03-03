@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 using System.Windows.Threading;
+using TaskOrganizer.Helpers;
 using TaskOrganizer.Model;
+using static TaskOrganizer.Helpers.PomodoroViewModelExtensions;
 
 namespace TaskOrganizer.ViewModel
 {
@@ -18,6 +21,7 @@ namespace TaskOrganizer.ViewModel
         private int _currentPomodoroTick;
         private TimeSpan _outputTime;
         private string _strTime;
+
         public string CurrentTime
         {
             get
@@ -87,13 +91,13 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
+        public string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
 
         public DispatcherTimer Time { get; set; }
         public DispatcherTimer PomodoroTimer { get; set; }
         public ICommand StartCountingCommand { get; set; }
-        public ICommand ResumeCountingCommand { get; set; }
         public ICommand StopCountingCommand { get; set; }
-
+        public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>();
 
         public PomodoroViewModel()
         {
@@ -152,7 +156,7 @@ namespace TaskOrganizer.ViewModel
         }
 
         /// <summary>
-        /// Descending time function - should be improved
+        /// Pomodoro tick function - should be improved
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -166,8 +170,24 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer.Stop();
                 PomodoroTimer = null;
                 strTime = string.Empty;
+                AddNewPomodoroUI();
             }
             strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
+        }
+        /// <summary>
+        /// Adding icons on UI when PomodoroTimer stops and finished correctly
+        /// </summary>
+        private void AddNewPomodoroUI()
+        {
+            if (File.Exists(ImageFilePath.getFile()))
+            {
+                Debug.WriteLine("File exists");
+                var newInstancesOfPomodoro = new ImageViewer()
+                {
+                    filePath = ImageFilePath.getFile()
+                };
+                OnPropertyChanged(nameof(ListOfPomodoros));
+            }
         }
     }
 }

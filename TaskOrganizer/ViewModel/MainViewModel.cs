@@ -11,7 +11,7 @@ namespace TaskOrganizer.ViewModel
     public class MainViewModel : BaseViewModel
     {
         //Selected view model
-        private BaseViewModel _selectedViewModel;
+        private BaseViewModel _selectedViewModel = new PomodoroViewModel();
 
         public BaseViewModel SelectedViewModel
         {

@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Icons\tomato.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\tomato.png" />
+  </ItemGroup>
+
 </Project>
