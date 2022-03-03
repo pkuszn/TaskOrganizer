@@ -43,7 +43,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Select a value from the list" HorizontalAlignment="Center"/>
-                    <ComboBox Width="140" Height="20" IsEnabled="True"  Margin="0,-60,0,0" Text="{Binding CurrentPomodoroTick, Mode=OneWayToSource}" Grid.Row="1">
+                    <ComboBox Width="140" Height="20" IsEnabled="True"  Margin="0,-60,0,0" Text="{Binding CurrentPomodoroTick, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
+                        <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
                         <!-- Test value -->
                         <ComboBoxItem>15</ComboBoxItem>

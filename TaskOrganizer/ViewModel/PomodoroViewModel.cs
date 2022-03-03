@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace TaskOrganizer.ViewModel
         private int _currentPomodoroTick;
         private TimeSpan _outputTime;
         private string _strTime;
-
         public string CurrentTime
         {
             get
@@ -56,7 +56,6 @@ namespace TaskOrganizer.ViewModel
             {
                 if (_currentPomodoroTick != value)
                     _currentPomodoroTick = value;
-                OnPropertyChanged(nameof(CurrentPomodoroTick));
             }
         }
 
@@ -92,18 +91,29 @@ namespace TaskOrganizer.ViewModel
         public DispatcherTimer Time { get; set; }
         public DispatcherTimer PomodoroTimer { get; set; }
         public ICommand StartCountingCommand { get; set; }
+        public ICommand ResumeCountingCommand { get; set; }
         public ICommand StopCountingCommand { get; set; }
-
 
 
         public PomodoroViewModel()
         {
             DateText();
             UpdateTime();
-            StartCountingCommand = new RelayCommand(StartPomodoroTimer);
+            StartCountingCommand = new RelayCommand(CommandCountingSelector);
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
         }
 
+        private void CommandCountingSelector()
+        {
+            if (PomodoroTimer == null)
+            {
+                StartPomodoroTimer();
+            }
+            else
+            {
+                ResumePomodoroTimer();
+            }
+        }
 
         private void UpdateTime()
         {
@@ -116,7 +126,7 @@ namespace TaskOrganizer.ViewModel
             Time.Start();
         }
 
-        private void TimeText(object sdender, EventArgs e)
+        private void TimeText(object sender, EventArgs e)
         {
             CurrentTime = DateTime.Now.ToString("HH:mm:ss");
         }
@@ -126,15 +136,9 @@ namespace TaskOrganizer.ViewModel
             CurrentDate = DateTime.Now.ToString("dddd dd MMMM yyyy");
         }
 
-        private void StopPomodoroTimer()
-        {
-            PomodoroTimer.Stop();
-        }
+        private void StopPomodoroTimer() => PomodoroTimer.Stop();
+        private void ResumePomodoroTimer() => PomodoroTimer.Start();
 
-        private void ResumePomodoroTimer()
-        {
-            //if(S)
-        }
 
         private void StartPomodoroTimer()
         {
@@ -158,10 +162,12 @@ namespace TaskOrganizer.ViewModel
             CurrentPomodoroTick--;
             OutputTime = OutputTime.Subtract(TimeSpan.FromSeconds(1));
             if (OutputTime.Minutes == 0 && OutputTime.Seconds == 0)
+            {
                 PomodoroTimer.Stop();
+                PomodoroTimer = null;
+                strTime = string.Empty;
+            }
             strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
         }
- 
     }
-   
 }
