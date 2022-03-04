@@ -9,6 +9,6 @@ namespace TaskOrganizer.Model
     {
         public string Task { get; set; }
         public DateTime CreatedDate { get; set; }
-        public bool IsSelected { get; set; }
+        public bool IsSeleted { get; set; }
     }
 }

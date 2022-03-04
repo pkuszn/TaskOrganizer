@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TaskOrganizer.Model;
 
@@ -13,6 +9,9 @@ namespace TaskOrganizer.ViewModel
     public class TodoViewModel : BaseViewModel
     {
         private string _newTask;
+        private bool _isCheckedTask;
+
+        public TodoModel SelectedTask { get; set; }
 
         //Lista zadań do realizacji.
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
@@ -29,25 +28,68 @@ namespace TaskOrganizer.ViewModel
                 OnPropertyChanged(nameof(NewTask));
             }
         }
+
+        public bool IsCheckedTask
+        {
+            get
+            {
+                return _isCheckedTask;
+            }
+            set
+            {
+                if (_isCheckedTask != value)
+                    _isCheckedTask = value;
+                OnPropertyChanged(nameof(IsCheckedTask));
+                if(_isCheckedTask == true)
+                {
+                    Debug.WriteLine("Task is done");
+                }
+            }
+        }
+
+   
         public ICommand AddNewTaskCommand { get; set; }
+        public ICommand DeleteTaskCommand { get; set; }
 
         public TodoViewModel()
         {
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
+            DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
         }
 
         private void AddNewTaskToList()
         {
-            var NewTaskInstantion = new TodoModel
+            IsCheckedTask = false;
+            if(NewTask == null || NewTask.Length == 0)
             {
-                Task = NewTask,
-                CreatedDate = DateTime.Now,
-                IsSelected = false
-            };
-            Debug.WriteLine(NewTaskInstantion);
-            TodoList.Add(NewTaskInstantion);
-            Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
-            NewTask = string.Empty;
+                // do nothing
+            }
+            else
+            {
+                var NewTaskInstantion = new TodoModel
+                {
+                    Task = NewTask,
+                    CreatedDate = DateTime.Now,
+                    IsSeleted = IsCheckedTask
+                };
+                Debug.WriteLine(NewTaskInstantion);
+                TodoList.Add(NewTaskInstantion);
+                Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
+                NewTask = string.Empty;
+            }
         }
+        private void DeleteTaskFromTheList()
+        {
+            if(SelectedTask != null)
+            {
+                TodoList.Remove(SelectedTask);
+            }
+        }
+
+        private void IsTaskSelected()
+        {
+            
+        }
+ 
     }
 }
