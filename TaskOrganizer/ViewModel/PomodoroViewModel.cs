@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TaskOrganizer.Helpers;
-using TaskOrganizer.Model;
 using static TaskOrganizer.Helpers.PomodoroViewModelExtensions;
 
 namespace TaskOrganizer.ViewModel
@@ -165,15 +160,15 @@ namespace TaskOrganizer.ViewModel
 
         private void StartPomodoroTimer()
         {
-            if(PomodoroTimer == null)
-            {
-                //do nothing
-            }
-            else
-            {
-                TodoViewModel vm = new TodoViewModel();
-                CurrentTask = vm.ShareTopOfTodoList();
-            }
+            //if(PomodoroTimer == null)
+            //{
+            //    //do nothing
+            //}
+            //else
+            //{
+            //    TodoViewModel vm = new TodoViewModel();
+            //    CurrentTask = vm.ShareTopOfTodoList();
+            //}
             PomodoroTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
