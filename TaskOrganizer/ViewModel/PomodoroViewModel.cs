@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -21,6 +22,7 @@ namespace TaskOrganizer.ViewModel
         private int _currentPomodoroTick;
         private TimeSpan _outputTime;
         private string _strTime;
+        private string _currentTask;
 
         public string CurrentTime
         {
@@ -91,6 +93,20 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
+        public string CurrentTask
+        {
+            get
+            {
+                return _currentTask;
+            }
+            set
+            {
+                if (_currentTask != value)
+                    _currentTask = value;
+                OnPropertyChanged(CurrentTask);
+            }
+        }
+
         public string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
 
         public DispatcherTimer Time { get; set; }
@@ -98,9 +114,12 @@ namespace TaskOrganizer.ViewModel
         public ICommand StartCountingCommand { get; set; }
         public ICommand StopCountingCommand { get; set; }
         public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>();
+        public TodoViewModel todoViewModel { get; }
+        public SettingsViewModel settingsViewModel { get; }
 
-        public PomodoroViewModel()
-        {
+
+        public PomodoroViewModel(TodoViewModel TodoVM = null, SettingsViewModel SettingsVM = null)
+        {   
             DateText();
             UpdateTime();
             StartCountingCommand = new RelayCommand(CommandCountingSelector);
@@ -121,7 +140,7 @@ namespace TaskOrganizer.ViewModel
 
         private void UpdateTime()
         {
-
+            
             Time = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -146,6 +165,15 @@ namespace TaskOrganizer.ViewModel
 
         private void StartPomodoroTimer()
         {
+            if(PomodoroTimer == null)
+            {
+                //do nothing
+            }
+            else
+            {
+                TodoViewModel vm = new TodoViewModel();
+                CurrentTask = vm.ShareTopOfTodoList();
+            }
             PomodoroTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -179,14 +207,14 @@ namespace TaskOrganizer.ViewModel
         /// </summary>
         private void AddNewPomodoroUI()
         {
-            if (File.Exists(ImageFilePath.getFile()))
+            if (File.Exists(ImageFilePath.getTomatoFile()))
             {
                 Debug.WriteLine("File exists");
                 var newInstancesOfPomodoro = new ImageViewer()
                 {
-                    filePath = ImageFilePath.getFile()
+                    filePath = ImageFilePath.getTomatoFile()
                 };
-                OnPropertyChanged(nameof(ListOfPomodoros));
+                ListOfPomodoros.Add(newInstancesOfPomodoro);
             }
         }
     }

@@ -25,8 +25,9 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <Border>
-                        <TextBlock Text="Current task" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="20"/>
+                        <Label Content="Current task" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="20"/>
                     </Border>
+                    <TextBlock Text="{Binding CurrentTask, FallbackValue=CURRENT}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="{Binding CurrentDate, FallbackValue=mm:dd:yyyy}" FontSize="10" HorizontalAlignment="Right"/>

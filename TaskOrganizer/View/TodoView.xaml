@@ -37,7 +37,7 @@
         </Border>
         <Grid Grid.Column="1">
             <TextBlock Text="Your tasks:" FontSize="15" Margin="10" HorizontalAlignment="Left"/>
-            <ListView Height="330" Margin="0,50,0,0" ItemsSource="{Binding TodoList}" SelectedItem="{Binding SelectedTask}" SelectionMode="Single" HorizontalContentAlignment="Stretch" BorderBrush="Transparent">
+            <ListView Height="330" Margin="0,50,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding TodoList}" SelectedItem="{Binding SelectedTask}" SelectionMode="Single" HorizontalContentAlignment="Stretch" BorderBrush="Transparent">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="Black" BorderThickness="0.5" CornerRadius="3">

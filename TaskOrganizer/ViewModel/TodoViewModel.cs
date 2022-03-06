@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using TaskOrganizer.Model;
 
@@ -40,10 +41,6 @@ namespace TaskOrganizer.ViewModel
                 if (_isCheckedTask != value)
                     _isCheckedTask = value;
                 OnPropertyChanged(nameof(IsCheckedTask));
-                if(_isCheckedTask == true)
-                {
-                    Debug.WriteLine("Task is done");
-                }
             }
         }
 
@@ -56,6 +53,10 @@ namespace TaskOrganizer.ViewModel
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
         }
+
+        public string ShareTopOfTodoList() => TodoList.First().Task.ToString();
+
+        public bool HasTasks => TodoList.Count > 0;
 
         private void AddNewTaskToList()
         {
@@ -90,6 +91,8 @@ namespace TaskOrganizer.ViewModel
         {
             
         }
+
+
  
     }
 }
