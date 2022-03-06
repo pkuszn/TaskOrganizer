@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using TaskOrganizer.Model;
+using TaskOrganizer.Store;
 
 namespace TaskOrganizer.ViewModel
 {
@@ -16,6 +17,7 @@ namespace TaskOrganizer.ViewModel
 
         //Lista zadań do realizacji.
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
+        private TodoStore TodoStore { get; set; }
         public string NewTask
         {
             get
@@ -44,12 +46,18 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
-   
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
 
-        public TodoViewModel()
+        public TodoViewModel(TodoStore todoStore = null)
         {
+            //Update TodoList
+            this.TodoStore = todoStore;
+            if(todoStore == null)
+            {
+                todoStore = new TodoStore();
+            }
+            UpdateTasks(todoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
         }
@@ -57,6 +65,17 @@ namespace TaskOrganizer.ViewModel
         public string ShareTopOfTodoList() => TodoList.First().Task.ToString();
 
         public bool HasTasks => TodoList.Count > 0;
+
+        private void UpdateTasks(TodoStore todostore)
+        {
+            // Czyścimy Widokowa todo liste i aktualizujemy ją za każdym razem gdy wchodzimy do widoku Todo
+            //Przy tworzeniu nowego Taska, musimy zawrzeć todoListe w pamięci, która będzię aktywna przez cały czas i w każdym miejscu w pamięci
+            TodoList.Clear();
+            foreach (var item in todostore)
+            {
+                TodoList.Add(item);
+            }
+        }
 
         private void AddNewTaskToList()
         {
@@ -72,10 +91,9 @@ namespace TaskOrganizer.ViewModel
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
                     IsSeleted = IsCheckedTask
+
                 };
-                Debug.WriteLine(NewTaskInstantion);
-                TodoList.Add(NewTaskInstantion);
-                Debug.WriteLine(TodoList); // Sprawdzenie zawartości listy.
+                TodoStore.AddTask(NewTaskInstantion);
                 NewTask = string.Empty;
             }
         }

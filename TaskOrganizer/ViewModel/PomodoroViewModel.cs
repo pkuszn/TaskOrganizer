@@ -165,15 +165,15 @@ namespace TaskOrganizer.ViewModel
 
         private void StartPomodoroTimer()
         {
-            if(PomodoroTimer == null)
-            {
-                //do nothing
-            }
-            else
-            {
-                TodoViewModel vm = new TodoViewModel();
-                CurrentTask = vm.ShareTopOfTodoList();
-            }
+            //if(PomodoroTimer == null)
+            //{
+            //    //do nothing
+            //}
+            //else
+            //{
+            //    TodoViewModel vm = new TodoViewModel();
+            //    CurrentTask = vm.ShareTopOfTodoList();
+            //}
             PomodoroTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)

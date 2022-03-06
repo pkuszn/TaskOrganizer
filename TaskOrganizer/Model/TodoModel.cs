@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 
 namespace TaskOrganizer.Model
@@ -10,5 +11,6 @@ namespace TaskOrganizer.Model
         public string Task { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsSeleted { get; set; }
+
     }
 }
