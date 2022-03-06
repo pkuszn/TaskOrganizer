@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 using TaskOrganizer.Model;
 using TaskOrganizer.Store;
@@ -12,10 +10,9 @@ namespace TaskOrganizer.ViewModel
     {
         private string _newTask;
         private bool _isCheckedTask;
+        private static uint _id;
 
         public TodoModel SelectedTask { get; set; }
-
-        //Lista zadań do realizacji.
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
         private TodoStore TodoStore { get; set; }
         public string NewTask
@@ -48,32 +45,41 @@ namespace TaskOrganizer.ViewModel
 
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
+        public static uint ID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                    _id = value;
+            }
+        }
 
         public TodoViewModel(TodoStore todoStore = null)
         {
-            //Update TodoList
             this.TodoStore = todoStore;
             if(todoStore == null)
-            {
-                todoStore = new TodoStore();
-            }
-            UpdateTasks(todoStore);
+                TodoStore = new TodoStore();
+
+            UpdateTasks(TodoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
         }
 
-        public string ShareTopOfTodoList() => TodoList.First().Task.ToString();
-
         public bool HasTasks => TodoList.Count > 0;
 
-        private void UpdateTasks(TodoStore todostore)
+        private void UpdateTasks(TodoStore todoStore)
         {
-            // Czyścimy Widokowa todo liste i aktualizujemy ją za każdym razem gdy wchodzimy do widoku Todo
-            //Przy tworzeniu nowego Taska, musimy zawrzeć todoListe w pamięci, która będzię aktywna przez cały czas i w każdym miejscu w pamięci
-            TodoList.Clear();
-            foreach (var item in todostore)
+            if (todoStore.HasTasks())
             {
-                TodoList.Add(item);
+                TodoList.Clear();
+                foreach (var item in todoStore)
+                {
+                    TodoList.Add(item);
+                }
             }
         }
 
@@ -86,8 +92,10 @@ namespace TaskOrganizer.ViewModel
             }
             else
             {
+                ID++;
                 var NewTaskInstantion = new TodoModel
                 {
+                    TaskID = ID,
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
                     IsSeleted = IsCheckedTask
@@ -95,13 +103,26 @@ namespace TaskOrganizer.ViewModel
                 };
                 TodoStore.AddTask(NewTaskInstantion);
                 NewTask = string.Empty;
+                UpdateTasks(TodoStore);
             }
         }
+        /// <summary>
+        /// Delete task from both UI and the store list
+        /// </summary>
         private void DeleteTaskFromTheList()
         {
             if(SelectedTask != null)
             {
-                TodoList.Remove(SelectedTask);
+                foreach(var item in TodoStore)
+                {
+                    if(item.TaskID == SelectedTask.TaskID)
+                    {
+                        TodoStore.DeleteTask(item);
+                        TodoList.Remove(SelectedTask);
+                        UpdateTasks(TodoStore);
+                        break;
+                    }
+                }
             }
         }
 

@@ -7,6 +7,9 @@ using TaskOrganizer.Model;
 
 namespace TaskOrganizer.Store
 {
+    /// <summary>
+    /// The class responsible for storing data on new tasks
+    /// </summary>
     public class TodoStore : IEnumerable<TodoModel>
     {
         private IList<TodoModel> todoList;
@@ -16,10 +19,9 @@ namespace TaskOrganizer.Store
             todoList = new List<TodoModel>();
         }
 
-        public void AddTask(TodoModel task)
-        {
-            todoList.Add(task);
-        }
+        public bool HasTasks() => todoList.Count > 0;
+        public void AddTask(TodoModel task) => todoList.Add(task);
+        public void DeleteTask(TodoModel task) => todoList.Remove(task);
 
         public IEnumerator<TodoModel> GetEnumerator()
         {

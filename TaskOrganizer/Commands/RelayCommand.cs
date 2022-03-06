@@ -12,8 +12,6 @@ namespace TaskOrganizer
     /// </summary>
     public class RelayCommand : ICommand
     {
-        // Interfejs pomiędzy warstwą prezentacji, a warstwą logiki biznesowej
-        //Zamiast
         public event EventHandler CanExecuteChanged;
 
         private Action mAction;
