@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using TaskOrganizer.Helper;
+using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 
 namespace TaskOrganizer.ViewModel
@@ -11,7 +12,8 @@ namespace TaskOrganizer.ViewModel
     public class MainViewModel : BaseViewModel
     {
         //Selected view model
-        private BaseViewModel _selectedViewModel = new PomodoroViewModel();
+        private BaseViewModel _selectedViewModel = new TodoViewModel();
+        private TodoStore todoStore { get; set; }  = new TodoStore();
 
         public BaseViewModel SelectedViewModel
         {
@@ -28,7 +30,7 @@ namespace TaskOrganizer.ViewModel
 
         public MainViewModel()
         {
-            UpdateViewCommand = new UpdateViewCommand(this);
+            UpdateViewCommand = new UpdateViewCommand(this, todoStore);
         }
            
 
