@@ -48,7 +48,7 @@
                                     <RowDefinition Height="0.25*"/>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
-                                    <CheckBox IsChecked="{Binding IsSelected}"/>
+                                    <CheckBox IsChecked="{Binding IsSelected}" Command="{Binding IsTaskSelected}"/>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="5" VerticalAlignment="Top" >
                                     <TextBlock Text="{Binding Task}" TextWrapping="Wrap" HorizontalAlignment="Left"/>

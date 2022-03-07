@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using TaskOrganizer.Model;
 using TaskOrganizer.Store;
@@ -45,6 +46,7 @@ namespace TaskOrganizer.ViewModel
 
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
+        public ICommand SelectTaskCommand { get; set; }
         public static uint ID
         {
             get
@@ -67,6 +69,7 @@ namespace TaskOrganizer.ViewModel
             UpdateTasks(TodoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
+            SelectTaskCommand = new RelayCommand(IsTaskSelected);
         }
 
         public bool HasTasks => TodoList.Count > 0;
@@ -128,7 +131,10 @@ namespace TaskOrganizer.ViewModel
 
         private void IsTaskSelected()
         {
-            
+            if(IsCheckedTask == true)
+            {
+                Debug.WriteLine("Task checked");
+            }
         }
 
 

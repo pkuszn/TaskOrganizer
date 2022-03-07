@@ -14,10 +14,11 @@ namespace TaskOrganizer.Store
     public class TodoStore : IEnumerable<TodoModel>
     {
         private IList<TodoModel> todoList;
-
+        private IList<TodoModel> doneTasksList;
         public TodoStore()
         {
             todoList = new List<TodoModel>();
+            doneTasksList = new List<TodoModel>();
         }
 
         public bool HasTasks() => todoList.Count > 0;
@@ -25,7 +26,7 @@ namespace TaskOrganizer.Store
         public void DeleteTask(TodoModel task) => todoList.Remove(task);
         public string TopOfTaskList()
         {
-            return (todoList == null) ? "" : todoList.First().Task.ToString();
+            return HasTasks() ? todoList.First().Task.ToString() : "";
         }
         public IEnumerator<TodoModel> GetEnumerator()
         {
