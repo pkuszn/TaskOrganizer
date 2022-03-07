@@ -10,7 +10,6 @@ namespace TaskOrganizer.ViewModel
     public class TodoViewModel : BaseViewModel
     {
         private string _newTask;
-        private bool _isCheckedTask;
         private static uint _id;
 
         public TodoModel SelectedTask { get; set; }
@@ -29,21 +28,6 @@ namespace TaskOrganizer.ViewModel
                 OnPropertyChanged(nameof(NewTask));
             }
         }
-
-        public bool IsCheckedTask
-        {
-            get
-            {
-                return _isCheckedTask;
-            }
-            set
-            {
-                if (_isCheckedTask != value)
-                    _isCheckedTask = value;
-                OnPropertyChanged(nameof(IsCheckedTask));
-            }
-        }
-
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
         public ICommand SelectTaskCommand { get; set; }
@@ -81,6 +65,7 @@ namespace TaskOrganizer.ViewModel
                 TodoList.Clear();
                 foreach (var item in todoStore)
                 {
+
                     TodoList.Add(item);
                 }
             }
@@ -88,7 +73,6 @@ namespace TaskOrganizer.ViewModel
 
         private void AddNewTaskToList()
         {
-            IsCheckedTask = false;
             if(NewTask == null || NewTask.Length == 0)
             {
                 // do nothing
@@ -101,7 +85,7 @@ namespace TaskOrganizer.ViewModel
                     TaskID = ID,
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
-                    IsSeleted = IsCheckedTask
+                    IsSeleted = false
 
                 };
                 TodoStore.AddTask(NewTaskInstantion);
@@ -131,9 +115,10 @@ namespace TaskOrganizer.ViewModel
 
         private void IsTaskSelected()
         {
-            if(IsCheckedTask == true)
+           foreach(var item in TodoList)
             {
-                Debug.WriteLine("Task checked");
+                if (item.IsSeleted == true)
+                    Debug.WriteLine("clicked");
             }
         }
 

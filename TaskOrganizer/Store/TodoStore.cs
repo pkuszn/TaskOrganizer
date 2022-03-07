@@ -20,7 +20,6 @@ namespace TaskOrganizer.Store
             todoList = new List<TodoModel>();
             doneTasksList = new List<TodoModel>();
         }
-
         public bool HasTasks() => todoList.Count > 0;
         public void AddTask(TodoModel task) => todoList.Add(task);
         public void DeleteTask(TodoModel task) => todoList.Remove(task);
