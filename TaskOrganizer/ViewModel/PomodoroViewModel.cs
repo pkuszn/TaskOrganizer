@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TaskOrganizer.Helpers;
+using TaskOrganizer.Store;
 using static TaskOrganizer.Helpers.PomodoroViewModelExtensions;
 
 namespace TaskOrganizer.ViewModel
@@ -108,15 +109,17 @@ namespace TaskOrganizer.ViewModel
         public DispatcherTimer PomodoroTimer { get; set; }
         public ICommand StartCountingCommand { get; set; }
         public ICommand StopCountingCommand { get; set; }
-        public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>();
-        public TodoViewModel todoViewModel { get; }
-        public SettingsViewModel settingsViewModel { get; }
+        public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>(); 
+        private TodoStore TodoStore { get; set; }
 
 
-        public PomodoroViewModel(TodoViewModel TodoVM = null, SettingsViewModel SettingsVM = null)
-        {   
+        public PomodoroViewModel(TodoStore todoStore)
+        { 
             DateText();
             UpdateTime();
+            this.TodoStore = todoStore;
+            CurrentTask = TodoStore.TopOfTaskList();
+            Debug.WriteLine(CurrentTask);
             StartCountingCommand = new RelayCommand(CommandCountingSelector);
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
         }

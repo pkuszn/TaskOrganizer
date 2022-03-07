@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskOrganizer.Model;
@@ -22,7 +23,10 @@ namespace TaskOrganizer.Store
         public bool HasTasks() => todoList.Count > 0;
         public void AddTask(TodoModel task) => todoList.Add(task);
         public void DeleteTask(TodoModel task) => todoList.Remove(task);
-
+        public string TopOfTaskList()
+        {
+            return (todoList == null) ? "" : todoList.First().Task.ToString();
+        }
         public IEnumerator<TodoModel> GetEnumerator()
         {
             foreach (TodoModel task in todoList)

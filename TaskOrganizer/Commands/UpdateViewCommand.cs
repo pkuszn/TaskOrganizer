@@ -32,7 +32,7 @@ namespace TaskOrganizer.Helper
                     viewModel.SelectedViewModel = new TodoViewModel(todoStore);
                     break;
                 case "Pomodoro":
-                    viewModel.SelectedViewModel = new PomodoroViewModel();
+                    viewModel.SelectedViewModel = new PomodoroViewModel(todoStore);
                     break;
                 case "Settings":
                     viewModel.SelectedViewModel = new SettingsViewModel();
