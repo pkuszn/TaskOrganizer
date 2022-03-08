@@ -41,7 +41,7 @@
                         <ItemsControl ItemsSource="{Binding ListOfPomodoros}" Background="White">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    
+                                    <Image Source="{Binding filePath}"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

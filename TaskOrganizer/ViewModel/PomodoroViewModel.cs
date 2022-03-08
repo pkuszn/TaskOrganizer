@@ -108,7 +108,7 @@ namespace TaskOrganizer.ViewModel
         public readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
         public readonly string AudioFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
         public static SoundPlayer player;
-
+        public static int time;
 
         public DispatcherTimer Time { get; set; }
         public DispatcherTimer PomodoroTimer { get; set; }
@@ -166,7 +166,11 @@ namespace TaskOrganizer.ViewModel
             CurrentDate = DateTime.Now.ToString("dddd dd MMMM yyyy");
         }
 
-        private void StopPomodoroTimer() => PomodoroTimer.Stop();
+        private void StopPomodoroTimer()
+        {
+            if (PomodoroTimer != null)
+                PomodoroTimer.Stop();
+        }
         private void ResumePomodoroTimer() => PomodoroTimer.Start();
 
 
@@ -176,12 +180,12 @@ namespace TaskOrganizer.ViewModel
             {
                 timer = CurrentPomodoroTick
             };
-            
+            time = CurrentPomodoroTick;
             PomodoroTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
             };
-            CurrentPomodoroTick *= 60;
+            time *= 60;
             PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
             PomodoroTimer.Start();
         }
@@ -193,16 +197,16 @@ namespace TaskOrganizer.ViewModel
         /// <param name="e"></param>
         private void PomodoroTick(object sender, EventArgs e)
         {
-            OutputTime = TimeSpan.FromSeconds(CurrentPomodoroTick);
-            CurrentPomodoroTick--;
+            OutputTime = TimeSpan.FromSeconds(time);
+            time--;
             OutputTime = OutputTime.Subtract(TimeSpan.FromSeconds(1));
             if (OutputTime.Minutes == 0 && OutputTime.Seconds == 0)
             {
                 PomodoroTimer.Stop();
-                PlayAlarmSong(AudioFilePath);
                 PomodoroTimer = null;
                 strTime = string.Empty;
-                AddNewPomodoroUI();
+                PlayAlarmSong(AudioFilePath);
+                //AddNewPomodoroUI();
             }
             strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
         }
@@ -233,7 +237,7 @@ namespace TaskOrganizer.ViewModel
 
         private void DebugTime()
         {
-            CurrentPomodoroTick = 5;
+            time = 5;
         }
     }
 }
