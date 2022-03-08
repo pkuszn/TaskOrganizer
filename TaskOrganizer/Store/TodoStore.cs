@@ -23,6 +23,7 @@ namespace TaskOrganizer.Store
         public bool HasTasks() => todoList.Count > 0;
         public void AddTask(TodoModel task) => todoList.Add(task);
         public void DeleteTask(TodoModel task) => todoList.Remove(task);
+        public void DoneTask(TodoModel task) => doneTasksList.Add(task);
         public string TopOfTaskList()
         {
             return HasTasks() ? todoList.First().Task.ToString() : "";
@@ -37,6 +38,14 @@ namespace TaskOrganizer.Store
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void displayDoneTasks()
+        {
+            foreach(var item in doneTasksList)
+            {
+                Console.WriteLine("{0} | {1} | {2} | {3}", item.TaskID, item.Task, item.CreatedDate, item.IsSelected);
+            }
         }
     }
 }

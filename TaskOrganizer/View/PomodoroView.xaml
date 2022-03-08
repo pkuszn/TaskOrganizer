@@ -79,7 +79,7 @@
                         </StackPanel.Resources>
                         <Button Content="Start" Command="{Binding StartCountingCommand}"/>
                         <Button Content="Stop" Command="{Binding StopCountingCommand}"/>
-                        
+                        <Button Content="Debug" Command="{Binding DebugCountingCommand}"/> <!-- TEMPORARY OPTION -->
                     </StackPanel>
                 </Grid>
                 

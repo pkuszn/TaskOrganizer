@@ -15,6 +15,8 @@ namespace TaskOrganizer.ViewModel
         public TodoModel SelectedTask { get; set; }
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
         private TodoStore TodoStore { get; set; }
+        private PomodoroStore PomodoroStore { get; set; }
+
         public string NewTask
         {
             get
@@ -44,20 +46,25 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
-        public TodoViewModel(TodoStore todoStore = null)
+        public TodoViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
         {
-            this.TodoStore = todoStore;
+            TodoStore = todoStore;
+            PomodoroStore = pomodoroStore;
             if(todoStore == null)
                 TodoStore = new TodoStore();
-
             UpdateTasks(TodoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
             SelectTaskCommand = new RelayCommand(IsTaskSelected);
+            TodoStore.displayDoneTasks();
         }
 
-        public bool HasTasks => TodoList.Count > 0;
+        public bool HasTasksUI => TodoList.Count > 0;
 
+        /// <summary>
+        /// Update task on UI
+        /// </summary>
+        /// <param name="todoStore"></param>
         private void UpdateTasks(TodoStore todoStore)
         {
             if (todoStore.HasTasks())
@@ -65,7 +72,6 @@ namespace TaskOrganizer.ViewModel
                 TodoList.Clear();
                 foreach (var item in todoStore)
                 {
-
                     TodoList.Add(item);
                 }
             }
@@ -85,7 +91,7 @@ namespace TaskOrganizer.ViewModel
                     TaskID = ID,
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
-                    IsSeleted = false
+                    IsSelected = false
 
                 };
                 TodoStore.AddTask(NewTaskInstantion);
@@ -112,13 +118,19 @@ namespace TaskOrganizer.ViewModel
                 }
             }
         }
-
+        /// <summary>
+        /// Move done tasks to a new list
+        /// </summary>
         private void IsTaskSelected()
         {
            foreach(var item in TodoList)
             {
-                if (item.IsSeleted == true)
-                    Debug.WriteLine("clicked");
+                if (item.IsSelected != false)
+                {
+                    TodoStore.DoneTask(item);
+                    TodoStore.DeleteTask(item);
+                    TodoList.Remove(item);
+                }
             }
         }
 

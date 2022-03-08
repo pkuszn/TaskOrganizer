@@ -34,5 +34,8 @@ namespace TaskOrganizerTests
             //var newInstance = vm.ShareTopOfTodoList();
             //Assert.AreEqual("test1", newInstance);
         }
+
     }
+
+
 }

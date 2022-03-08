@@ -11,10 +11,12 @@ namespace TaskOrganizer.Helper
     {
         private MainViewModel viewModel;
         private TodoStore todoStore { get; set; }
-        public UpdateViewCommand(MainViewModel viewModel, TodoStore todoStore = null)
+        private PomodoroStore pomodoroStore { get; set; }
+        public UpdateViewCommand(MainViewModel viewModel, TodoStore todoStore = null, PomodoroStore pomodoroStore = null)
         {
             this.viewModel = viewModel;
             this.todoStore = todoStore;
+            this.pomodoroStore = pomodoroStore;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -29,10 +31,10 @@ namespace TaskOrganizer.Helper
             switch (parameter.ToString())
             {
                 case "Todo":
-                    viewModel.SelectedViewModel = new TodoViewModel(todoStore);
+                    viewModel.SelectedViewModel = new TodoViewModel(todoStore, pomodoroStore);
                     break;
                 case "Pomodoro":
-                    viewModel.SelectedViewModel = new PomodoroViewModel(todoStore);
+                    viewModel.SelectedViewModel = new PomodoroViewModel(todoStore, pomodoroStore);
                     break;
                 case "Settings":
                     viewModel.SelectedViewModel = new SettingsViewModel();

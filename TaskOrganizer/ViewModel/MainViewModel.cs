@@ -12,8 +12,9 @@ namespace TaskOrganizer.ViewModel
     public class MainViewModel : BaseViewModel
     {
         //Selected view model
-        private BaseViewModel _selectedViewModel = new TodoViewModel();
+        private BaseViewModel _selectedViewModel;
         private TodoStore todoStore { get; set; }  = new TodoStore();
+        private PomodoroStore pomodoroStore { get; set; } = new PomodoroStore();
 
         public BaseViewModel SelectedViewModel
         {
@@ -30,7 +31,8 @@ namespace TaskOrganizer.ViewModel
 
         public MainViewModel()
         {
-            UpdateViewCommand = new UpdateViewCommand(this, todoStore);
+            _selectedViewModel = new TodoViewModel(todoStore, pomodoroStore);
+            UpdateViewCommand = new UpdateViewCommand(this, todoStore, pomodoroStore);
         }
            
 
