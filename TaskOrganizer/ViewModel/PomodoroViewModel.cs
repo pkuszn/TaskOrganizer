@@ -105,32 +105,49 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
+        public string AmountOfPomodoros
+        {
+            get
+            {
+                return _amountOfPomodoros;
+            }
+            set
+            {
+                if (_amountOfPomodoros != value)
+                    _amountOfPomodoros = value;
+                OnPropertyChanged(nameof(AmountOfPomodoros));
+            }
+        }
+
         public readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
         public readonly string AudioFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
         public static SoundPlayer player;
         public static int time;
+        private string _amountOfPomodoros;
 
         public DispatcherTimer Time { get; set; }
         public DispatcherTimer PomodoroTimer { get; set; }
         public ICommand StartCountingCommand { get; set; }
         public ICommand StopCountingCommand { get; set; }
         public ICommand DebugCountingCommand { get; set; }
+        public ICommand StopCountingEarlyCommand { get; set; }
         public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>(); 
         private TodoStore TodoStore { get; set; }
         private PomodoroStore PomodoroStore { get; set; }
 
 
         public PomodoroViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
-        { 
-            DateText();
-            UpdateTime();
+        {
             PomodoroStore = pomodoroStore;
             TodoStore = todoStore;
+            DateText();
+            UpdateTime();
             CurrentTask = TodoStore.TopOfTaskList();
-            Debug.WriteLine(CurrentTask);
+            UpdateAmountOfPomodoros();
             StartCountingCommand = new RelayCommand(CommandCountingSelector);
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
             DebugCountingCommand = new RelayCommand(DebugTime);
+            StopCountingEarlyCommand = new RelayCommand(SumHoursIfClockStopsEarly);
         }
 
         private void CommandCountingSelector()
@@ -206,10 +223,28 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer = null;
                 strTime = string.Empty;
                 PlayAlarmSong(AudioFilePath);
+                PomodoroStore.SumHours(CurrentPomodoroTick);
                 //AddNewPomodoroUI();
             }
             strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
         }
+
+        private void SumHoursIfClockStopsEarly()
+        {
+            PomodoroTimer.Stop();
+            PomodoroStore.SumHours(time);
+            PomodoroTimer = null;
+            strTime = string.Empty;
+        }
+
+        private void UpdateAmountOfPomodoros()
+        {
+            if (AmountOfPomodoros != null)
+            {
+                AmountOfPomodoros = PomodoroStore.AmountOfHours();
+            }
+        }
+
         /// <summary>
         /// Adding icons on UI when PomodoroTimer stops and finished correctly
         /// </summary>
@@ -218,11 +253,11 @@ namespace TaskOrganizer.ViewModel
             if (File.Exists(ImageFilePath.getFilePath()))
             {
                 Debug.WriteLine("File exists");
-                var newInstancesOfPomodoro = new ImageViewer()
+                var newInstanceOfPomodoro = new ImageViewer()
                 {
                     filePath = ImageFilePath.getFilePath()
                 };
-                ListOfPomodoros.Add(newInstancesOfPomodoro);
+                ListOfPomodoros.Add(newInstanceOfPomodoro);
             }
         }
 

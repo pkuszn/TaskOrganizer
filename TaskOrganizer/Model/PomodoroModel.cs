@@ -6,5 +6,6 @@ namespace TaskOrganizer.Model
     {
         //Time property for pomodoro counter
         public int timer { get; set; }
+
     }
 }

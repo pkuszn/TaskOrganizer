@@ -28,6 +28,10 @@
                         <Label Content="Current task" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="20"/>
                     </Border>
                     <TextBlock Text="{Binding CurrentTask, FallbackValue=CURRENT}" HorizontalAlignment="Center"/>
+                    <Border Margin="20">
+                        <Label Content="Amount of time spent" HorizontalAlignment="Center" FontSize="20"/>
+                    </Border>
+                    <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=NULL}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="{Binding CurrentDate, FallbackValue=mm:dd:yyyy}" FontSize="10" HorizontalAlignment="Right"/>
@@ -74,12 +78,13 @@
                         <StackPanel.Resources>
                             <Style TargetType="Button">
                                 <Setter Property="Height" Value="25"/>
-                                <Setter Property="MinWidth" Value="75"/>
+                                <Setter Property="MinWidth" Value="50"/>
                             </Style>
                         </StackPanel.Resources>
                         <Button Content="Start" Command="{Binding StartCountingCommand}"/>
                         <Button Content="Stop" Command="{Binding StopCountingCommand}"/>
                         <Button Content="Debug" Command="{Binding DebugCountingCommand}"/> <!-- TEMPORARY OPTION -->
+                        <Button Content="Done" Command="{Binding StopCountingEarlyCommand}"/>
                     </StackPanel>
                 </Grid>
                 

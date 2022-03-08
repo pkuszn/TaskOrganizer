@@ -1,24 +1,35 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using TaskOrganizer.Model;
 
 namespace TaskOrganizer.Store
 {
-    public class PomodoroStore : IEnumerable<PomodoroModel>
+    public class PomodoroStore : IEnumerable<int>
     {
-        IList<PomodoroModel> amountOfWorkedHours { get; set; }
+        IList<int> amountOfWorkedHours { get; set; }
         public PomodoroStore()
         {
-            amountOfWorkedHours = new List<PomodoroModel>();
+            amountOfWorkedHours = new List<int>();
         }
-
-        public void SumHours(PomodoroModel model) => amountOfWorkedHours.Add(model);
- 
-        public IEnumerator<PomodoroModel> GetEnumerator()
+        public string AmountOfHours()
         {
-            foreach(PomodoroModel time in amountOfWorkedHours)
+            var sum = 0;
+            if (amountOfWorkedHours != null)
+            {
+                sum = amountOfWorkedHours.Sum(x => Convert.ToInt32(x));
+            }
+            Debug.WriteLine(sum);
+            return sum.ToString();
+        }
+        public void SumHours(int model) => amountOfWorkedHours.Add(model);
+ 
+        public IEnumerator<int> GetEnumerator()
+        {
+            foreach(int time in amountOfWorkedHours)
             {
                 yield return time;
             }

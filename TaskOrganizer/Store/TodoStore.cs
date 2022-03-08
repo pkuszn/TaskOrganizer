@@ -26,7 +26,7 @@ namespace TaskOrganizer.Store
         public void DoneTask(TodoModel task) => doneTasksList.Add(task);
         public string TopOfTaskList()
         {
-            return HasTasks() ? todoList.First().Task.ToString() : "";
+            return HasTasks() ? todoList.First().Task.ToString() : "value";
         }
         public IEnumerator<TodoModel> GetEnumerator()
         {
