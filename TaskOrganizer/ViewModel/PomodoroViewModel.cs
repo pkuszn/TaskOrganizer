@@ -131,6 +131,7 @@ namespace TaskOrganizer.ViewModel
         public ICommand StopCountingCommand { get; set; }
         public ICommand DebugCountingCommand { get; set; }
         public ICommand StopCountingEarlyCommand { get; set; }
+        public ICommand ResetCountingCommand { get; set; }
         public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>(); 
         private TodoStore TodoStore { get; set; }
         private PomodoroStore PomodoroStore { get; set; }
@@ -148,6 +149,7 @@ namespace TaskOrganizer.ViewModel
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
             DebugCountingCommand = new RelayCommand(DebugTime);
             StopCountingEarlyCommand = new RelayCommand(SumHoursIfClockStopsEarly);
+            ResetCountingCommand = new RelayCommand(ResetPomodoroTimer);
         }
 
         private void CommandCountingSelector()
@@ -219,6 +221,20 @@ namespace TaskOrganizer.ViewModel
          
         }
 
+        private void ResetPomodoroTimer()
+        {
+            if (PomodoroTimer == null)
+            {
+                // do nothing
+            }
+            else
+            {
+                PomodoroTimer.Stop();
+                PomodoroTimer = null;
+                strTime = string.Empty;
+            }
+        }
+
         /// <summary>
         /// Pomodoro tick function - should be improved
         /// </summary>
@@ -236,7 +252,7 @@ namespace TaskOrganizer.ViewModel
                 strTime = string.Empty;
                 PlayAlarmSong(AudioFilePath);
                 Debug.WriteLine(CurrentPomodoroTick);
-                PomodoroStore.SumHours(CurrentPomodoroTick, PomodoroTimer);
+                PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
                 UpdateAmountOfPomodoros();
                 //AddNewPomodoroUI();
             }
@@ -256,7 +272,7 @@ namespace TaskOrganizer.ViewModel
             {
                 PomodoroTimer.Stop();
                 Debug.WriteLine(time/60);
-                PomodoroStore.SumHours(time, PomodoroTimer);
+                PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
                 PomodoroTimer = null;
                 strTime = string.Empty;
                 UpdateAmountOfPomodoros();

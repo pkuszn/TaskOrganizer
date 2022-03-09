@@ -85,6 +85,7 @@
                         <Button Content="Stop" Command="{Binding StopCountingCommand}"/>
                         <Button Content="Debug" Command="{Binding DebugCountingCommand}"/> <!-- TEMPORARY OPTION -->
                         <Button Content="Done" Command="{Binding StopCountingEarlyCommand}"/>
+                        <Button Content="Reset" Command="{Binding ResetCountingCommand}"/>
                     </StackPanel>
                 </Grid>
                 
