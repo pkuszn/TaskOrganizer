@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using TaskOrganizer.Model;
 
 namespace TaskOrganizer.Store
@@ -18,14 +19,29 @@ namespace TaskOrganizer.Store
         public string AmountOfHours()
         {
             var sum = 0;
-            if (amountOfWorkedHours != null)
+            if (amountOfWorkedHours == null)
+            {
+                //do nothing
+            }
+            else
             {
                 sum = amountOfWorkedHours.Sum(x => Convert.ToInt32(x));
+
             }
-            Debug.WriteLine(sum);
             return sum.ToString();
         }
-        public void SumHours(int model) => amountOfWorkedHours.Add(model);
+        public void SumHours(int model, DispatcherTimer timer)
+        {
+            if(timer != null)
+            {
+                int sum = model / 60;
+                amountOfWorkedHours.Add(sum);
+            }
+            else
+            {
+                amountOfWorkedHours.Add(model);
+            }
+        }
  
         public IEnumerator<int> GetEnumerator()
         {

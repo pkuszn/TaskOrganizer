@@ -142,7 +142,7 @@ namespace TaskOrganizer.ViewModel
             TodoStore = todoStore;
             DateText();
             UpdateTime();
-            CurrentTask = TodoStore.TopOfTaskList();
+            UpdateCurrentTask();            
             UpdateAmountOfPomodoros();
             StartCountingCommand = new RelayCommand(CommandCountingSelector);
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
@@ -190,21 +190,33 @@ namespace TaskOrganizer.ViewModel
         }
         private void ResumePomodoroTimer() => PomodoroTimer.Start();
 
+        private void UpdateCurrentTask()
+        {
+            CurrentTask = TodoStore.TopOfTaskList();
+        }
 
         private void StartPomodoroTimer()
         {
-            var startNewPomodoroRound = new PomodoroModel()
+            if(CurrentPomodoroTick == 0)
             {
-                timer = CurrentPomodoroTick
-            };
-            time = CurrentPomodoroTick;
-            PomodoroTimer = new DispatcherTimer
+                //do nothing
+            }
+            else
             {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            time *= 60;
-            PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
-            PomodoroTimer.Start();
+                var startNewPomodoroRound = new PomodoroModel()
+                {
+                    timer = CurrentPomodoroTick
+                };
+                time = CurrentPomodoroTick;
+                PomodoroTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(1)
+                };
+                time *= 60;
+                PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
+                PomodoroTimer.Start();
+            }
+         
         }
 
         /// <summary>
@@ -223,26 +235,37 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer = null;
                 strTime = string.Empty;
                 PlayAlarmSong(AudioFilePath);
-                PomodoroStore.SumHours(CurrentPomodoroTick);
+                Debug.WriteLine(CurrentPomodoroTick);
+                PomodoroStore.SumHours(CurrentPomodoroTick, PomodoroTimer);
+                UpdateAmountOfPomodoros();
                 //AddNewPomodoroUI();
             }
             strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
         }
 
+        /// <summary>
+        /// Stop a timer and add up the given time - should be improved
+        /// </summary>
         private void SumHoursIfClockStopsEarly()
         {
-            PomodoroTimer.Stop();
-            PomodoroStore.SumHours(time);
-            PomodoroTimer = null;
-            strTime = string.Empty;
+            if (PomodoroTimer == null)
+            {
+                //do nothing
+            }
+            else
+            {
+                PomodoroTimer.Stop();
+                Debug.WriteLine(time/60);
+                PomodoroStore.SumHours(time, PomodoroTimer);
+                PomodoroTimer = null;
+                strTime = string.Empty;
+                UpdateAmountOfPomodoros();
+            }
         }
 
         private void UpdateAmountOfPomodoros()
         {
-            if (AmountOfPomodoros != null)
-            {
-                AmountOfPomodoros = PomodoroStore.AmountOfHours();
-            }
+            AmountOfPomodoros = PomodoroStore.AmountOfHours();
         }
 
         /// <summary>
