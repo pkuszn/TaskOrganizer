@@ -143,7 +143,7 @@ namespace TaskOrganizer.ViewModel
             TodoStore = todoStore;
             DateText();
             UpdateTime();
-            UpdateCurrentTask();            
+            UpdateCurrentTask();
             UpdateAmountOfPomodoros();
             StartCountingCommand = new RelayCommand(CommandCountingSelector);
             StopCountingCommand = new RelayCommand(StopPomodoroTimer);
@@ -218,7 +218,6 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
                 PomodoroTimer.Start();
             }
-         
         }
 
         private void ResetPomodoroTimer()
@@ -281,7 +280,10 @@ namespace TaskOrganizer.ViewModel
 
         private void UpdateAmountOfPomodoros()
         {
-            AmountOfPomodoros = PomodoroStore.AmountOfHours();
+            if (PomodoroTimer != null)
+            {
+                AmountOfPomodoros = PomodoroStore.AmountOfHours();
+            }
         }
 
         /// <summary>

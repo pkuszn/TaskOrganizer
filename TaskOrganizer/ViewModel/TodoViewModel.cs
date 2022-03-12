@@ -133,8 +133,5 @@ namespace TaskOrganizer.ViewModel
                 }
             }
         }
-
-
- 
     }
 }
