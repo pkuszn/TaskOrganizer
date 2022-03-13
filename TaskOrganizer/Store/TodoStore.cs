@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace TaskOrganizer.Store
         {
             foreach(var item in doneTasksList)
             {
-                Console.WriteLine("{0} | {1} | {2} | {3}", item.TaskID, item.Task, item.CreatedDate, item.IsSelected);
+                Debug.WriteLine("{0} | {1} | {2} | {3}", item.TaskID, item.Task, item.CreatedDate, item.IsSelected);
             }
         }
     }

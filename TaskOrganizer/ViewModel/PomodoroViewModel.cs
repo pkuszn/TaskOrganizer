@@ -139,6 +139,13 @@ namespace TaskOrganizer.ViewModel
 
         public PomodoroViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
         {
+            if(PomodoroTimer != null && Time != null)
+            {
+                PomodoroTimer.Stop();
+                Time.Stop();
+                PomodoroTimer = null;
+                Time = null;
+            }
             PomodoroStore = pomodoroStore;
             TodoStore = todoStore;
             DateText();
@@ -166,13 +173,15 @@ namespace TaskOrganizer.ViewModel
 
         private void UpdateTime()
         {
-            
-            Time = new DispatcherTimer
+            if (Time == null)
             {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            Time.Tick += new EventHandler(TimeText);
-            Time.Start();
+                Time = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(1)
+                };
+                Time.Tick += new EventHandler(TimeText);
+                Time.Start();
+            }
         }
 
         private void TimeText(object sender, EventArgs e)
@@ -219,8 +228,9 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer.Start();
             }
         }
+    
 
-        private void ResetPomodoroTimer()
+    private void ResetPomodoroTimer()
         {
             if (PomodoroTimer == null)
             {

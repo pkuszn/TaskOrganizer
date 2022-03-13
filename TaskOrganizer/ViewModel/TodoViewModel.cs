@@ -33,6 +33,7 @@ namespace TaskOrganizer.ViewModel
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
         public ICommand SelectTaskCommand { get; set; }
+        public ICommand DoneTaskCommand { get; set; }
         public static uint ID
         {
             get
@@ -55,7 +56,7 @@ namespace TaskOrganizer.ViewModel
             UpdateTasks(TodoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
-            SelectTaskCommand = new RelayCommand(IsTaskSelected);
+            DoneTaskCommand = new RelayCommand(IsTaskSelected);
             TodoStore.displayDoneTasks();
         }
 
@@ -123,14 +124,21 @@ namespace TaskOrganizer.ViewModel
         /// </summary>
         private void IsTaskSelected()
         {
-           foreach(var item in TodoList)
+            if (SelectedTask != null)
             {
-                if (item.IsSelected != false)
+                foreach (var item in TodoStore)
                 {
-                    TodoStore.DoneTask(item);
-                    TodoStore.DeleteTask(item);
-                    TodoList.Remove(item);
+                    if (item.TaskID == SelectedTask.TaskID)
+                    {
+                        item.IsSelected = true;
+                        TodoStore.DoneTask(item);
+                        TodoStore.DeleteTask(item);
+                        TodoList.Remove(SelectedTask);
+                        UpdateTasks(TodoStore);
+                        break;
+                    }
                 }
+                TodoStore.displayDoneTasks();
             }
         }
     }
