@@ -21,7 +21,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="3" Background="Green" BorderBrush="ForestGreen" BorderThickness="1" >
+                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1" >
                                 <ContentPresenter x:Name="contentPresenter"/>
                             </Border>
                         </ControlTemplate>
