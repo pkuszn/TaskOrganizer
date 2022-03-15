@@ -290,10 +290,7 @@ namespace TaskOrganizer.ViewModel
 
         private void UpdateAmountOfPomodoros()
         {
-            if (PomodoroTimer != null)
-            {
-                AmountOfPomodoros = PomodoroStore.AmountOfHours();
-            }
+            AmountOfPomodoros = PomodoroStore.AmountOfHours();
         }
 
         /// <summary>

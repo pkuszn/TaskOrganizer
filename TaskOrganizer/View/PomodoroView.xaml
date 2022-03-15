@@ -31,7 +31,7 @@
                     <Border Margin="20">
                         <Label Content="Amount of time spent" HorizontalAlignment="Center" FontSize="20"/>
                     </Border>
-                    <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=NULL}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=0}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="{Binding CurrentDate, FallbackValue=mm:dd:yyyy}" FontSize="10" HorizontalAlignment="Right"/>

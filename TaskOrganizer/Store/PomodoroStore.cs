@@ -27,7 +27,6 @@ namespace TaskOrganizer.Store
             else
             {
                 sum = amountOfWorkedHours.Sum(x => Convert.ToInt32(x));
-
             }
             return sum.ToString();
         }
