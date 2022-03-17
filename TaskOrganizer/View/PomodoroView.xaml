@@ -23,28 +23,22 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border BorderBrush="Black" BorderThickness="0,1,1,1" MaxHeight="200" VerticalAlignment="Top">
-                    <StackPanel Grid.Column="0">
-                        <Border BorderThickness="0,0,0,1" BorderBrush="Black">
-                            <Label Content="Current task" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center" Margin="20"/>
-                        </Border>
-                        <Border>
-                            <TextBlock Text="{Binding CurrentTask, FallbackValue=CURRENT}" HorizontalAlignment="Center"/>
-                        </Border>
-                        <Border Margin="20" BorderBrush="Black">
-                            <Label Content="Amount of time spent" HorizontalAlignment="Center" FontSize="15"/>
-                        </Border>
-                        <Border>
-                            <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=NULL}" HorizontalAlignment="Center"/>
-                        </Border>
-                    </StackPanel>
-                </Border>
+                <StackPanel Grid.Column="0">
+                    <Border>
+                        <Label Content="Current task" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="20"/>
+                    </Border>
+                    <TextBlock Text="{Binding CurrentTask, FallbackValue=CURRENT}" HorizontalAlignment="Center"/>
+                    <Border Margin="20">
+                        <Label Content="Amount of time spent" HorizontalAlignment="Center" FontSize="20"/>
+                    </Border>
+                    <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=0}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="{Binding CurrentDate, FallbackValue=mm:dd:yyyy}" FontSize="10" HorizontalAlignment="Right"/>
                     <TextBlock Text="{Binding CurrentTime, FallbackValue=mm:ss}" FontSize="10" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1"  VerticalAlignment="Center">
-                    <TextBlock Text="{Binding strTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding StrTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50" Width="100" Margin="0,100,0,0">
                     <Canvas>

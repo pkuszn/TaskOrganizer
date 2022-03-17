@@ -14,14 +14,14 @@
         <Grid.Resources>
             <Style TargetType="Button">
                 <Setter Property="MinWidth" Value="130"/>
-                <Setter Property="MaxHeight" Value="20"/>
+                <Setter Property="MinHeight" Value="20"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1" >
+                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1">
                                 <ContentPresenter x:Name="contentPresenter"/>
                             </Border>
                         </ControlTemplate>
@@ -60,7 +60,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0" Text="Your tasks:" FontSize="15" Margin="10" HorizontalAlignment="Left"/>
-                <Button Grid.Column="0" Grid.Row="1" Command="{Binding DoneTaskCommand}" Content="Done selected task" HorizontalAlignment="Center"/>
+                <Button Grid.Column="0" Grid.Row="1" Background="Green" Command="{Binding DoneTaskCommand}" Content="Done selected task" HorizontalAlignment="Center"/>
                 <Button Grid.Column="1" Grid.Row="1" Command="{Binding DeleteTaskCommand}" Content="Delete selected task" HorizontalAlignment="Center"/>
 
             </Grid>

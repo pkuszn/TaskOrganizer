@@ -15,7 +15,6 @@ namespace TaskOrganizer.ViewModel
         private BaseViewModel _selectedViewModel;
         private TodoStore todoStore { get; set; }  = new TodoStore();
         private PomodoroStore pomodoroStore { get; set; } = new PomodoroStore();
-
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
