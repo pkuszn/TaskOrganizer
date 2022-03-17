@@ -77,7 +77,7 @@ namespace TaskOrganizer.ViewModel
             }
         }
 
-        public string strTime
+        public string StrTime
         {
             get
             {
@@ -87,7 +87,7 @@ namespace TaskOrganizer.ViewModel
             {
                 if (_strTime != value)
                     _strTime = value;
-                OnPropertyChanged(nameof(strTime));
+                OnPropertyChanged(nameof(StrTime));
             }
         }
 
@@ -240,7 +240,7 @@ namespace TaskOrganizer.ViewModel
             {
                 PomodoroTimer.Stop();
                 PomodoroTimer = null;
-                strTime = string.Empty;
+                StrTime = string.Empty;
             }
         }
 
@@ -258,14 +258,14 @@ namespace TaskOrganizer.ViewModel
             {
                 PomodoroTimer.Stop();
                 PomodoroTimer = null;
-                strTime = string.Empty;
+                StrTime = string.Empty;
                 PlayAlarmSong(AudioFilePath);
                 Debug.WriteLine(CurrentPomodoroTick);
                 PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
                 UpdateAmountOfPomodoros();
                 //AddNewPomodoroUI();
             }
-            strTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
+            StrTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace TaskOrganizer.ViewModel
                 Debug.WriteLine(time/60);
                 PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
                 PomodoroTimer = null;
-                strTime = string.Empty;
+                StrTime = string.Empty;
                 UpdateAmountOfPomodoros();
             }
         }

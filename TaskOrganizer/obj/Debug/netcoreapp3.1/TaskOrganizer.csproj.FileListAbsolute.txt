@@ -54,3 +54,10 @@ C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netco
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.dll
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.pdb
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.genruntimeconfig.cache
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Google.Apis.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Google.Apis.Auth.PlatformServices.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Google.Apis.Auth.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Google.Apis.Core.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Google.Apis.Sheets.v4.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\netcoreapp3.1\TaskOrganizer.csproj.CopyComplete

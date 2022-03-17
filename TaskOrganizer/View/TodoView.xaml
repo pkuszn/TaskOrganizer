@@ -12,7 +12,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.Resources>
-            <Style TargetType="Button" x:Key="ButtonTemplate">
+            <Style TargetType="Button">
                 <Setter Property="MinWidth" Value="130"/>
                 <Setter Property="MinHeight" Value="20"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -21,11 +21,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-<<<<<<< HEAD
-                            <Border CornerRadius="3" Background="#3b4243" BorderThickness="1" >
-=======
-                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1" >
->>>>>>> 345af9a6f100cf959f8e4db7b53a44032466216d
+                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1">
                                 <ContentPresenter x:Name="contentPresenter"/>
                             </Border>
                         </ControlTemplate>
