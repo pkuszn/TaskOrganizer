@@ -415,6 +415,16 @@
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
         ]
+      },
+      "TaskOrganizer.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/TaskOrganizer.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskOrganizer.Domain.dll": {}
+        }
       }
     }
   },
@@ -1118,13 +1128,19 @@
       "type": "project",
       "path": "../TaskOrganizer/TaskOrganizer.csproj",
       "msbuildProject": "../TaskOrganizer/TaskOrganizer.csproj"
+    },
+    "TaskOrganizer.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TaskOrganizer.Domain/TaskOrganizer.Domain.csproj",
+      "msbuildProject": "../TaskOrganizer.Domain/TaskOrganizer.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.7",
-      "TaskOrganizer >= 1.0.0"
+      "TaskOrganizer >= 1.0.0",
+      "TaskOrganizer.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1154,6 +1170,9 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows7.0",
           "projectReferences": {
+            "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer.Domain\\TaskOrganizer.Domain.csproj": {
+              "projectPath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer.Domain\\TaskOrganizer.Domain.csproj"
+            },
             "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer\\TaskOrganizer.csproj": {
               "projectPath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer\\TaskOrganizer.csproj"
             }

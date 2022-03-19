@@ -10,7 +10,8 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.7",
-          "TaskOrganizer": "1.0.0"
+          "TaskOrganizer": "1.0.0",
+          "TaskOrganizer.Domain": "1.0.0"
         },
         "runtime": {
           "TaskOrganizer.EFCore.dll": {}
@@ -350,6 +351,11 @@
         "runtime": {
           "TaskOrganizer.dll": {}
         }
+      },
+      "TaskOrganizer.Domain/1.0.0": {
+        "runtime": {
+          "TaskOrganizer.Domain.dll": {}
+        }
       }
     }
   },
@@ -570,6 +576,11 @@
       "hashPath": "system.memory.4.5.3.nupkg.sha512"
     },
     "TaskOrganizer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TaskOrganizer.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

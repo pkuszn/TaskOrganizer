@@ -16,7 +16,7 @@ namespace TaskOrganizer.EFCore.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.7");
 
-            modelBuilder.Entity("TaskOrganizer.EFCore.TaskContext", b =>
+            modelBuilder.Entity("TaskOrganizer.Domain.Models.TaskModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
