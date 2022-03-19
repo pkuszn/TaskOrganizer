@@ -120,7 +120,8 @@ namespace TaskOrganizer.ViewModel
         }
 
         public readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
-        public readonly string AudioFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
+        public readonly string AudioFilePath = @"C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
+        public string fileName = "\\Audio\\audio.wav";
         public static SoundPlayer player;
         public static int time;
         private string _amountOfPomodoros;
@@ -157,6 +158,7 @@ namespace TaskOrganizer.ViewModel
             DebugCountingCommand = new RelayCommand(DebugTime);
             StopCountingEarlyCommand = new RelayCommand(SumHoursIfClockStopsEarly);
             ResetCountingCommand = new RelayCommand(ResetPomodoroTimer);
+
         }
 
         private void CommandCountingSelector()
@@ -259,7 +261,14 @@ namespace TaskOrganizer.ViewModel
                 PomodoroTimer.Stop();
                 PomodoroTimer = null;
                 StrTime = string.Empty;
-                PlayAlarmSong(AudioFilePath);
+                if(File.Exists(AudioFilePath.getFilePath()))
+                {
+                    PlayAlarmSong(AudioFilePath.getFilePath());
+                }
+                else
+                {
+                    throw new IOException("File is unaccessible");
+                }
                 Debug.WriteLine(CurrentPomodoroTick);
                 PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
                 UpdateAmountOfPomodoros();
