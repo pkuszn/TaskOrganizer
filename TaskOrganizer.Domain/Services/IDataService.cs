@@ -12,11 +12,12 @@ namespace TaskOrganizer.Domain.Services
         /// Generic data services
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<T>> GetAll();
-        Task<T> Get(int id);
+        //Task<IEnumerable<T>> GetAll();
+        //Task<T> Get(int id);
         Task<T> Create(T entity);
-        Task<T> Update(int id, T entity);
-        Task<bool> Delete(int id);
+        //Task<T> Update(int id, T entity);
+        //Task<bool> Delete(int id);
+        T CreatedMethod(T entity);
 
 
 

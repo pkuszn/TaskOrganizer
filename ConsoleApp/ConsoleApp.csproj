@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0-windows7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IppDotNetSdkForQuickBooksApiV3" Version="14.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj" />
+    <ProjectReference Include="..\TaskOrganizer.EFCore\TaskOrganizer.EFCore.csproj" />
+  </ItemGroup>
+
+</Project>

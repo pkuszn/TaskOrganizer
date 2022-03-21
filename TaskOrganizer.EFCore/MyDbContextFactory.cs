@@ -16,7 +16,7 @@ namespace TaskOrganizer.EFCore
         public MyDbContext CreateDbContext(string[] args = null)
         {
             var options = new DbContextOptionsBuilder<MyDbContext>();
-            options.UseSqlite("Data Source=task_organizer_db.sqlite");
+            options.UseSqlite("Data Source=task_organizer.db");
             return new MyDbContext(options.Options);
         }
     }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaskOrganizer.Domain.Models
 {
-    public class TaskModel : DomainObject
+    public class TaskModel
     {     
+        public int Id { get; set; }
         public string TaskDesc { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime DoneTaskDate { get; set; }
-        public bool IsDoneTask { get; set; }
     }
 }
