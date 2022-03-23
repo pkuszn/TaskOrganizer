@@ -9,7 +9,7 @@ using System.Windows.Threading;
 using TaskOrganizer.Helpers;
 using TaskOrganizer.Model;
 using TaskOrganizer.Store;
-using static TaskOrganizer.Helpers.PomodoroViewModelExtensions;
+using static TaskOrganizer.Helpers.FileHelpers;
 
 namespace TaskOrganizer.ViewModel
 {

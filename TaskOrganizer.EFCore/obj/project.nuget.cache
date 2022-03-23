@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "prJaIUEkO6SRa+9OZbYzbXl1wTLy5hLm6k7PlqfZK5sGaLdJzVzs2+85rT3sdOwgNdWzqibe+LoLCGDLkyzHUQ==",
+  "dgSpecHash": "osdqjzYuA5hsh1kY37W5eOO1TE99371nzKe2+K1ayOiYc84ZDcXPQKEw5Jgw/MezeEnyrmQxxzhn7mygzBbRnA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer.EFCore\\TaskOrganizer.EFCore.csproj",
+  "projectFilePath": "C:\\Users\\patry\\source\\repos\\TaskOrganizer\\TaskOrganizer.EFCore\\TaskOrganizer.EFCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patry\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

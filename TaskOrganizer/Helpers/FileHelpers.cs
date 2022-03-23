@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TaskOrganizer.Helpers
 {
-    public static class PomodoroViewModelExtensions
+    public static class FileHelpers
     {
         public static string getFilePath(this string fileName)
         {
@@ -17,9 +17,13 @@ namespace TaskOrganizer.Helpers
 
         public static string getRelativeFilePath(this string fileName)
         {
-            var env = System.Environment.CurrentDirectory;
-            string projDir = Directory.GetParent(env).Parent.FullName;
-            return projDir + fileName;
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            if (baseDir.Contains("bin"))
+            {
+                int index = baseDir.IndexOf("bin");
+                baseDir = baseDir.Substring(0, index);
+            }
+            return baseDir;
         }
 
     }

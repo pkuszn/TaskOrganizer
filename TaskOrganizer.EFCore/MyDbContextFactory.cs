@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TaskOrganizer.EFCore
 {
@@ -16,7 +18,17 @@ namespace TaskOrganizer.EFCore
         public MyDbContext CreateDbContext(string[] args = null)
         {
             var options = new DbContextOptionsBuilder<MyDbContext>();
-            options.UseSqlite("Data Source=task_organizer.db");
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            //if "bin" is present, remove all the path starting from "bin" word
+            if (baseDir.Contains("bin"))
+            {
+                int index = baseDir.IndexOf("bin");
+                baseDir = baseDir.Substring(0, index);
+            }
+
+            //String interpolation to reach the right path
+            options.UseSqlite($"Data Source={baseDir}Db\\task_organizer.db");
             return new MyDbContext(options.Options);
         }
     }

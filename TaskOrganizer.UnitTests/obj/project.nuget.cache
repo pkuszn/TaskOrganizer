@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Rp8AVirx0XEmDyGn0Bd/2+dCQqsYzJg2T/50i8vYWQd3mvhwvBkm+m9y2iNX1xhX7TfZFvSRbBK0jewY5Jmg0w==",
+  "dgSpecHash": "M179MerwzoRbfUC2wyq3Ro+fXwB3+/9d9B9EW9dw1f8ckGnibLyTAcXvJgtwce7yCuQ6MxLnUr38+vgTr+dYjQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer.UnitTests\\TaskOrganizer.UnitTests.csproj",
+  "projectFilePath": "C:\\Users\\patry\\source\\repos\\TaskOrganizer\\TaskOrganizer.UnitTests\\TaskOrganizer.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patry\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

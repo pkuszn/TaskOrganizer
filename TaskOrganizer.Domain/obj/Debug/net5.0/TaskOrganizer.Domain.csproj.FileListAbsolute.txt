@@ -10,3 +10,15 @@ C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debu
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.dll
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\ref\TaskOrganizer.Domain.dll
 C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.pdb
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\bin\Debug\net5.0\TaskOrganizer.Domain.deps.json
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\bin\Debug\net5.0\TaskOrganizer.Domain.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\bin\Debug\net5.0\ref\TaskOrganizer.Domain.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\bin\Debug\net5.0\TaskOrganizer.Domain.pdb
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.csproj.AssemblyReference.cache
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.AssemblyInfoInputs.cache
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.AssemblyInfo.cs
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.csproj.CoreCompileInputs.cache
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\ref\TaskOrganizer.Domain.dll
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer.Domain\obj\Debug\net5.0\TaskOrganizer.Domain.pdb

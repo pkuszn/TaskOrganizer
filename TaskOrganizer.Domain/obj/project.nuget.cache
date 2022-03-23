@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nNm0x9gMonoCzGDTYJU4jeXAU06QF+KflK/RS8GlPl31PaXTWEMv+vNx8hx/b8Q3CPn9foiASbu+RthoULGA+Q==",
+  "dgSpecHash": "nI4pdIh/Uv+wsd7RM7lJxMRs8SmxQRZegNaZzqu4qXbf//42+WzJXJjK+KoEEIR9OIIH4x95/qYoHFBlcBWibA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer.Domain\\TaskOrganizer.Domain.csproj",
+  "projectFilePath": "C:\\Users\\patry\\source\\repos\\TaskOrganizer\\TaskOrganizer.Domain\\TaskOrganizer.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

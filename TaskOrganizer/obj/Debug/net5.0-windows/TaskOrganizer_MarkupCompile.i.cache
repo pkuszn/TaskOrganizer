@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\obj\Debug\net5.0-windows\
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\obj\Debug\net5.0-windows\
 TaskOrganizer
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\App.xaml
+C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\App.xaml
 4601892324
 1-207361112
-23-537970229
+23815816664
 193-1891726104
 MainWindow.xaml;View\PomodoroView.xaml;View\SettingsView.xaml;View\TodoView.xaml;
 

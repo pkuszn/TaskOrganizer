@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/2GboheLLC1wpW0ti72QgQBE1X6XRT+1Kp0IINoUfLXT3LiD431KaMj5TSMsOyXdF2J5SFD2ovX/lXr82l0Quw==",
+  "dgSpecHash": "WGo0rdoquE307Bj/2IrCpTj9mCX+5PidyXDJNi0YERI7bOIDXjE3oDANB3kgDE3cc6SzX8Pe7jJ5iu8xxijs4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patry\\OneDrive\\Pulpit\\repos\\TaskOrganizer\\TaskOrganizer\\TaskOrganizer.csproj",
+  "projectFilePath": "C:\\Users\\patry\\source\\repos\\TaskOrganizer\\TaskOrganizer\\TaskOrganizer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patry\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -22,8 +22,7 @@
     "C:\\Users\\patry\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
-    "C:\\Users\\patry\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
-    "C:\\Users\\patry\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512"
+    "C:\\Users\\patry\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512"
   ],
   "logs": []
 }
