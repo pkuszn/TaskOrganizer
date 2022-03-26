@@ -19,18 +19,9 @@ namespace TaskOrganizer.EFCore
         public MyDbContext CreateDbContext(string[] args = null)
         {
             var options = new DbContextOptionsBuilder<MyDbContext>();
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-
-            //if "bin" is present, remove all the path starting from "bin" word
-            if (baseDir.Contains("bin"))
-            {
-                int index = baseDir.IndexOf("bin");
-                baseDir = baseDir.Substring(0, index);
-                Debug.WriteLine(baseDir);
-            }
-
-            //String interpolation to reach the right path
-            options.UseSqlite($"Data Source={baseDir}\\Db\\task_organizer.db");
+            string dir = @"\TaskOrganizer\task_organizer.db";
+            string dbPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            options.UseSqlite($"Data Source={dbPath}{dir}");    
             return new MyDbContext(options.Options);
         }
     }

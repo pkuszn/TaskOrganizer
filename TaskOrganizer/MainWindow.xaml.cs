@@ -24,7 +24,6 @@ namespace TaskOrganizer
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
