@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj" />
-    <ProjectReference Include="..\TaskOrganizer\TaskOrganizer.csproj" />
   </ItemGroup>
 
 </Project>

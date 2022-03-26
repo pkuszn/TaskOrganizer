@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TaskOrganizer"
              xmlns:views="clr-namespace:TaskOrganizer.View"
              xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModel"
-             StartupUri="MainWindow.xaml">
+             Startup="App_Startup"
+             ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <DataTemplate DataType="{x:Type viewmodels:TodoViewModel}">
             <views:TodoView/>
