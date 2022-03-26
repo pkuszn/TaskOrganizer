@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TaskOrganizer.Domain.Models
 {
-    public class TaskModel : DomainObject
-    {     
-        public string TaskDesc { get; set; }
+    public class DomainObject
+    {
+        public int Id { get; set; }
     }
 }

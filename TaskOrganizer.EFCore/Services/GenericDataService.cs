@@ -10,7 +10,7 @@ using TaskOrganizer.Domain.Services;
 
 namespace TaskOrganizer.EFCore.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : class
+    public class GenericDataService<T> : IDataService<T> where T : DomainObject
     {
         private readonly MyDbContextFactory _contextFactory;
 
@@ -82,4 +82,4 @@ namespace TaskOrganizer.EFCore.Services
         }
     }
 }
-}
+
