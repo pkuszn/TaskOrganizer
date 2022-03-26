@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -10,12 +11,14 @@ namespace TaskOrganizer.ViewModel
     public class TodoViewModel : BaseViewModel
     {
         private string _newTask;
-        private static uint _id;
+        private static int _id;
 
         public TodoModel SelectedTask { get; set; }
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
         private TodoStore TodoStore { get; set; }
         private PomodoroStore PomodoroStore { get; set; }
+
+        private readonly IMapper mapper;
 
         public string NewTask
         {
@@ -34,7 +37,7 @@ namespace TaskOrganizer.ViewModel
         public ICommand DeleteTaskCommand { get; set; }
         public ICommand SelectTaskCommand { get; set; }
         public ICommand DoneTaskCommand { get; set; }
-        public static uint ID
+        public static int ID
         {
             get
             {
@@ -57,7 +60,7 @@ namespace TaskOrganizer.ViewModel
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
             DoneTaskCommand = new RelayCommand(IsTaskSelected);
-            TodoStore.displayDoneTasks();
+            TodoStore.DisplayDoneTasks();
         }
 
         public bool HasTasksUI => TodoList.Count > 0;
@@ -92,6 +95,7 @@ namespace TaskOrganizer.ViewModel
                     TaskID = ID,
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
+                    DoneTaskDate = DateTime.MinValue,
                     IsSelected = false
 
                 };
@@ -131,6 +135,8 @@ namespace TaskOrganizer.ViewModel
                     if (item.TaskID == SelectedTask.TaskID)
                     {
                         item.IsSelected = true;
+                        //Change variable to current time
+                        item.DoneTaskDate = DateTime.Now;
                         TodoStore.DoneTask(item);
                         TodoStore.DeleteTask(item);
                         TodoList.Remove(SelectedTask);
@@ -138,7 +144,7 @@ namespace TaskOrganizer.ViewModel
                         break;
                     }
                 }
-                TodoStore.displayDoneTasks();
+                TodoStore.DisplayDoneTasks();
             }
         }
     }

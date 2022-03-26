@@ -5,9 +5,10 @@ namespace TaskOrganizer.Model
 {
     public class TodoModel : BaseViewModel
     {
-        public uint TaskID { get; set; }
+        public int TaskID { get; set; }
         public string Task { get; set; }
         public DateTime CreatedDate { get; set; }
+        public DateTime DoneTaskDate { get; set; }
         public bool IsSelected { get; set; }
 
     }

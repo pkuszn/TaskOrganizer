@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using TaskOrganizer.Helper;
+using TaskOrganizer.Mapper;
 using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 

@@ -33,9 +33,4 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj" />
-    <ProjectReference Include="..\TaskOrganizer.EFCore\TaskOrganizer.EFCore.csproj" />
-  </ItemGroup>
-
 </Project>

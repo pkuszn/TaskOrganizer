@@ -11,22 +11,22 @@ namespace TaskOrganizer.Store
 {
     public class PomodoroStore : IEnumerable<int>
     {
-        IList<int> amountOfWorkedHours { get; set; }
+        IList<int> AmountOfWorkedHours { get; set; }
         public PomodoroStore()
         {
-            amountOfWorkedHours = new List<int>();
+            AmountOfWorkedHours = new List<int>();
         }
 
         public string AmountOfHours()
         {
             var sum = 0;
-            if (amountOfWorkedHours == null)
+            if (AmountOfWorkedHours == null)
             {
                 //do nothing
             }
             else
             {
-                sum = amountOfWorkedHours.Sum(x => Convert.ToInt32(x));
+                sum = AmountOfWorkedHours.Sum(x => Convert.ToInt32(x));
             }
             return sum.ToString();
         }
@@ -42,17 +42,17 @@ namespace TaskOrganizer.Store
             {
                 workedTime = workedTime / 60;
                 int sum = declaredTime - workedTime;
-                amountOfWorkedHours.Add(sum);
+                AmountOfWorkedHours.Add(sum);
             }
             else
             {
-                amountOfWorkedHours.Add(declaredTime);
+                AmountOfWorkedHours.Add(declaredTime);
             }
         }
  
         public IEnumerator<int> GetEnumerator()
         {
-            foreach(int time in amountOfWorkedHours)
+            foreach(int time in AmountOfWorkedHours)
             {
                 yield return time;
             }

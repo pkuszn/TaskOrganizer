@@ -122,8 +122,8 @@ namespace TaskOrganizer.ViewModel
         public readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
         public readonly string AudioFilePath = @"C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
         public string fileName = "\\Audio\\audio.wav";
-        public static SoundPlayer player;
-        public static int time;
+        private static SoundPlayer player;
+        private static int time;
         private string _amountOfPomodoros;
 
         public DispatcherTimer Time { get; set; }

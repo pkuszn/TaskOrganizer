@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,8 +15,8 @@ namespace TaskOrganizer.Store
     /// </summary>
     public class TodoStore : IEnumerable<TodoModel>
     {
-        private IList<TodoModel> todoList;
-        private IList<TodoModel> doneTasksList;
+        private readonly IList<TodoModel> todoList;
+        private readonly IList<TodoModel> doneTasksList;
         public TodoStore()
         {
             todoList = new List<TodoModel>();
@@ -41,12 +42,19 @@ namespace TaskOrganizer.Store
             return GetEnumerator();
         }
 
-        public void displayDoneTasks()
+        public void DisplayDoneTasks()
         {
             foreach(var item in doneTasksList)
             {
-                Debug.WriteLine("{0} | {1} | {2} | {3}", item.TaskID, item.Task, item.CreatedDate, item.IsSelected);
+                Debug.WriteLine("{0} | {1} | {2} | {3}", item.TaskID, item.Task, item.CreatedDate, item.DoneTaskDate, item.IsSelected);
             }
         }
+
+        public void TaskRequest()
+        {
+
+            //_mapper.Map<TodoModel>(TaskModel)
+        }
+
     }
 }

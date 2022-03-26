@@ -4,14 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer", "TaskOrganizer\TaskOrganizer.csproj", "{CA861CF2-748D-42B2-A004-0A66F15105E1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9B831941-1CCB-4D28-B99C-ADE98BD56D5C} = {9B831941-1CCB-4D28-B99C-ADE98BD56D5C}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer.EFCore", "TaskOrganizer.EFCore\TaskOrganizer.EFCore.csproj", "{9B831941-1CCB-4D28-B99C-ADE98BD56D5C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AA9DFFA4-8C06-4DE8-A28D-0715BD5C1F06} = {AA9DFFA4-8C06-4DE8-A28D-0715BD5C1F06}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer.Domain", "TaskOrganizer.Domain\TaskOrganizer.Domain.csproj", "{AA9DFFA4-8C06-4DE8-A28D-0715BD5C1F06}"
 EndProject

@@ -58,6 +58,7 @@ namespace TaskOrganizer
             services.AddSingleton<IDataService<TaskModel>, GenericDataService<TaskModel>>();
             //AddScopes - It is created once per request within the scope.
             services.AddScoped<MainViewModel>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //Creates ServiceProvider containing services from IServiceCollection
             services.BuildServiceProvider();
         }
