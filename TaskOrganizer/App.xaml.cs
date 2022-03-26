@@ -38,10 +38,6 @@ namespace TaskOrganizer
 
             var DbContext = _host.Services.GetRequiredService<MyDbContextFactory>();
             var taskService = _host.Services.GetRequiredService<IDataService<TaskModel>>();
-            await taskService.Create(new TaskModel
-            {
-                TaskDesc = "asdasdsadas"
-            });
             base.OnStartup(e);
         }
 
