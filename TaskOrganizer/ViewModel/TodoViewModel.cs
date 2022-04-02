@@ -17,9 +17,6 @@ namespace TaskOrganizer.ViewModel
         public ObservableCollection<TodoModel> TodoList { get; set; } = new ObservableCollection<TodoModel>();
         private TodoStore TodoStore { get; set; }
         private PomodoroStore PomodoroStore { get; set; }
-
-        private readonly IMapper mapper;
-
         public string NewTask
         {
             get
@@ -54,8 +51,6 @@ namespace TaskOrganizer.ViewModel
         {
             TodoStore = todoStore;
             PomodoroStore = pomodoroStore;
-            if(todoStore == null)
-                TodoStore = new TodoStore();
             UpdateTasks(TodoStore);
             AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
             DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
@@ -92,7 +87,7 @@ namespace TaskOrganizer.ViewModel
                 ID++;
                 var NewTaskInstantion = new TodoModel
                 {
-                    TaskID = ID,
+                    Id = ID,
                     Task = NewTask,
                     CreatedDate = DateTime.Now,
                     DoneTaskDate = DateTime.MinValue,
@@ -113,7 +108,7 @@ namespace TaskOrganizer.ViewModel
             {
                 foreach(var item in TodoStore)
                 {
-                    if(item.TaskID == SelectedTask.TaskID)
+                    if(item.Id == SelectedTask.Id)
                     {
                         TodoStore.DeleteTask(item);
                         TodoList.Remove(SelectedTask);
@@ -132,7 +127,7 @@ namespace TaskOrganizer.ViewModel
             {
                 foreach (var item in TodoStore)
                 {
-                    if (item.TaskID == SelectedTask.TaskID)
+                    if (item.Id == SelectedTask.Id)
                     {
                         item.IsSelected = true;
                         //Change variable to current time

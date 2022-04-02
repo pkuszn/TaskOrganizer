@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskOrganizer.Model
 {
-    class SettingsModel
+    public class SettingsModel
     {
     }
 }

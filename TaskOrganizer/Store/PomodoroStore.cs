@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,8 +13,15 @@ namespace TaskOrganizer.Store
     public class PomodoroStore : IEnumerable<int>
     {
         IList<int> AmountOfWorkedHours { get; set; }
-        public PomodoroStore()
+        IMapper _mapper;
+        public PomodoroStore(IMapper mapper)
         {
+
+            if(mapper is null)
+            {
+                throw new ArgumentNullException(nameof(_mapper));
+            }
+            _mapper = mapper;
             AmountOfWorkedHours = new List<int>();
         }
 

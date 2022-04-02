@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using TaskOrganizer.Domain.Models;
 using TaskOrganizer.Domain.Services;
 using TaskOrganizer.EFCore;
 using TaskOrganizer.EFCore.Services;
+using TaskOrganizer.MapperProfiles;
+using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 
 namespace TaskOrganizer
@@ -35,9 +33,12 @@ namespace TaskOrganizer
             var mainWindow = _host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
             mainWindow.DataContext = _host.Services.GetRequiredService<MainViewModel>();
-
             var DbContext = _host.Services.GetRequiredService<MyDbContextFactory>();
             var taskService = _host.Services.GetRequiredService<IDataService<TaskModel>>();
+
+
+
+
             base.OnStartup(e);
         }
 
@@ -57,8 +58,7 @@ namespace TaskOrganizer
             services.AddSingleton<MyDbContextFactory>();
             services.AddSingleton<IDataService<TaskModel>, GenericDataService<TaskModel>>();
             //AddScopes - It is created once per request within the scope.
-            services.AddScoped<MainViewModel>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<MainViewModel>();       
             //Creates ServiceProvider containing services from IServiceCollection
             services.BuildServiceProvider();
         }

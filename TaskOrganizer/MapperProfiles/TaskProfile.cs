@@ -7,7 +7,7 @@ using AutoMapper;
 using TaskOrganizer.Domain.Models;
 using TaskOrganizer.Model;
 
-namespace TaskOrganizer.Mapper
+namespace TaskOrganizer.MapperProfiles
 {
     public class TaskProfile : Profile
     {
@@ -21,7 +21,7 @@ namespace TaskOrganizer.Mapper
                 .ForMember(dest => dest.IsSelected, opt => opt.MapFrom(src => src.IsSelected));
 
             CreateMap<TaskModel, TodoModel>()
-                .ForMember(dest => dest.TaskID, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Task, opt => opt.MapFrom(src => src.TaskDesc))
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
                 .ForMember(dest => dest.DoneTaskDate, opt => opt.MapFrom(src => src.DoneTaskDate))
