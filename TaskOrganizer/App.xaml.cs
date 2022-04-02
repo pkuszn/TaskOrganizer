@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using TaskOrganizer.Domain.Models;
 using TaskOrganizer.Domain.Services;
@@ -35,8 +37,12 @@ namespace TaskOrganizer
             mainWindow.DataContext = _host.Services.GetRequiredService<MainViewModel>();
             var DbContext = _host.Services.GetRequiredService<MyDbContextFactory>();
             var taskService = _host.Services.GetRequiredService<IDataService<TaskModel>>();
-
-
+            DbContext.CreateDbContext();
+            IEnumerable<TaskModel> entities = await taskService.GetAll();
+            foreach(var item in entities)
+            {
+                Debug.WriteLine("TaskModels:"  ,item.IsSelected, item.TaskDesc);
+            }
 
 
             base.OnStartup(e);

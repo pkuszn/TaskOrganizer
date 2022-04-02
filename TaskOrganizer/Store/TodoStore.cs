@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TaskOrganizer.Domain.Models;
+using TaskOrganizer.Domain.Services;
 using TaskOrganizer.Model;
 namespace TaskOrganizer.Store
 {
@@ -16,13 +17,15 @@ namespace TaskOrganizer.Store
         private readonly IList<TodoModel> todoList;
         private readonly IList<TodoModel> doneTasksList;
         private readonly IList<TaskModel> DTOsTaskList;
+        IDataService<TaskModel> _taskService;
         IMapper _mapper;
-        public TodoStore(IMapper mapper)
+        public TodoStore(IMapper mapper, IDataService<TaskModel> taskService)
         {
             if(mapper is null)
             {
                 throw new ArgumentNullException(nameof(mapper));
             }
+            _taskService = taskService;
             _mapper = mapper;
             todoList = new List<TodoModel>();
             doneTasksList = new List<TodoModel>();
@@ -36,10 +39,7 @@ namespace TaskOrganizer.Store
             doneTasksList.Add(task);
             var TaskModel = _mapper.Map<TaskModel>(task);
             DTOsTaskList.Add(TaskModel);
-            foreach(var item in DTOsTaskList)
-            {
-                Debug.WriteLine(item.DoneTaskDate);
-            }
+            _taskService.Create(TaskModel);
         }
         public string TopOfTaskList()
         {
@@ -75,8 +75,6 @@ namespace TaskOrganizer.Store
 
         public void TaskRequest()
         {
-
-            //_mapper.Map<TodoModel>(TaskModel)
         }
 
 

@@ -19,13 +19,6 @@ namespace TaskOrganizer.EFCore.Services
             _contextFactory = contextFactory;
         }
 
-        public T CreatedMethod(T entity)
-        {
-            using MyDbContext context = _contextFactory.CreateDbContext();
-            EntityEntry<T> createdEntity = context.Set<T>().Add(entity);
-            context.SaveChanges();
-            return createdEntity.Entity;
-        }
 
         public async Task<T> Create(T entity)
         {
@@ -54,7 +47,7 @@ namespace TaskOrganizer.EFCore.Services
         public async Task<IEnumerable<T>> GetAll()
         {
             using MyDbContext context = _contextFactory.CreateDbContext();
-            IEnumerable<T> entities = await context.Set<T>().ToListAsync();
+            IEnumerable<T> entities = await context.Set<T>().Where(entities => entities.IsSelected == true).ToListAsync();
             return entities;
         }
 

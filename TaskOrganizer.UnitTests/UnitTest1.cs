@@ -14,23 +14,7 @@ namespace TaskOrganizer.UnitTests
 
     public class UnitTest1
     {
-        [Test]
-        public void TestDatabase()
-        {
-            try
-            {
-                IDataService<TaskModel> userService = new GenericDataService<TaskModel>(new MyDbContextFactory());
-                userService.CreatedMethod(new TaskModel
-                {
-                    TaskDesc = "test"
-                });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException.Message);
-            }
-        }
-
+   
         [Test]
         public void TestInsertionAsync()
         {

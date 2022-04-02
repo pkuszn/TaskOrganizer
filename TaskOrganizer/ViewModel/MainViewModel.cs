@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using System.Diagnostics;
 using System.Windows.Input;
+using TaskOrganizer.Domain.Models;
+using TaskOrganizer.Domain.Services;
 using TaskOrganizer.Helper;
 using TaskOrganizer.Store;
 using static TaskOrganizer.MapperProfiles.MyMapper;
@@ -13,6 +15,7 @@ namespace TaskOrganizer.ViewModel
         private TodoStore todoStore { get; set; }
         private PomodoroStore pomodoroStore { get; set; }
         IMapper _mapper { get; set; }
+        IDataService<TaskModel> _taskService { get; set; }
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -29,7 +32,7 @@ namespace TaskOrganizer.ViewModel
         public MainViewModel()
         {
             _mapper = _mapper.Initialize();
-            todoStore = new TodoStore(_mapper);
+            todoStore = new TodoStore(_mapper, _taskService);
             pomodoroStore = new PomodoroStore(_mapper);
             _selectedViewModel = new TodoViewModel(todoStore, pomodoroStore);
             UpdateViewCommand = new UpdateViewCommand(this, todoStore, pomodoroStore);

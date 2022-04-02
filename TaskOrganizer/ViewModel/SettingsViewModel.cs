@@ -7,7 +7,6 @@ namespace TaskOrganizer.ViewModel
 {
     public class SettingsViewModel : BaseViewModel
     {
-        IMapper _mapper;
         TodoViewModel _todoViewModel;
         public SettingsViewModel(TodoViewModel todoViewModel = null)
         {

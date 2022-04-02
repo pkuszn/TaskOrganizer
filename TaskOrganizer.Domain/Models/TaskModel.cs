@@ -11,6 +11,5 @@ namespace TaskOrganizer.Domain.Models
         public string TaskDesc { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime DoneTaskDate { get; set; }
-        public bool IsSelected { get; set; }
     }
 }
