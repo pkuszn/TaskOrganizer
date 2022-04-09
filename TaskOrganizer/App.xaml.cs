@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
@@ -9,8 +7,6 @@ using TaskOrganizer.Domain.Models;
 using TaskOrganizer.Domain.Services;
 using TaskOrganizer.EFCore;
 using TaskOrganizer.EFCore.Services;
-using TaskOrganizer.MapperProfiles;
-using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 
 namespace TaskOrganizer
