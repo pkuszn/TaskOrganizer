@@ -30,14 +30,18 @@ namespace TaskOrganizer.UnitTests
         {
             var taskModel = new TodoModel()
             {
-                Id = 0,
-                Task = "xD",
+                Id = 7,
+                Task = "asdasdsadazxzzzzzzzzzzzz",
                 CreatedDate = DateTime.MaxValue,
                 DoneTaskDate = DateTime.MinValue,
                 IsSelected = true
             };
             var dtoTask = new TaskModel();
             var config = new MapperConfiguration(cfg => cfg.AddProfile<TaskProfile>());
+            IDataService<TaskModel> taskService = new GenericDataService<TaskModel>(new MyDbContextFactory());
+            taskService.Create(dtoTask);
+
+
         }
 
         [Test]

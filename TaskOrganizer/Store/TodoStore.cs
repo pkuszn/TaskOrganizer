@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,11 +18,11 @@ namespace TaskOrganizer.Store
         private readonly IList<TodoModel> todoList;
         private readonly IList<TodoModel> doneTasksList;
         private readonly IList<TaskModel> DTOsTaskList;
-        IDataService<TaskModel> _taskService;
+        IDataService<TaskModel> _taskService { get; set; }
         IMapper _mapper;
         public TodoStore(IMapper mapper, IDataService<TaskModel> taskService)
         {
-            if(mapper is null)
+            if(mapper is null && taskService is null)
             {
                 throw new ArgumentNullException(nameof(mapper));
             }
@@ -34,13 +35,25 @@ namespace TaskOrganizer.Store
         public bool HasTasks() => todoList.Count > 0;
         public void AddTask(TodoModel task) => todoList.Add(task);
         public void DeleteTask(TodoModel task) => todoList.Remove(task);
-        public void DoneTask(TodoModel task)
+        public async void DoneTask(TodoModel task)
         {
             doneTasksList.Add(task);
             var TaskModel = _mapper.Map<TaskModel>(task);
             DTOsTaskList.Add(TaskModel);
-            _taskService.Create(TaskModel);
+            Debug.WriteLine(TaskModel.IsSelected, TaskModel.TaskDesc);
+            await _taskService.Update(6, TaskModel);
         }
+
+        public void InsertMethod()
+        {
+            var TodoModel = new TodoModel()
+            {
+                Task = " XDD ", 
+                IsSelected = true
+            };
+            
+        }
+
         public string TopOfTaskList()
         {
             return HasTasks() ? todoList.First().Task.ToString() : "value";

@@ -34,12 +34,7 @@ namespace TaskOrganizer
             var DbContext = _host.Services.GetRequiredService<MyDbContextFactory>();
             var taskService = _host.Services.GetRequiredService<IDataService<TaskModel>>();
             DbContext.CreateDbContext();
-            IEnumerable<TaskModel> entities = await taskService.GetAll();
-            foreach(var item in entities)
-            {
-                Debug.WriteLine("TaskModels:"  ,item.IsSelected, item.TaskDesc);
-            }
-
+            await taskService.Get(7);
 
             base.OnStartup(e);
         }
