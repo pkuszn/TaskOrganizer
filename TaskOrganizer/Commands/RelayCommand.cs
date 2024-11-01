@@ -1,34 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TaskOrganizer
+namespace TaskOrganizer.Commands;
+
+public class RelayCommand : ICommand
 {
-    /// <summary>
-    /// Class responsible for handling commands
-    /// </summary>
-    public class RelayCommand : ICommand
+    public event EventHandler CanExecuteChanged;
+
+    private readonly Action mAction;
+
+    public RelayCommand(Action action)
     {
-        public event EventHandler CanExecuteChanged;
+        mAction = action;
+    }
 
-        private Action mAction;
+    public bool CanExecute(object parameter)
+    {
+        return true;
+    }
 
-        public RelayCommand(Action action)
-        {
-            mAction = action;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            mAction();
-        }
+    public void Execute(object parameter)
+    {
+        mAction();
     }
 }

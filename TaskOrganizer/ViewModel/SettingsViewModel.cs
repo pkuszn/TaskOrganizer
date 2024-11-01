@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace TaskOrganizer.ViewModel
+namespace TaskOrganizer.ViewModel;
+
+public class SettingsViewModel : BaseViewModel
 {
-    public class SettingsViewModel : BaseViewModel
+    TodoViewModel TodoViewModel;
+    public SettingsViewModel(TodoViewModel todoViewModel = null)
     {
-        TodoViewModel _todoViewModel;
-        public SettingsViewModel(TodoViewModel todoViewModel = null)
-        {
-            _todoViewModel = todoViewModel;
-        }
+        TodoViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
     }
 }

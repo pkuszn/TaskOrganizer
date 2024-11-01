@@ -2,73 +2,51 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Windows.Threading;
-using TaskOrganizer.Model;
 
-namespace TaskOrganizer.Store
+namespace TaskOrganizer.Store;
+
+public class PomodoroStore : IEnumerable<int>
 {
-    public class PomodoroStore : IEnumerable<int>
+    private readonly IMapper Mapper;
+    public IList<int> SummedHours { get; set; }
+    public PomodoroStore(IMapper mapper)
     {
-        IList<int> AmountOfWorkedHours { get; set; }
-        IMapper _mapper;
-        public PomodoroStore(IMapper mapper)
-        {
+        Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        SummedHours = [];
+    }
 
-            if(mapper is null)
-            {
-                throw new ArgumentNullException(nameof(_mapper));
-            }
-            _mapper = mapper;
-            AmountOfWorkedHours = new List<int>();
-        }
+    public string GetSummedHours()
+    {
+        int sum = SummedHours.Sum(Convert.ToInt32);
+        return sum.ToString();
+    }
 
-        public string AmountOfHours()
+    public void SumHours(DispatcherTimer timer, int declaredTime, int workedTime = 0)
+    {
+        if(timer != null)
         {
-            var sum = 0;
-            if (AmountOfWorkedHours == null)
-            {
-                //do nothing
-            }
-            else
-            {
-                sum = AmountOfWorkedHours.Sum(x => Convert.ToInt32(x));
-            }
-            return sum.ToString();
+            workedTime /= 60;
+            int sum = declaredTime - workedTime;
+            SummedHours.Add(sum);
         }
-        /// <summary>
-        /// Sum hours when user stops clock early
-        /// </summary>
-        /// <param name="timer"></param>
-        /// <param name="declaredTime"></param>
-        /// <param name="workedTime"></param>
-        public void SumHours(DispatcherTimer timer, int declaredTime, int workedTime = 0)
+        else
         {
-            if(timer != null)
-            {
-                workedTime = workedTime / 60;
-                int sum = declaredTime - workedTime;
-                AmountOfWorkedHours.Add(sum);
-            }
-            else
-            {
-                AmountOfWorkedHours.Add(declaredTime);
-            }
+            SummedHours.Add(declaredTime);
         }
- 
-        public IEnumerator<int> GetEnumerator()
-        {
-            foreach(int time in AmountOfWorkedHours)
-            {
-                yield return time;
-            }
-        }
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
+    public IEnumerator<int> GetEnumerator()
+    {
+        foreach(int time in SummedHours)
         {
-            return GetEnumerator();
+            yield return time;
         }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace TaskOrganizer.Model;
 
-namespace TaskOrganizer.Model
-{
-    public class SettingsModel
-    {
-    }
-}
+public class SettingsModel { }

@@ -6,39 +6,33 @@ using TaskOrganizer.Domain.Services;
 using TaskOrganizer.Helper;
 using TaskOrganizer.Store;
 using static TaskOrganizer.MapperProfiles.MyMapper;
-namespace TaskOrganizer.ViewModel
+namespace TaskOrganizer.ViewModel;
+
+public class MainViewModel : BaseViewModel
 {
-    public class MainViewModel : BaseViewModel
+    private BaseViewModel SelectedViewModel;
+    private readonly TodoStore TodoStore;
+    private readonly PomodoroStore PomodoroStore;
+    private readonly IMapper Mapper;
+    private readonly IDataService<TaskModel> TaskService;
+    public ICommand UpdateViewCommand { get; set; }
+    public BaseViewModel BaseViewModel
     {
-        //Selected view model
-        private BaseViewModel _selectedViewModel;
-        private TodoStore todoStore { get; set; }
-        private PomodoroStore pomodoroStore { get; set; }
-        IMapper _mapper { get; set; }
-        IDataService<TaskModel> _taskService { get; set; }
-        public BaseViewModel SelectedViewModel
+        get { return SelectedViewModel; }
+        set
         {
-            get { return _selectedViewModel; }
-            set
-            {
-                _selectedViewModel = value;
-                Debug.WriteLine(SelectedViewModel);
-                OnPropertyChanged(nameof(SelectedViewModel));
-            }
+            SelectedViewModel = value;
+            Debug.WriteLine(BaseViewModel);
+            OnPropertyChanged(nameof(BaseViewModel));
         }
+    }
 
-        public ICommand UpdateViewCommand { get; set; }
-
-        public MainViewModel()
-        {
-            _mapper = _mapper.Initialize();
-            todoStore = new TodoStore(_mapper, _taskService);
-            pomodoroStore = new PomodoroStore(_mapper);
-            _selectedViewModel = new TodoViewModel(todoStore, pomodoroStore);
-            UpdateViewCommand = new UpdateViewCommand(this, todoStore, pomodoroStore);
-        }
-           
-
-        
+    public MainViewModel()
+    {
+        Mapper = Mapper.Initialize();
+        TodoStore = new TodoStore(Mapper, TaskService);
+        PomodoroStore = new PomodoroStore(Mapper);
+        SelectedViewModel = new TodoViewModel(TodoStore, PomodoroStore);
+        UpdateViewCommand = new UpdateViewCommand(this, TodoStore, PomodoroStore);
     }
 }

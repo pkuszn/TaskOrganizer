@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.ComponentModel;
 
-namespace TaskOrganizer.ViewModel
+namespace TaskOrganizer.ViewModel;
+
+/// <summary>
+/// Interaction logic for BaseViewModel
+/// </summary>
+public class BaseViewModel : INotifyPropertyChanged
 {
-    /// <summary>
-    /// Interaction logic for BaseViewModel
-    /// </summary>
-    public class BaseViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
+    public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
 
-        protected void OnPropertyChanged(string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+    protected void OnPropertyChanged(string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

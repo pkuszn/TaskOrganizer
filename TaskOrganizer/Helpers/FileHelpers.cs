@@ -1,30 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Text;
 
-namespace TaskOrganizer.Helpers
+namespace TaskOrganizer.Helpers;
+internal static class FileHelpers
 {
-    public static class FileHelpers
+    private const string Bin = "bin";
+    public static string GetFilePath(this string fileName)
     {
-        public static string getFilePath(this string fileName)
+        if (!string.IsNullOrEmpty(fileName))
         {
-            FileInfo fi = new FileInfo(fileName);
+            FileInfo fi = new(fileName);
             string filePath = fi.FullName;
             return filePath;
         }
+        return null;
+    }
 
-        public static string getRelativeFilePath(this string fileName)
+    public static string GetRelativeFilePath(this string fileName)
+    {
+        if (!string.IsNullOrEmpty(fileName))
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            if (baseDir.Contains("bin"))
+            if (baseDir.Contains(Bin))
             {
-                int index = baseDir.IndexOf("bin");
-                baseDir = baseDir.Substring(0, index);
+                int index = baseDir.IndexOf(Bin);
+                baseDir = baseDir[..index];
             }
             return baseDir;
         }
-
+        return null;
     }
 }

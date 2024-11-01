@@ -1,11 +1,7 @@
 ﻿using TaskOrganizer.ViewModel;
 
-namespace TaskOrganizer.Model
+namespace TaskOrganizer.Model;
+public class PomodoroModel : BaseViewModel
 {
-    public class PomodoroModel : BaseViewModel
-    {
-        //Time property for pomodoro counter
-        public int timer { get; set; }
-
-    }
+    public int Timer { get; set; }
 }

@@ -6,330 +6,313 @@ using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
+using TaskOrganizer.Commands;
 using TaskOrganizer.Helpers;
 using TaskOrganizer.Model;
 using TaskOrganizer.Store;
 using static TaskOrganizer.Helpers.FileHelpers;
 
-namespace TaskOrganizer.ViewModel
+namespace TaskOrganizer.ViewModel;
+
+public class PomodoroViewModel : BaseViewModel
 {
-    public class PomodoroViewModel : BaseViewModel
+    private string _currentTime;
+    private string _currentDate;
+    private int _currentPomodoroTick;
+    private TimeSpan _outputTime;
+    private string _strTime;
+    private string _currentTask;
+    private readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
+    private readonly string AudioFilePath = @"C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
+    private readonly string fileName = "\\Audio\\audio.wav";
+    private static SoundPlayer player;
+    private static int time;
+    private string _amountOfPomodoros;
+    private readonly TodoStore TodoStore;
+    private readonly PomodoroStore PomodoroStore;
+    private readonly ICommand StartCountingCommand;
+    private readonly ICommand StopCountingCommand;
+    private readonly ICommand DebugCountingCommand;
+    private readonly ICommand StopCountingEarlyCommand;
+    private readonly ICommand ResetCountingCommand;
+    private DispatcherTimer Time { get; set; }
+    private DispatcherTimer PomodoroTimer { get; set; }
+    private ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = [];
+    public string CurrentTime
     {
-        private string _currentTime;
-        private string _currentDate;
-        private int _currentPomodoroTick;
-        private TimeSpan _outputTime;
-        private string _strTime;
-        private string _currentTask;
-
-        public string CurrentTime
+        get
         {
-            get
-            {
-                return _currentTime;
-            }
-            set
-            {
-                if (_currentTime != value)
-                    _currentTime = value;
-                OnPropertyChanged(nameof(CurrentTime));
-            }
+            return _currentTime;
         }
-
-        public string CurrentDate
+        set
         {
-            get
-            {
-                return _currentDate;
-            }
-            set
-            {
-                if (_currentDate != value)
-                    _currentDate = value;
-                OnPropertyChanged(nameof(CurrentDate));
-            }
+            if (_currentTime != value)
+                _currentTime = value;
+            OnPropertyChanged(nameof(CurrentTime));
         }
+    }
 
-        public int CurrentPomodoroTick
+    public string CurrentDate
+    {
+        get
         {
-            get
-            {
-                return _currentPomodoroTick;
-            }
-            set
-            {
-                if (_currentPomodoroTick != value)
-                    _currentPomodoroTick = value;
-            }
+            return _currentDate;
         }
-
-        public TimeSpan OutputTime
+        set
         {
-            get
-            {
-                return _outputTime;
-            }
-            set
-            {
-                if (_outputTime != value)
-                    _outputTime = value;
-                OnPropertyChanged(nameof(OutputTime));
-            }
+            if (_currentDate != value)
+                _currentDate = value;
+            OnPropertyChanged(nameof(CurrentDate));
         }
+    }
 
-        public string StrTime
+    public int CurrentPomodoroTick
+    {
+        get
         {
-            get
-            {
-                return _strTime;
-            }
-            set
-            {
-                if (_strTime != value)
-                    _strTime = value;
-                OnPropertyChanged(nameof(StrTime));
-            }
+            return _currentPomodoroTick;
         }
-
-        public string CurrentTask
+        set
         {
-            get
-            {
-                return _currentTask;
-            }
-            set
-            {
-                if (_currentTask != value)
-                    _currentTask = value;
-                OnPropertyChanged(CurrentTask);
-            }
+            if (_currentPomodoroTick != value)
+                _currentPomodoroTick = value;
         }
+    }
 
-        public string AmountOfPomodoros
+    public TimeSpan OutputTime
+    {
+        get
         {
-            get
-            {
-                return _amountOfPomodoros;
-            }
-            set
-            {
-                if (_amountOfPomodoros != value)
-                    _amountOfPomodoros = value;
-                OnPropertyChanged(nameof(AmountOfPomodoros));
-            }
+            return _outputTime;
         }
-
-        public readonly string ImageFilePath = @"C:\Users\patry\source\repos\TaskOrganizer\TaskOrganizer\Icons\tomato.png";
-        public readonly string AudioFilePath = @"C:\Users\patry\OneDrive\Pulpit\repos\TaskOrganizer\TaskOrganizer\Audio\audio.wav";
-        public string fileName = "\\Audio\\audio.wav";
-        private static SoundPlayer player;
-        private static int time;
-        private string _amountOfPomodoros;
-
-        public DispatcherTimer Time { get; set; }
-        public DispatcherTimer PomodoroTimer { get; set; }
-        public ICommand StartCountingCommand { get; set; }
-        public ICommand StopCountingCommand { get; set; }
-        public ICommand DebugCountingCommand { get; set; }
-        public ICommand StopCountingEarlyCommand { get; set; }
-        public ICommand ResetCountingCommand { get; set; }
-        public ObservableCollection<ImageViewer> ListOfPomodoros { get; set; } = new ObservableCollection<ImageViewer>(); 
-        private TodoStore TodoStore { get; set; }
-        private PomodoroStore PomodoroStore { get; set; }
-
-
-        public PomodoroViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
+        set
         {
-            if(PomodoroTimer != null && Time != null)
+            if (_outputTime != value)
+                _outputTime = value;
+            OnPropertyChanged(nameof(OutputTime));
+        }
+    }
+
+    public string StrTime
+    {
+        get
+        {
+            return _strTime;
+        }
+        set
+        {
+            if (_strTime != value)
+                _strTime = value;
+            OnPropertyChanged(nameof(StrTime));
+        }
+    }
+
+    public string CurrentTask
+    {
+        get
+        {
+            return _currentTask;
+        }
+        set
+        {
+            if (_currentTask != value)
+                _currentTask = value;
+            OnPropertyChanged(CurrentTask);
+        }
+    }
+
+    public string AmountOfPomodoros
+    {
+        get
+        {
+            return _amountOfPomodoros;
+        }
+        set
+        {
+            if (_amountOfPomodoros != value)
+                _amountOfPomodoros = value;
+            OnPropertyChanged(nameof(AmountOfPomodoros));
+        }
+    }
+
+    public PomodoroViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
+    {
+        if (PomodoroTimer != null && Time != null)
+        {
+            PomodoroTimer.Stop();
+            Time.Stop();
+            PomodoroTimer = null;
+            Time = null;
+        }
+        PomodoroStore = pomodoroStore;
+        TodoStore = todoStore;
+        StartCountingCommand = new RelayCommand(CommandCountingSelector);
+        StopCountingCommand = new RelayCommand(StopPomodoroTimer);
+        DebugCountingCommand = new RelayCommand(DebugTime);
+        StopCountingEarlyCommand = new RelayCommand(SumHoursIfClockStopsEarly);
+        ResetCountingCommand = new RelayCommand(ResetPomodoroTimer);
+        DateText();
+        UpdateTime();
+        UpdateCurrentTask();
+        UpdateAmountOfPomodoros();
+    }
+
+    private void CommandCountingSelector()
+    {
+        if (PomodoroTimer == null)
+        {
+            StartPomodoroTimer();
+        }
+        else
+        {
+            ResumePomodoroTimer();
+        }
+    }
+
+    private void UpdateTime()
+    {
+        if (Time == null)
+        {
+            Time = new DispatcherTimer
             {
-                PomodoroTimer.Stop();
-                Time.Stop();
-                PomodoroTimer = null;
-                Time = null;
-            }
-            PomodoroStore = pomodoroStore;
-            TodoStore = todoStore;
-            DateText();
-            UpdateTime();
-            UpdateCurrentTask();
-            UpdateAmountOfPomodoros();
-            StartCountingCommand = new RelayCommand(CommandCountingSelector);
-            StopCountingCommand = new RelayCommand(StopPomodoroTimer);
-            DebugCountingCommand = new RelayCommand(DebugTime);
-            StopCountingEarlyCommand = new RelayCommand(SumHoursIfClockStopsEarly);
-            ResetCountingCommand = new RelayCommand(ResetPomodoroTimer);
-
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            Time.Tick += new EventHandler(TimeText);
+            Time.Start();
         }
+    }
 
-        private void CommandCountingSelector()
+    private void TimeText(object sender, EventArgs e)
+    {
+        CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+    }
+
+    private void DateText()
+    {
+        CurrentDate = DateTime.Now.ToString("dddd dd MMMM yyyy");
+    }
+
+    private void StopPomodoroTimer()
+    {
+        PomodoroTimer?.Stop();
+    }
+    private void ResumePomodoroTimer() => PomodoroTimer.Start();
+
+    private void UpdateCurrentTask()
+    {
+        CurrentTask = TodoStore.TopOfTaskList();
+    }
+
+    private void StartPomodoroTimer()
+    {
+        if (CurrentPomodoroTick != 0)
         {
-            if (PomodoroTimer == null)
+            PomodoroModel startNewPomodoroRound = new PomodoroModel()
             {
-                StartPomodoroTimer();
-            }
-            else
+                Timer = CurrentPomodoroTick
+            };
+            time = CurrentPomodoroTick;
+            PomodoroTimer = new DispatcherTimer
             {
-                ResumePomodoroTimer();
-            }
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            time *= 60;
+            PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
+            PomodoroTimer.Start();
         }
+    }
 
-        private void UpdateTime()
-        {
-            if (Time == null)
-            {
-                Time = new DispatcherTimer
-                {
-                    Interval = TimeSpan.FromSeconds(1)
-                };
-                Time.Tick += new EventHandler(TimeText);
-                Time.Start();
-            }
-        }
-
-        private void TimeText(object sender, EventArgs e)
-        {
-            CurrentTime = DateTime.Now.ToString("HH:mm:ss");
-        }
-
-        private void DateText()
-        {
-            CurrentDate = DateTime.Now.ToString("dddd dd MMMM yyyy");
-        }
-
-        private void StopPomodoroTimer()
-        {
-            if (PomodoroTimer != null)
-                PomodoroTimer.Stop();
-        }
-        private void ResumePomodoroTimer() => PomodoroTimer.Start();
-
-        private void UpdateCurrentTask()
-        {
-            CurrentTask = TodoStore.TopOfTaskList();
-        }
-
-        private void StartPomodoroTimer()
-        {
-            if(CurrentPomodoroTick == 0)
-            {
-                //do nothing
-            }
-            else
-            {
-                var startNewPomodoroRound = new PomodoroModel()
-                {
-                    timer = CurrentPomodoroTick
-                };
-                time = CurrentPomodoroTick;
-                PomodoroTimer = new DispatcherTimer
-                {
-                    Interval = TimeSpan.FromSeconds(1)
-                };
-                time *= 60;
-                PomodoroTimer.Tick += (s, e) => Task.Run(() => PomodoroTick(s, e));
-                PomodoroTimer.Start();
-            }
-        }
-    
 
     private void ResetPomodoroTimer()
+    {
+        if (PomodoroTimer != null)
         {
-            if (PomodoroTimer == null)
+            PomodoroTimer.Stop();
+            PomodoroTimer = null;
+            StrTime = string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// Pomodoro tick function - should be improved
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void PomodoroTick(object sender, EventArgs e)
+    {
+        OutputTime = TimeSpan.FromSeconds(time);
+        time--;
+        OutputTime = OutputTime.Subtract(TimeSpan.FromSeconds(1));
+        if (OutputTime.Minutes == 0 && OutputTime.Seconds == 0)
+        {
+            PomodoroTimer.Stop();
+            PomodoroTimer = null;
+            StrTime = string.Empty;
+            if (File.Exists(AudioFilePath.GetFilePath()))
             {
-                // do nothing
+                PlayAlarmSong(AudioFilePath.GetFilePath());
             }
             else
             {
-                PomodoroTimer.Stop();
-                PomodoroTimer = null;
-                StrTime = string.Empty;
+                throw new IOException("File is unaccessible");
             }
+            Debug.WriteLine(CurrentPomodoroTick);
+            PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
+            UpdateAmountOfPomodoros();
+            AddNewPomodoroUI();
         }
+        StrTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
+    }
 
-        /// <summary>
-        /// Pomodoro tick function - should be improved
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PomodoroTick(object sender, EventArgs e)
+    /// <summary>
+    /// Stop a timer and add up the given time - should be improved
+    /// </summary>
+    private void SumHoursIfClockStopsEarly()
+    {
+        if (PomodoroTimer != null)
         {
-            OutputTime = TimeSpan.FromSeconds(time);
-            time--;
-            OutputTime = OutputTime.Subtract(TimeSpan.FromSeconds(1));
-            if (OutputTime.Minutes == 0 && OutputTime.Seconds == 0)
+            PomodoroTimer.Stop();
+            Debug.WriteLine(time / 60);
+            PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
+            PomodoroTimer = null;
+            StrTime = string.Empty;
+            UpdateAmountOfPomodoros();
+        }
+    }
+
+    private void UpdateAmountOfPomodoros()
+    {
+        AmountOfPomodoros = PomodoroStore.GetSummedHours();
+    }
+
+    /// <summary>
+    /// Adding icons on UI when PomodoroTimer stops and finished correctly
+    /// </summary>
+    private void AddNewPomodoroUI()
+    {
+        if (File.Exists(ImageFilePath.GetFilePath()))
+        {
+            Debug.WriteLine("File exists");
+            ImageViewer newInstanceOfPomodoro = new()
             {
-                PomodoroTimer.Stop();
-                PomodoroTimer = null;
-                StrTime = string.Empty;
-                if(File.Exists(AudioFilePath.getFilePath()))
-                {
-                    PlayAlarmSong(AudioFilePath.getFilePath());
-                }
-                else
-                {
-                    throw new IOException("File is unaccessible");
-                }
-                Debug.WriteLine(CurrentPomodoroTick);
-                PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
-                UpdateAmountOfPomodoros();
-                //AddNewPomodoroUI();
-            }
-            StrTime = string.Format("{0:D2}m:{1:D2}s", OutputTime.Minutes, OutputTime.Seconds);
+                FilePath = ImageFilePath.GetFilePath()
+            };
+            ListOfPomodoros.Add(newInstanceOfPomodoro);
         }
+    }
 
-        /// <summary>
-        /// Stop a timer and add up the given time - should be improved
-        /// </summary>
-        private void SumHoursIfClockStopsEarly()
+    private static void PlayAlarmSong(string filePath)
+    {
+        if (File.Exists(filePath.GetFilePath()))
         {
-            if (PomodoroTimer == null)
-            {
-                //do nothing
-            }
-            else
-            {
-                PomodoroTimer.Stop();
-                Debug.WriteLine(time/60);
-                PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
-                PomodoroTimer = null;
-                StrTime = string.Empty;
-                UpdateAmountOfPomodoros();
-            }
+            player = new SoundPlayer(filePath);
+            player.PlaySync();
+            player = null;
         }
+    }
 
-        private void UpdateAmountOfPomodoros()
-        {
-            AmountOfPomodoros = PomodoroStore.AmountOfHours();
-        }
-
-        /// <summary>
-        /// Adding icons on UI when PomodoroTimer stops and finished correctly
-        /// </summary>
-        private void AddNewPomodoroUI()
-        {
-            if (File.Exists(ImageFilePath.getFilePath()))
-            {
-                Debug.WriteLine("File exists");
-                var newInstanceOfPomodoro = new ImageViewer()
-                {
-                    filePath = ImageFilePath.getFilePath()
-                };
-                ListOfPomodoros.Add(newInstanceOfPomodoro);
-            }
-        }
-
-        private static void PlayAlarmSong(string filePath)
-        {
-            if (File.Exists(filePath.getFilePath())){
-                player = new SoundPlayer(filePath);
-                player.PlaySync();
-                player = null;
-            }
-        }
-
-        private void DebugTime()
-        {
-            time = 5;
-        }
+    private void DebugTime()
+    {
+        time = 5;
     }
 }

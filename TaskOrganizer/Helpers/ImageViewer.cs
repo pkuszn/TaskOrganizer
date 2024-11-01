@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskOrganizer.Helpers
+﻿namespace TaskOrganizer.Helpers
 {
     public class ImageViewer
     {
-        public string filePath { get; set; }
+        public string FilePath { get; set; }
     }
 }

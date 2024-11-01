@@ -32,13 +32,13 @@ namespace TaskOrganizer.Helper
             switch (parameter.ToString())
             {
                 case "Todo":
-                    viewModel.SelectedViewModel = new TodoViewModel(todoStore, pomodoroStore);
+                    viewModel.BaseViewModel = new TodoViewModel(todoStore, pomodoroStore);
                     break;
                 case "Pomodoro":
-                    viewModel.SelectedViewModel = new PomodoroViewModel(todoStore, pomodoroStore);
+                    viewModel.BaseViewModel = new PomodoroViewModel(todoStore, pomodoroStore);
                     break;
                 case "Settings":
-                    viewModel.SelectedViewModel = new SettingsViewModel();
+                    viewModel.BaseViewModel = new SettingsViewModel();
                     break;
             }
         }
