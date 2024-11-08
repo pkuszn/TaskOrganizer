@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Windows.Input;
 using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
@@ -10,17 +7,24 @@ namespace TaskOrganizer.Helper
 {
     public class UpdateViewCommand : ICommand
     {
-        private MainViewModel viewModel;
-        private TodoStore todoStore { get; set; }
-        private PomodoroStore pomodoroStore { get; set; }
-        public UpdateViewCommand(MainViewModel viewModel, TodoStore todoStore = null, PomodoroStore pomodoroStore = null)
-        {
-            this.viewModel = viewModel;
-            this.todoStore = todoStore;
-            this.pomodoroStore = pomodoroStore;
-        }
+        private readonly MainViewModel ViewModel;
+        private readonly TodoViewModel TodoViewModel;
+        private readonly PomodoroViewModel PomodoroViewModel;
+        private readonly SettingsViewModel SettingsViewModel;
+
+        private const string TodoViewName = "Todo";
+        private const string PomodoroViewName = "Pomodoro";
+        private const string SettingsViewName = "Settings";
 
         public event EventHandler CanExecuteChanged;
+
+        public UpdateViewCommand(MainViewModel viewModel, TodoViewModel todoViewModel, PomodoroViewModel pomodoroViewModel, SettingsViewModel settingsViewModel)
+        {
+            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            TodoViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
+            PomodoroViewModel = pomodoroViewModel ?? throw new ArgumentNullException(nameof(pomodoroViewModel));
+            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -31,14 +35,14 @@ namespace TaskOrganizer.Helper
         {
             switch (parameter.ToString())
             {
-                case "Todo":
-                    viewModel.BaseViewModel = new TodoViewModel(todoStore, pomodoroStore);
+                case TodoViewName:
+                    ViewModel.BaseViewModel = TodoViewModel;
                     break;
-                case "Pomodoro":
-                    viewModel.BaseViewModel = new PomodoroViewModel(todoStore, pomodoroStore);
+                case PomodoroViewName:
+                    ViewModel.BaseViewModel = PomodoroViewModel;
                     break;
-                case "Settings":
-                    viewModel.BaseViewModel = new SettingsViewModel();
+                case SettingsViewName:
+                    ViewModel.BaseViewModel = SettingsViewModel;
                     break;
             }
         }

@@ -9,6 +9,11 @@ namespace TaskOrganizer.EFCore;
 /// </summary>
 public class MyDbContextFactory : IDesignTimeDbContextFactory<MyDbContext>
 {
+    public MyDbContextFactory()
+    {
+        
+    }
+
     public MyDbContext CreateDbContext(string[] args = null)
     {
         DbContextOptionsBuilder<MyDbContext> options = new();

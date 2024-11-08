@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 using TaskOrganizer.Domain.Models;
 using TaskOrganizer.Domain.Services;
 using TaskOrganizer.EFCore;
 using TaskOrganizer.EFCore.Services;
+using TaskOrganizer.Helper;
+using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
 
 namespace TaskOrganizer
@@ -18,21 +18,21 @@ namespace TaskOrganizer
     {
         public App()
         {
-            _host = Host.CreateDefaultBuilder()
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
                     ConfigureServices(services);
             })
             .Build();
         }
-        public readonly IHost _host;
+        public readonly IHost Host;
         protected override async void OnStartup(StartupEventArgs e)
         {
-            await _host.StartAsync();
-            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            await Host.StartAsync();
+            MainWindow mainWindow = Host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
-            mainWindow.DataContext = _host.Services.GetRequiredService<MainViewModel>();
-            var DbContext = _host.Services.GetRequiredService<MyDbContextFactory>();
-            var taskService = _host.Services.GetRequiredService<IDataService<TaskModel>>();
+            mainWindow.DataContext = Host.Services.GetRequiredService<MainViewModel>();
+            MyDbContextFactory DbContext = Host.Services.GetRequiredService<MyDbContextFactory>();
+            IDataService<TaskModel> taskService = Host.Services.GetRequiredService<IDataService<TaskModel>>();
             DbContext.CreateDbContext();
             await taskService.Get(7);
 
@@ -41,27 +41,32 @@ namespace TaskOrganizer
 
         protected override async void OnExit(ExitEventArgs e)
         {
-            using (_host)
+            using (Host)
             {
-                await _host.StopAsync();
+                await Host.StopAsync();
             }
             base.OnExit(e);
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private static void ConfigureServices(IServiceCollection services)
         {
-            //AddSingleton - creates a single instance throughout the app. It creates a single instance for the first time and reuses the same object in the all calls.
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MyDbContextFactory>();
             services.AddSingleton<IDataService<TaskModel>, GenericDataService<TaskModel>>();
-            //AddScopes - It is created once per request within the scope.
-            services.AddScoped<MainViewModel>();       
-            //Creates ServiceProvider containing services from IServiceCollection
+            services.AddSingleton<IDataService<PomodoroModel>, GenericDataService<PomodoroModel>>();
+
+            services.AddScoped<MainViewModel>();
+            services.AddScoped<TodoViewModel>();
+            services.AddScoped<PomodoroViewModel>();
+            services.AddScoped<SettingsViewModel>();
+
+            services.AddScoped<PomodoroStore>();
+            services.AddScoped<TodoStore>();
+            services.AddScoped<UpdateViewCommand>();
+
+            services.AddAutoMapper(typeof(App));
+            
             services.BuildServiceProvider();
         }
-
-
     }
-
-
 }
