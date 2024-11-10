@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
-using TaskOrganizer.Domain.Models;
-using TaskOrganizer.Domain.Services;
-using TaskOrganizer.EFCore;
-using TaskOrganizer.EFCore.Services;
+using TaskOrganizer.Domain;
 using TaskOrganizer.Helper;
 using TaskOrganizer.Store;
 using TaskOrganizer.ViewModel;
@@ -31,10 +28,6 @@ namespace TaskOrganizer
             MainWindow mainWindow = Host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
             mainWindow.DataContext = Host.Services.GetRequiredService<MainViewModel>();
-            MyDbContextFactory DbContext = Host.Services.GetRequiredService<MyDbContextFactory>();
-            IDataService<TaskModel> taskService = Host.Services.GetRequiredService<IDataService<TaskModel>>();
-            DbContext.CreateDbContext();
-            await taskService.Get(7);
 
             base.OnStartup(e);
         }
@@ -50,23 +43,28 @@ namespace TaskOrganizer
 
         private static void ConfigureServices(IServiceCollection services)
         {
+            ConfigureViewModels(services);
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<MyDbContextFactory>();
-            services.AddSingleton<IDataService<TaskModel>, GenericDataService<TaskModel>>();
-            services.AddSingleton<IDataService<PomodoroModel>, GenericDataService<PomodoroModel>>();
+            services.AddScoped<UpdateViewCommand>();
 
+            services.AddAutoMapper(typeof(App));
+
+            services.AddDbContext<TaskOrganizerDbContext>();
+
+            services.BuildServiceProvider();
+        }
+
+        private static void ConfigureViewModels(IServiceCollection services)
+        {
             services.AddScoped<MainViewModel>();
             services.AddScoped<TodoViewModel>();
             services.AddScoped<PomodoroViewModel>();
             services.AddScoped<SettingsViewModel>();
+        }
 
-            services.AddScoped<PomodoroStore>();
-            services.AddScoped<TodoStore>();
-            services.AddScoped<UpdateViewCommand>();
+        private static void ConfigureStorages(IServiceCollection services)
+        {
 
-            services.AddAutoMapper(typeof(App));
-            
-            services.BuildServiceProvider();
         }
     }
 }
