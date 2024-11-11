@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
 using TaskOrganizer.Model;
-using TaskOrganizer.Store;
 
 namespace TaskOrganizer.ViewModel;
 
@@ -12,8 +11,6 @@ public class TodoViewModel : BaseViewModel
     private string _newTask;
     private static int _id;
     private readonly TodoModel SelectedTask;
-    private readonly TodoStore TodoStore;
-    private readonly PomodoroStore PomodoroStore;
     private ObservableCollection<TodoModel> TodoList { get; set; } = [];
     public string NewTask
     {
@@ -45,15 +42,13 @@ public class TodoViewModel : BaseViewModel
         }
     }
 
-    public TodoViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
+    public TodoViewModel()
     {
-        TodoStore = todoStore ?? throw new ArgumentNullException(nameof(todoStore));
-        PomodoroStore = pomodoroStore ?? throw new ArgumentNullException(nameof(pomodoroStore));
         AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
         DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
         DoneTaskCommand = new RelayCommand(IsTaskSelected);
-        UpdateTasks(TodoStore);
-        TodoStore.DisplayDoneTasks();
+        //UpdateTasks(TodoStore);
+        //TodoStore.DisplayDoneTasks();
     }
 
     public bool HasTasksUI => TodoList.Count > 0;
@@ -62,16 +57,16 @@ public class TodoViewModel : BaseViewModel
     /// Update task on UI
     /// </summary>
     /// <param name="todoStore"></param>
-    private void UpdateTasks(TodoStore todoStore)
+    private void UpdateTasks()
     {
-        if (todoStore.HasTasks())
-        {
-            TodoList.Clear();
-            foreach (var item in todoStore)
-            {
-                TodoList.Add(item);
-            }
-        }
+        //if (todoStore.HasTasks())
+        //{
+        //    TodoList.Clear();
+        //    foreach (var item in todoStore)
+        //    {
+        //        TodoList.Add(item);
+        //    }
+        //}
     }
 
     private void AddNewTaskToList()
@@ -91,9 +86,9 @@ public class TodoViewModel : BaseViewModel
             IsSelected = false
 
         };
-        TodoStore.AddTask(newTask);
+        //TodoStore.AddTask(newTask);
         NewTask = string.Empty;
-        UpdateTasks(TodoStore);
+        //UpdateTasks(TodoStore);
     }
 
     /// <summary>
@@ -101,19 +96,19 @@ public class TodoViewModel : BaseViewModel
     /// </summary>
     private void DeleteTaskFromTheList()
     {
-        if (SelectedTask != null)
-        {
-            foreach (TodoModel item in TodoStore)
-            {
-                if (item.Id == SelectedTask.Id)
-                {
-                    TodoStore.DeleteTask(item);
-                    TodoList.Remove(SelectedTask);
-                    UpdateTasks(TodoStore);
-                    break;
-                }
-            }
-        }
+        //if (SelectedTask != null)
+        //{
+        //    foreach (TodoModel item in TodoStore)
+        //    {
+        //        if (item.Id == SelectedTask.Id)
+        //        {
+        //            TodoStore.DeleteTask(item);
+        //            TodoList.Remove(SelectedTask);
+        //            UpdateTasks(TodoStore);
+        //            break;
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -121,22 +116,22 @@ public class TodoViewModel : BaseViewModel
     /// </summary>
     private void IsTaskSelected()
     {
-        if (SelectedTask != null)
-        {
-            foreach (TodoModel item in TodoStore)
-            {
-                if (item.Id == SelectedTask.Id)
-                {
-                    item.IsSelected = true;
-                    item.DoneTaskDate = DateTime.Now;
-                    TodoStore.DoneTask(item);
-                    TodoStore.DeleteTask(item);
-                    TodoList.Remove(SelectedTask);
-                    UpdateTasks(TodoStore);
-                    break;
-                }
-            }
-            TodoStore.DisplayDoneTasks();
-        }
+        //if (SelectedTask != null)
+        //{
+        //    foreach (TodoModel item in TodoStore)
+        //    {
+        //        if (item.Id == SelectedTask.Id)
+        //        {
+        //            item.IsSelected = true;
+        //            item.DoneTaskDate = DateTime.Now;
+        //            TodoStore.DoneTask(item);
+        //            TodoStore.DeleteTask(item);
+        //            TodoList.Remove(SelectedTask);
+        //            UpdateTasks(TodoStore);
+        //            break;
+        //        }
+        //    }
+        //    TodoStore.DisplayDoneTasks();
+        //}
     }
 }

@@ -7,11 +7,11 @@ public class RelayCommand : ICommand
 {
     public event EventHandler CanExecuteChanged;
 
-    private readonly Action mAction;
+    private readonly Action Action;
 
     public RelayCommand(Action action)
     {
-        mAction = action;
+        Action = action;
     }
 
     public bool CanExecute(object parameter)
@@ -21,6 +21,6 @@ public class RelayCommand : ICommand
 
     public void Execute(object parameter)
     {
-        mAction();
+        Action();
     }
 }

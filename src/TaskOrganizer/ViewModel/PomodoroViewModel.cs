@@ -9,7 +9,6 @@ using System.Windows.Threading;
 using TaskOrganizer.Commands;
 using TaskOrganizer.Helpers;
 using TaskOrganizer.Model;
-using TaskOrganizer.Store;
 using static TaskOrganizer.Helpers.FileHelpers;
 
 namespace TaskOrganizer.ViewModel;
@@ -28,8 +27,6 @@ public class PomodoroViewModel : BaseViewModel
     private static SoundPlayer player;
     private static int time;
     private string _amountOfPomodoros;
-    private readonly TodoStore TodoStore;
-    private readonly PomodoroStore PomodoroStore;
     private readonly ICommand StartCountingCommand;
     private readonly ICommand StopCountingCommand;
     private readonly ICommand DebugCountingCommand;
@@ -135,7 +132,7 @@ public class PomodoroViewModel : BaseViewModel
         }
     }
 
-    public PomodoroViewModel(TodoStore todoStore, PomodoroStore pomodoroStore)
+    public PomodoroViewModel()
     {
         if (PomodoroTimer != null && Time != null)
         {
@@ -144,8 +141,6 @@ public class PomodoroViewModel : BaseViewModel
             PomodoroTimer = null;
             Time = null;
         }
-        PomodoroStore = pomodoroStore;
-        TodoStore = todoStore;
         StartCountingCommand = new RelayCommand(CommandCountingSelector);
         StopCountingCommand = new RelayCommand(StopPomodoroTimer);
         DebugCountingCommand = new RelayCommand(DebugTime);
@@ -200,7 +195,7 @@ public class PomodoroViewModel : BaseViewModel
 
     private void UpdateCurrentTask()
     {
-        CurrentTask = TodoStore.TopOfTaskList();
+        //CurrentTask = TodoStore.TopOfTaskList();
     }
 
     private void StartPomodoroTimer()
@@ -257,7 +252,7 @@ public class PomodoroViewModel : BaseViewModel
                 throw new IOException("File is unaccessible");
             }
             Debug.WriteLine(CurrentPomodoroTick);
-            PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
+            //PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick);
             UpdateAmountOfPomodoros();
             AddNewPomodoroUI();
         }
@@ -273,7 +268,7 @@ public class PomodoroViewModel : BaseViewModel
         {
             PomodoroTimer.Stop();
             Debug.WriteLine(time / 60);
-            PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
+            //PomodoroStore.SumHours(PomodoroTimer, CurrentPomodoroTick, time);
             PomodoroTimer = null;
             StrTime = string.Empty;
             UpdateAmountOfPomodoros();
@@ -282,7 +277,7 @@ public class PomodoroViewModel : BaseViewModel
 
     private void UpdateAmountOfPomodoros()
     {
-        AmountOfPomodoros = PomodoroStore.GetSummedHours();
+        //AmountOfPomodoros = PomodoroStore.GetSummedHours();
     }
 
     /// <summary>

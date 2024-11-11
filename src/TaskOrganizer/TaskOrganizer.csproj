@@ -30,6 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj" />
-    <ProjectReference Include="..\TaskOrganizer.EFCore\TaskOrganizer.EFCore.csproj" />
+    <ProjectReference Include="..\TaskOrganizer.EFCore\TaskOrganizer.Repository.csproj" />
   </ItemGroup>
 </Project>

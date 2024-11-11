@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaskOrganizer.Domain.Interfaces;
 using TaskOrganizer.Repository.Interfaces;
 
-namespace TaskOrganizer.Repository.Services;
+namespace TaskOrganizer.Repository;
 
 public class Repository<E, T> : IRepository<E, T>
     where E : class, IObject<T>

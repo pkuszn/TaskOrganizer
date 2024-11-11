@@ -42,7 +42,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50" Width="100" Margin="0,100,0,0">
                     <Canvas>
-                        <ItemsControl ItemsSource="{Binding ListOfPomodoros}" Background="White">
+                        <ItemsControl Background="White">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Image Source="{Binding filePath}"/>
@@ -81,11 +81,6 @@
                                 <Setter Property="MinWidth" Value="50"/>
                             </Style>
                         </StackPanel.Resources>
-                        <Button Content="Start" Command="{Binding StartCountingCommand}"/>
-                        <Button Content="Stop" Command="{Binding StopCountingCommand}"/>
-                        <Button Content="Debug" Command="{Binding DebugCountingCommand}"/> <!-- TEMPORARY OPTION -->
-                        <Button Content="Done" Command="{Binding StopCountingEarlyCommand}"/>
-                        <Button Content="Reset" Command="{Binding ResetCountingCommand}"/>
                     </StackPanel>
                 </Grid>
                 

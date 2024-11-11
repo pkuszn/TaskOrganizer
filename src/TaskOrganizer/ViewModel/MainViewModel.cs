@@ -2,15 +2,11 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using TaskOrganizer.Store;
-using static TaskOrganizer.MapperProfiles.MyMapper;
 namespace TaskOrganizer.ViewModel;
 
 public class MainViewModel : BaseViewModel
 {
     private BaseViewModel SelectedViewModel;
-    private readonly TodoStore TodoStore;
-    private readonly PomodoroStore PomodoroStore;
     private readonly IMapper Mapper;
 
     public ICommand UpdateViewCommand { get; set; }
@@ -25,11 +21,9 @@ public class MainViewModel : BaseViewModel
         }
     }
 
-    public MainViewModel(PomodoroStore pomodoroStore, TodoStore todoStore, TodoViewModel todoViewModel)
+    public MainViewModel(TodoViewModel todoViewModel, IMapper mapper)
     {
-        Mapper = Mapper.Initialize();
-        TodoStore = todoStore ?? throw new ArgumentNullException(nameof(todoStore));
-        PomodoroStore = pomodoroStore ?? throw new ArgumentNullException(nameof(pomodoroStore));
+        Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         SelectedViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
     }
 }
