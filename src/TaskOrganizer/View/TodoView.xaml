@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="TaskOrganizer.View.TodoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskOrganizer.View" xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TodoViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="MinWidth" Value="130"/>
+                <Setter Property="MinHeight" Value="20"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="3" Background="#3b4243 " BorderBrush="#778487" BorderThickness="1">
+                                <ContentPresenter x:Name="contentPresenter"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <Border BorderThickness="0,0,3,0"  BorderBrush="Gray">
+            <Grid Grid.Column="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Todo List" FontFamily="JetBrains Mono" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"></Label>
+                <Label Grid.Row="1" Content="Add a new task to the list" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox Text="{Binding NewTask}" TextWrapping="Wrap" Grid.Row="2" Margin="0,20,0,20"/>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20">
+                    <Button Content="Add new task"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.28*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Text="Your tasks:" FontSize="15" Margin="10" HorizontalAlignment="Left"/>
+                <Button Grid.Column="0" Grid.Row="1" Background="Green"  Content="Done selected task" HorizontalAlignment="Center"/>
+                <Button Grid.Column="1" Grid.Row="1"  Content="Delete selected task" HorizontalAlignment="Center"/>
+
+            </Grid>
+            <ListView Grid.Row="1" Height="330" Margin="0,20,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" HorizontalContentAlignment="Stretch" BorderBrush="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="0.5" CornerRadius="3">
+                            <Grid Margin="5" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="0.25*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="5" VerticalAlignment="Top" >
+                                    <TextBlock Text="{Binding Task}" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <TextBlock Text="{Binding CreatedDate}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>
