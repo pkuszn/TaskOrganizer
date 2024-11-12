@@ -4,9 +4,7 @@ namespace TaskOrganizer.ViewModel;
 
 public class SettingsViewModel : BaseViewModel
 {
-    private readonly TodoViewModel TodoViewModel;
-    public SettingsViewModel(TodoViewModel todoViewModel = null)
+    public SettingsViewModel()
     {
-        TodoViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
     }
 }

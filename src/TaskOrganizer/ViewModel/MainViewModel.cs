@@ -1,29 +1,39 @@
-﻿using AutoMapper;
+﻿using Serilog;
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
-namespace TaskOrganizer.ViewModel;
+using TaskOrganizer.Commands;
 
+namespace TaskOrganizer.ViewModel;
 public class MainViewModel : BaseViewModel
 {
     private BaseViewModel SelectedViewModel;
-    private readonly IMapper Mapper;
-
-    public ICommand UpdateViewCommand { get; set; }
+    private const string TodoViewName = "Todo";
+    private const string PomodoroViewName = "Pomodoro";
+    private const string SettingsViewName = "Settings";
+    public ICommand UpdateViewCommand { get; }
     public BaseViewModel BaseViewModel
     {
         get { return SelectedViewModel; }
         set
         {
             SelectedViewModel = value;
-            Debug.WriteLine(BaseViewModel);
+            Log.Information($"Selected view: {SelectedViewModel.GetType()}", typeof(BaseViewModel));
             OnPropertyChanged(nameof(BaseViewModel));
         }
     }
 
-    public MainViewModel(TodoViewModel todoViewModel, IMapper mapper)
+    public MainViewModel(TodoViewModel todoViewModel, PomodoroViewModel pomodoroViewModel, SettingsViewModel settingsViewModel)
     {
-        Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        SelectedViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
+        BaseViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
+        UpdateViewCommand = new UpdateViewCommand(viewName =>
+        {
+            BaseViewModel = viewName switch
+            {
+                TodoViewName => todoViewModel,
+                PomodoroViewName => pomodoroViewModel,
+                SettingsViewName => settingsViewModel,
+                _ => BaseViewModel
+            };
+        });
     }
 }

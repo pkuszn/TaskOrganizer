@@ -1,48 +1,25 @@
 ﻿using System;
 using System.Windows.Input;
-using TaskOrganizer.ViewModel;
+using Serilog;
 
 namespace TaskOrganizer.Commands;
-
 public class UpdateViewCommand : ICommand
 {
-    private readonly MainViewModel ViewModel;
-    private readonly TodoViewModel TodoViewModel;
-    private readonly PomodoroViewModel PomodoroViewModel;
-    private readonly SettingsViewModel SettingsViewModel;
-
-    private const string TodoViewName = "Todo";
-    private const string PomodoroViewName = "Pomodoro";
-    private const string SettingsViewName = "Settings";
-
+    private readonly Action<string> Action;
     public event EventHandler CanExecuteChanged;
-
-    public UpdateViewCommand(MainViewModel viewModel, TodoViewModel todoViewModel, PomodoroViewModel pomodoroViewModel, SettingsViewModel settingsViewModel)
+    public UpdateViewCommand(Action<string> action)
     {
-        ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-        TodoViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
-        PomodoroViewModel = pomodoroViewModel ?? throw new ArgumentNullException(nameof(pomodoroViewModel));
-        SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+        Action = action ?? throw new ArgumentNullException(nameof(action));   
     }
 
-    public bool CanExecute(object parameter)
-    {
-        return true;
-    }
+    public bool CanExecute(object parameter) => true;
 
     public void Execute(object parameter)
     {
-        switch (parameter.ToString())
+        if (parameter is string viewName)
         {
-            case TodoViewName:
-                ViewModel.BaseViewModel = TodoViewModel;
-                break;
-            case PomodoroViewName:
-                ViewModel.BaseViewModel = PomodoroViewModel;
-                break;
-            case SettingsViewName:
-                ViewModel.BaseViewModel = SettingsViewModel;
-                break;
-        }
+            Log.Information($"You chose: {viewName}", typeof(UpdateViewCommand));
+            Action(viewName);
+        } 
     }
 }

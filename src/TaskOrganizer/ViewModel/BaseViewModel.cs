@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Serilog;
 
 namespace TaskOrganizer.ViewModel;
 
@@ -11,6 +12,7 @@ public class BaseViewModel : INotifyPropertyChanged
 
     protected void OnPropertyChanged(string name = null)
     {
+        Log.Information($"Property changed: {name}", typeof(BaseViewModel));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
