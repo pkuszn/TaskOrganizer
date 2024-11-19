@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TaskOrganizer.Model;
-public class TodoModel : DomainModel
+public class TaskModel : DomainModel
 {
     public string Task { get; set; }
     public DateTime CreatedDate { get; set; }

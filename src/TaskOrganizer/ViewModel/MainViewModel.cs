@@ -7,9 +7,11 @@ namespace TaskOrganizer.ViewModel;
 public class MainViewModel : BaseViewModel
 {
     private BaseViewModel SelectedViewModel;
-    private const string TodoViewName = "Todo";
+    private const string TodoViewName = "Task";
     private const string PomodoroViewName = "Pomodoro";
     private const string SettingsViewName = "Settings";
+    private const string LoginViewName = "Login";
+    private const string UserAccountViewName = "UserAccount";
     public ICommand UpdateViewCommand { get; }
     public BaseViewModel BaseViewModel
     {
@@ -22,16 +24,23 @@ public class MainViewModel : BaseViewModel
         }
     }
 
-    public MainViewModel(TodoViewModel todoViewModel, PomodoroViewModel pomodoroViewModel, SettingsViewModel settingsViewModel)
+    public MainViewModel(
+        TaskViewModel taskViewModel, 
+        PomodoroViewModel pomodoroViewModel, 
+        SettingsViewModel settingsViewModel,
+        LoginViewModel loginViewModel,
+        UserAccountViewModel userAccountViewModel)
     {
-        BaseViewModel = todoViewModel ?? throw new ArgumentNullException(nameof(todoViewModel));
+        BaseViewModel = taskViewModel ?? throw new ArgumentNullException(nameof(taskViewModel));
         UpdateViewCommand = new UpdateViewCommand(viewName =>
         {
             BaseViewModel = viewName switch
             {
-                TodoViewName => todoViewModel,
+                TodoViewName => taskViewModel,
                 PomodoroViewName => pomodoroViewModel,
                 SettingsViewName => settingsViewModel,
+                LoginViewName => loginViewModel,
+                UserAccountViewName => userAccountViewModel,
                 _ => BaseViewModel
             };
         });

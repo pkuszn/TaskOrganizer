@@ -6,12 +6,12 @@ using TaskOrganizer.Model;
 
 namespace TaskOrganizer.ViewModel;
 
-public class TodoViewModel : BaseViewModel
+public class TaskViewModel : BaseViewModel
 {
     private string _newTask;
     private static int _id;
-    private readonly TodoModel SelectedTask;
-    private ObservableCollection<TodoModel> TodoList { get; set; } = [];
+    private readonly TaskModel SelectedTask;
+    private ObservableCollection<TaskModel> TodoList { get; set; } = [];
     public string NewTask
     {
         get
@@ -42,7 +42,7 @@ public class TodoViewModel : BaseViewModel
         }
     }
 
-    public TodoViewModel()
+    public TaskViewModel()
     {
         AddNewTaskCommand = new RelayCommand(AddNewTaskToList);
         DeleteTaskCommand = new RelayCommand(DeleteTaskFromTheList);
@@ -77,7 +77,7 @@ public class TodoViewModel : BaseViewModel
         }
 
         ID++;
-        TodoModel newTask = new()
+        TaskModel newTask = new()
         {
             Id = ID,
             Task = NewTask,

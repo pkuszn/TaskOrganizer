@@ -40,9 +40,11 @@
                         </Setter>
                     </Style>
                 </StackPanel.Resources>
-                <Button Content="Todo" Command="{Binding UpdateViewCommand}" CommandParameter="Todo"/>
+                <Button Content="Task" Command="{Binding UpdateViewCommand}" CommandParameter="Task"/>
                 <Button Content="Pomodoro" Command="{Binding UpdateViewCommand}" CommandParameter="Pomodoro"/>
                 <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings"/>
+                <Button Content="Login" Command="{Binding UpdateViewCommand}" CommandParameter="Login"/>
+                <Button Content="UserAccount" Command="{Binding UpdateViewCommand}" CommandParameter="UserAccount"/>
             </StackPanel>
             <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Text="Version: 0.0.1" Foreground="White" Margin="10" VerticalAlignment="Center" FontSize="10"/>
         </Grid>

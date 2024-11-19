@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:TaskOrganizer.View"
              xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModel">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:TodoViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
             <views:TodoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:PomodoroViewModel}">
@@ -13,6 +13,12 @@
         </DataTemplate>  
         <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
             <views:SettingsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
+            <views:UserAccountView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+            <views:LoginView/>
         </DataTemplate>
     </Application.Resources>
 </Application>

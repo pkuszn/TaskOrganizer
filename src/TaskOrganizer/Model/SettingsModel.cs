@@ -1,3 +1,3 @@
 ﻿namespace TaskOrganizer.Model;
 
-public class SettingsModel { }
+public class SettingsModel : DomainModel { }

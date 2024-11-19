@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TaskOrganizer.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
-            
+    <Grid Background="WhiteSmoke">
+        <TextBlock Text="Settings" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"></TextBlock>
     </Grid>
 </UserControl>
