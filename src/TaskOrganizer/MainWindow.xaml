@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskOrganizer"
         xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModel"
-        xmlns:views="clr-namespace:TaskOrganizer.View" d:DataContext="{d:DesignInstance Type=viewmodels:BaseViewModel}"
+        xmlns:views="clr-namespace:TaskOrganizer.View" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        d:Title="MainWindow" Height="450" Width="800">
+        d:Title="MainWindow" Height="1024" Width="1440">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
@@ -39,7 +39,7 @@
                 <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings"/>
             </StackPanel>
         </Grid>
-      
-        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>
+
+        <ContentControl Grid.Row="1" Content="{Binding BaseViewModel}"/>
     </Grid>
 </Window>
