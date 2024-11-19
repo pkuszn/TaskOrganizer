@@ -9,16 +9,22 @@
         mc:Ignorable="d"
         d:Title="MainWindow" Height="1024" Width="1440">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#3b4243  ">
-            <TextBlock Text="Menu" Foreground="White" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontSize="20"/>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#3b4243  ">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Text="Menu" Foreground="White" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Width" Value="100"/>
+                        <Setter Property="Height" Value="40"/>
                         <Setter Property="Background" Value=" #778487 "/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="Margin" Value="10"/>
@@ -38,8 +44,9 @@
                 <Button Content="Pomodoro" Command="{Binding UpdateViewCommand}" CommandParameter="Pomodoro"/>
                 <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings"/>
             </StackPanel>
+            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Text="Version: 0.0.1" Foreground="White" Margin="10" VerticalAlignment="Center" FontSize="10"/>
         </Grid>
 
-        <ContentControl Grid.Row="1" Content="{Binding BaseViewModel}"/>
+        <ContentControl Grid.Column="1" Content="{Binding BaseViewModel}"/>
     </Grid>
 </Window>
