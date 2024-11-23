@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Serilog;
 
-namespace TaskOrganizer.ViewModel;
+namespace TaskOrganizer.ViewModels;
 
 /// <summary>
 /// Interaction logic for BaseViewModel

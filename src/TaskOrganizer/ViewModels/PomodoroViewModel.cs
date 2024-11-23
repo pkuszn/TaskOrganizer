@@ -11,7 +11,7 @@ using TaskOrganizer.Helpers;
 using TaskOrganizer.Model;
 using static TaskOrganizer.Helpers.FileHelpers;
 
-namespace TaskOrganizer.ViewModel;
+namespace TaskOrganizer.ViewModels;
 
 public class PomodoroViewModel : BaseViewModel
 {

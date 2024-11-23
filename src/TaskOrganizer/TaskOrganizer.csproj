@@ -10,10 +10,14 @@
     <None Remove="Icons\tomato.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Remove="View\Resources\ToggleButton.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Audio\audio.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Icons\tomato.png" />
+    <Resource Include="View\Resources\ToggleButton.xaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
@@ -39,5 +43,8 @@
     <None Update="AppSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\UserControls\" />
   </ItemGroup>
 </Project>

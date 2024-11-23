@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TaskOrganizer.ViewModel;
+﻿namespace TaskOrganizer.ViewModels;
 
 public class SettingsViewModel : BaseViewModel
 {

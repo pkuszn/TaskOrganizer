@@ -1,4 +1,4 @@
-﻿using TaskOrganizer.ViewModel;
+﻿using TaskOrganizer.ViewModels;
 
 namespace TaskOrganizer.Model;
 public class PomodoroModel : BaseViewModel

@@ -9,7 +9,8 @@ using TaskOrganizer.AppConfiguration;
 using TaskOrganizer.Extensions;
 using TaskOrganizer.Repository;
 using TaskOrganizer.Repository.Interfaces;
-using TaskOrganizer.ViewModel;
+using TaskOrganizer.View.Windows;
+using TaskOrganizer.ViewModels;
 
 namespace TaskOrganizer;
 
@@ -38,7 +39,7 @@ public partial class App : Application
 
                 services.ConfigureViewModels();
 
-                services.AddSingleton<MainWindow>();
+                services.AddScoped<LoginWindow>();
 
                 services.AddAutoMapper(typeof(App));
 
@@ -58,9 +59,9 @@ public partial class App : Application
     {
         Log.Information("Starting application...", typeof(App));
         await Host.StartAsync();
-        MainWindow mainWindow = Host.Services.GetRequiredService<MainWindow>();
-        mainWindow.DataContext = Host.Services.GetRequiredService<MainViewModel>();
-        mainWindow.Show();
+        LoginWindow loginWindow = Host.Services.GetRequiredService<LoginWindow>();
+        loginWindow.DataContext = Host.Services.GetRequiredService<LoginViewModel>();
+        loginWindow.Show();
 
         base.OnStartup(e);
     }

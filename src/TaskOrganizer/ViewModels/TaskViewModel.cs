@@ -4,7 +4,7 @@ using System.Windows.Input;
 using TaskOrganizer.Commands;
 using TaskOrganizer.Model;
 
-namespace TaskOrganizer.ViewModel;
+namespace TaskOrganizer.ViewModels;
 
 public class TaskViewModel : BaseViewModel
 {

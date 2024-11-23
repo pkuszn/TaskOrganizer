@@ -3,7 +3,7 @@ using System;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
 
-namespace TaskOrganizer.ViewModel;
+namespace TaskOrganizer.ViewModels;
 public class MainViewModel : BaseViewModel
 {
     private BaseViewModel SelectedViewModel;

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
 
-namespace TaskOrganizer.View;
+namespace TaskOrganizer.View.Pages;
 /// <summary>
 /// Interaction logic for UserAccountView.xaml
 /// </summary>
-public partial class UserAccountView : UserControl
+public partial class UserAccountView : Page
 {
     public UserAccountView()
     {

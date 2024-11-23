@@ -2,23 +2,24 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TaskOrganizer"
-             xmlns:views="clr-namespace:TaskOrganizer.View"
-             xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModel">
+             xmlns:pages="clr-namespace:TaskOrganizer.View.Pages"
+             xmlns:windows="clr-namespace:TaskOrganizer.View.Windows"
+             xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModels">
     <Application.Resources>
         <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
-            <views:TodoView/>
+            <pages:TodoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:PomodoroViewModel}">
-            <views:PomodoroView/>
-        </DataTemplate>  
+            <pages:PomodoroView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
-            <views:SettingsView/>
+            <pages:SettingsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
-            <views:UserAccountView/>
+            <pages:UserAccountView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-            <views:LoginView/>
+        <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
+            <windows:MainWindow/>
         </DataTemplate>
     </Application.Resources>
 </Application>

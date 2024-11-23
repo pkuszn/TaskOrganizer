@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TaskOrganizer.AppConfiguration;
-using TaskOrganizer.ViewModel;
+using TaskOrganizer.ViewModels;
 
 namespace TaskOrganizer.Extensions;
 internal static class ServiceCollectionExtension
 {
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
     {
-        return services.AddScoped<MainViewModel>()
+        return services.AddSingleton<MainViewModel>()
             .AddScoped<TaskViewModel>()
             .AddScoped<PomodoroViewModel>()
             .AddScoped<SettingsViewModel>()
