@@ -69,7 +69,7 @@ public class TaskViewModel : BaseViewModel
         //}
     }
 
-    private void AddNewTaskToList()
+    private void AddNewTaskToList(object obj)
     {
         if (NewTask == null || NewTask.Length == 0)
         {
@@ -94,7 +94,7 @@ public class TaskViewModel : BaseViewModel
     /// <summary>
     /// Delete task from both UI and the store list
     /// </summary>
-    private void DeleteTaskFromTheList()
+    private void DeleteTaskFromTheList(object obj)
     {
         //if (SelectedTask != null)
         //{
@@ -114,7 +114,7 @@ public class TaskViewModel : BaseViewModel
     /// <summary>
     /// Move done tasks to a new list
     /// </summary>
-    private void IsTaskSelected()
+    private void IsTaskSelected(object obj)
     {
         //if (SelectedTask != null)
         //{

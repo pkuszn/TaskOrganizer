@@ -15,7 +15,7 @@ public class MainViewModel : BaseViewModel
     public ICommand UpdateViewCommand { get; }
     public BaseViewModel BaseViewModel
     {
-        get { return SelectedViewModel; }
+        get => SelectedViewModel;
         set
         {
             SelectedViewModel = value;

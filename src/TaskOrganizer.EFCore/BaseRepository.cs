@@ -1,20 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TaskOrganizer.Domain.Interfaces;
 using TaskOrganizer.Repository.Interfaces;
 
 namespace TaskOrganizer.Repository;
 
-public class Repository<E, T> : IRepository<E, T>
+public class BaseRepository<E, T> : IRepository<E, T>
     where E : class, IObject<T>
     where T : struct
 {
-    private readonly TaskOrganizerDbContext DbContext;
+    protected readonly TaskOrganizerDbContext DbContext;
 
-    public Repository(TaskOrganizerDbContext dbContext)
+    public BaseRepository(TaskOrganizerDbContext dbContext)
     {
         DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
@@ -42,7 +41,7 @@ public class Repository<E, T> : IRepository<E, T>
 
     public async Task<IEnumerable<E>> GetAllAsync()
     {
-        IEnumerable<E> entities = await DbContext.Set<E>().Where(entities => entities.IsSelected == true).ToListAsync();
+        IEnumerable<E> entities = await DbContext.Set<E>().ToListAsync();
         return entities;
     }
 

@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskOrganizer.View.Windows" xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModels" IsEnabled="True" d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
+        xmlns:local="clr-namespace:TaskOrganizer.View.Windows" 
+        xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModels" 
+        IsEnabled="True" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
         mc:Ignorable="d"
         xmlns:behaviors="clr-namespace:TaskOrganizer.Behaviors"
         WindowStyle="None"
@@ -11,6 +14,7 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
+        behaviors:WindowBehaviors.Move="True"
         Title="LoginView" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
@@ -39,28 +43,128 @@
                 </LinearGradientBrush>
             </Border.Background>
 
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="25"></ColumnDefinition>
                     <ColumnDefinition Width="25"></ColumnDefinition>
-                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="25"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="LOG IN" Foreground="DarkGray" FontSize="10" FontFamily="Montserrat" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">
-
-                </TextBlock>
+                <TextBlock 
+                    Text="LOG IN" 
+                    Foreground="DarkGray" 
+                    FontSize="10" 
+                    FontFamily="Montserrat" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Center" 
+                    Margin="10,0,0,0"/>
 
                 <ToggleButton Style="{StaticResource ToggleButtonWindowClose}" Grid.Column="3" />
                 <ToggleButton Style="{StaticResource ToggleButtonWindowHide}" Grid.Column="2"/>
                 <ToggleButton Style="{StaticResource ToggleButtonWindowFull}" Grid.Column="1"/>
-            </Grid>
 
+                <StackPanel Width="250" Grid.Row="2" Orientation="Vertical" Margin="0,35,0,0">
+                    <TextBlock Text="LOGIN" Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat" HorizontalAlignment="Center"/>
+                    <TextBlock 
+                        Text="Username" 
+                        Background="Transparent" 
+                        FontSize="12" 
+                        FontWeight="Medium" 
+                        Foreground="DarkGray"
+                        FontFamily="Montserrat" 
+                        Margin='0,35,0,0'/>
+
+                    <TextBox 
+                        x:Name="txtUser"
+                        FontSize="13"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"
+                        Foreground="White"
+                        CaretBrush="LightGray"
+                        BorderBrush="DarkGray"
+                        BorderThickness="0,0,0,1"
+                        Text="{Binding Path=Username}"
+                        Height="28"
+                        Background="Transparent"
+                        VerticalContentAlignment="Center"
+                        Margin="0,5,0,0"/>
+
+                    <TextBlock 
+                        Text="Password" 
+                        Background="Transparent" 
+                        FontSize="12" 
+                        FontWeight="Medium" 
+                        Foreground="DarkGray"
+                        FontFamily="Montserrat" 
+                        Margin='0,35,0,0'/>
+
+                    <TextBox 
+                        x:Name="txtPassword"
+                        FontSize="13"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"
+                        Foreground="White"
+                        Text="{Binding Path=Password}"
+                        CaretBrush="LightGray"
+                        BorderBrush="DarkGray"
+                        BorderThickness="0,0,0,1"
+                        Height="28"
+                        Background="Transparent"
+                        VerticalContentAlignment="Center"
+                        Margin="0,5,0,0"/>
+
+                    <Button
+                        x:Name="loginBtn"
+                        Foreground="White"
+                        BorderThickness="0"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Content="LOG IN"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Margin="0,50,0,0"
+                        Command="{Binding LoginCommand}" 
+                        CommandParameter="Login">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0" >
+                        <TextBlock Text="Forgot Password?" Foreground="DarkGray" FontSize="12" FontWeight="Medium" FontFamily="Montserrat"/>
+                        <Button Content="Reset" BorderThickness="0" Background="Transparent" Command="{Binding ResetAccountCommand}" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Cursor="Hand" Margin="8,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0" >
+                        <TextBlock Text="Do not have account?" Foreground="DarkGray" FontSize="12" FontWeight="Medium" FontFamily="Montserrat"/>
+                        <Button Content="Create" BorderThickness="0" Background="Transparent" Command="{Binding CreateAccountCommand}" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Cursor="Hand" Margin="8,0,0,0"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
         </Border>
     </Border>
 </Window>

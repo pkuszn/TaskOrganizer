@@ -152,7 +152,7 @@ public class PomodoroViewModel : BaseViewModel
         UpdateAmountOfPomodoros();
     }
 
-    private void CommandCountingSelector()
+    private void CommandCountingSelector(object obj)
     {
         if (PomodoroTimer == null)
         {
@@ -187,7 +187,7 @@ public class PomodoroViewModel : BaseViewModel
         CurrentDate = DateTime.Now.ToString("dddd dd MMMM yyyy");
     }
 
-    private void StopPomodoroTimer()
+    private void StopPomodoroTimer(object obj)
     {
         PomodoroTimer?.Stop();
     }
@@ -218,7 +218,7 @@ public class PomodoroViewModel : BaseViewModel
     }
 
 
-    private void ResetPomodoroTimer()
+    private void ResetPomodoroTimer(object obj)
     {
         if (PomodoroTimer != null)
         {
@@ -262,7 +262,7 @@ public class PomodoroViewModel : BaseViewModel
     /// <summary>
     /// Stop a timer and add up the given time - should be improved
     /// </summary>
-    private void SumHoursIfClockStopsEarly()
+    private void SumHoursIfClockStopsEarly(object obj)
     {
         if (PomodoroTimer != null)
         {
@@ -306,7 +306,7 @@ public class PomodoroViewModel : BaseViewModel
         }
     }
 
-    private void DebugTime()
+    private void DebugTime(object obj)
     {
         time = 5;
     }

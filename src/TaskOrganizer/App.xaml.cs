@@ -8,7 +8,6 @@ using System.Windows;
 using TaskOrganizer.AppConfiguration;
 using TaskOrganizer.Extensions;
 using TaskOrganizer.Repository;
-using TaskOrganizer.Repository.Interfaces;
 using TaskOrganizer.View.Windows;
 using TaskOrganizer.ViewModels;
 
@@ -35,7 +34,9 @@ public partial class App : Application
                         rollOnFileSizeLimit: true)
                     .CreateLogger();
 
-                services.ConfigureStorages();
+                services.AddSingleton(Log.Logger);
+
+                services.ConfigureServices();
 
                 services.ConfigureViewModels();
 
@@ -47,12 +48,11 @@ public partial class App : Application
                     options.UseSqlite(builder.Configuration[$"{ConnectionStringOptions.SectionName}:Default"]),
                     ServiceLifetime.Scoped);
 
-                services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-
                 services.ConfigureOptions(config);
 
                 services.BuildServiceProvider();
             })
+        .UseSerilog()
         .Build();
     }
     protected override async void OnStartup(StartupEventArgs e)
