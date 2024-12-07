@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:behaviors="clr-namespace:TaskOrganizer.Behaviors">
-
+                    xmlns:local="clr-namespace:TaskOrganizer.Behaviors;assembly=TaskOrganizer">
     <!-- Close Button -->
     <Style x:Key="ToggleButtonWindowClose" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
@@ -21,7 +20,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="behaviors:WindowBehaviors.Close" Value="True" />
+                            <Setter Property="local:WindowBehaviors.Close" Value="True" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -45,7 +44,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="behaviors:WindowBehaviors.Hide" Value="True" />
+                            <Setter Property="local:WindowBehaviors.Hide" Value="True" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -70,10 +69,10 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="behaviors:WindowBehaviors.Full" Value="True" />
+                            <Setter Property="local:WindowBehaviors.Full" Value="True" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="behaviors:WindowBehaviors.Normal" Value="True" />
+                            <Setter Property="local:WindowBehaviors.Normal" Value="True" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

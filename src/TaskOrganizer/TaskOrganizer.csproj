@@ -6,18 +6,21 @@
     <StartupObject>TaskOrganizer.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Audio\audio.wav" />
-    <None Remove="Icons\tomato.png" />
+    <None Remove="Resources\Audio\audio.wav" />
+    <None Remove="Resources\Icons\2eIs7363.jpg" />
+    <None Remove="Resources\Icons\tomato.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="View\Resources\ToggleButton.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Audio\audio.wav">
+    <Content Include="Resources\Audio\audio.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Icons\tomato.png" />
-    <Resource Include="View\Resources\ToggleButton.xaml" />
+    <Resource Include="Resources\Icons\2eIs7363.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\tomato.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
@@ -46,5 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\UserControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\ToggleButton.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 </Project>
