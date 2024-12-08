@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Project": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "TASKORGANIZER_ENVIRONMENT": "Development",
+        "CustomSetting": "True"
+      },
+      "args": [
+        "--theme",
+        "dark"
+      ]
+    }
+  }
+}

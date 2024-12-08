@@ -5,11 +5,11 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D9B537E8-B7BD-4C3C-A95B-F51F6032F56D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskOrganizer.Repository", "src\TaskOrganizer.EFCore\TaskOrganizer.Repository.csproj", "{62C176EF-DF23-4C27-A2D7-50AD089B30B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer", "src\TaskOrganizer\TaskOrganizer.csproj", "{B2131043-2272-432C-9C15-4AC5E3775635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskOrganizer", "src\TaskOrganizer\TaskOrganizer.csproj", "{B2131043-2272-432C-9C15-4AC5E3775635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer.Domain", "src\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj", "{E09771F0-8A29-4E9B-92CB-3D2D2097E91F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskOrganizer.Domain", "src\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj", "{E09771F0-8A29-4E9B-92CB-3D2D2097E91F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskOrganizer.Repository", "src\TaskOrganizer.Repository\TaskOrganizer.Repository.csproj", "{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62C176EF-DF23-4C27-A2D7-50AD089B30B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62C176EF-DF23-4C27-A2D7-50AD089B30B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62C176EF-DF23-4C27-A2D7-50AD089B30B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62C176EF-DF23-4C27-A2D7-50AD089B30B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2131043-2272-432C-9C15-4AC5E3775635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B2131043-2272-432C-9C15-4AC5E3775635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2131043-2272-432C-9C15-4AC5E3775635}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,14 +25,18 @@ Global
 		{E09771F0-8A29-4E9B-92CB-3D2D2097E91F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E09771F0-8A29-4E9B-92CB-3D2D2097E91F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E09771F0-8A29-4E9B-92CB-3D2D2097E91F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{62C176EF-DF23-4C27-A2D7-50AD089B30B3} = {D9B537E8-B7BD-4C3C-A95B-F51F6032F56D}
 		{B2131043-2272-432C-9C15-4AC5E3775635} = {D9B537E8-B7BD-4C3C-A95B-F51F6032F56D}
 		{E09771F0-8A29-4E9B-92CB-3D2D2097E91F} = {D9B537E8-B7BD-4C3C-A95B-F51F6032F56D}
+		{2B8E9FBF-49CA-48B1-A2E8-15BEABF46922} = {D9B537E8-B7BD-4C3C-A95B-F51F6032F56D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C4D3A72-854A-4233-9826-ECB34CC127D2}

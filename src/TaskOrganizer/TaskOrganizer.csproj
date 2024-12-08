@@ -42,10 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskOrganizer.Domain\TaskOrganizer.Domain.csproj" />
-    <ProjectReference Include="..\TaskOrganizer.EFCore\TaskOrganizer.Repository.csproj" />
+    <ProjectReference Include="..\TaskOrganizer.Repository\TaskOrganizer.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="AppSettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="AppSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AppSettings.Production.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

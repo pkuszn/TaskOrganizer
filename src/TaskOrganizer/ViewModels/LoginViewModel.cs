@@ -46,7 +46,7 @@ public class LoginViewModel : BaseViewModel
         ShowPasswordCommand = new RelayCommand(ExecuteShowPasswordCommand);
         UserService = userService ?? throw new ArgumentNullException(nameof(userService));
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        Logger.Error("Registering login view..."); //temp
+        Logger.Information("Registering login view..."); //temp
     }
 
     private void ExecuteShowPasswordCommand(object obj)
@@ -72,7 +72,7 @@ public class LoginViewModel : BaseViewModel
             Domain="test",
             UserName=_username,
             Password=_password
-        });
+        }, new System.Threading.CancellationToken());
 
         if (isAuthenticated)
         {
@@ -80,12 +80,13 @@ public class LoginViewModel : BaseViewModel
         }
         else 
         {
-            Logger.Information($"{_username} credentials are invalid");
+            Logger.Information("Authentication failed...");
         }
     }
 
     private bool CanExecuteLoginCommand(object obj)
     {
+        Logger.Information($"{nameof(_password)}: {_password}");
         if (string.IsNullOrEmpty(Username) || Username.Length <= 3 || string.IsNullOrEmpty(Password) || Password.Length < 3)
         {
             Logger.Information($"{_username} credentials are invalid");

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TaskOrganizer.AppConfiguration;
+using TaskOrganizer.Repository;
 using TaskOrganizer.Repository.Interfaces;
 using TaskOrganizer.Repository.Services;
 using TaskOrganizer.ViewModels;
@@ -26,6 +27,7 @@ internal static class ServiceCollectionExtension
 
     public static IServiceCollection ConfigureServices(this IServiceCollection services) 
     {
-        return services.AddScoped<IUserService, UserService>();
+        return services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>))
+            .AddScoped<IUserService, UserService>();
     }
 }
