@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS user (
     login TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL,
-    is_selected BOOLEAN NOT NULL DEFAULT 0
+    is_valid BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS task (
