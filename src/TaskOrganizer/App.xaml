@@ -18,8 +18,5 @@
         <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
             <pages:UserAccountView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
-            <windows:MainWindow/>
-        </DataTemplate>
     </Application.Resources>
 </Application>

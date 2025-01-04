@@ -1,9 +1,12 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
+using System.Linq;
 using System.Net;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
 using TaskOrganizer.Repository.Interfaces;
+using TaskOrganizer.View.Windows;
 
 namespace TaskOrganizer.ViewModels;
 public class LoginViewModel : BaseViewModel
@@ -46,7 +49,6 @@ public class LoginViewModel : BaseViewModel
         ShowPasswordCommand = new RelayCommand(ExecuteShowPasswordCommand);
         UserService = userService ?? throw new ArgumentNullException(nameof(userService));
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        Logger.Information("Registering login view..."); //temp
     }
 
     private void ExecuteShowPasswordCommand(object obj)
@@ -77,6 +79,11 @@ public class LoginViewModel : BaseViewModel
         if (isAuthenticated)
         {
             Logger.Information($"{_username} is authenticated");
+            MainWindow mainWindow = App.Services.GetRequiredService<MainWindow>();
+            mainWindow.DataContext= App.Services.GetRequiredService<MainViewModel>();
+
+            LoginWindow loginWindow = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
+            loginWindow?.Close();
         }
         else 
         {

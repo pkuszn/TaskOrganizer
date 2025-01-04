@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using TaskOrganizer.Domain.Models;
-using TaskOrganizer.Model;
 
 namespace TaskOrganizer.MapperProfiles;
 public class TaskProfile : Profile
