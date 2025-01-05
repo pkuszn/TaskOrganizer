@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,13 +15,12 @@ internal static class ServiceCollectionExtension
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
     {
         return services.AddSingleton<MainViewModel>()
-            .AddSingleton<TaskViewModel>()
-            .AddSingleton<PomodoroViewModel>()
-            .AddSingleton<SettingsViewModel>()
-            .AddSingleton<LoginViewModel>()
-            .AddSingleton<UserAccountViewModel>();
+            .AddScoped<TaskViewModel>()
+            .AddScoped<PomodoroViewModel>()
+            .AddScoped<SettingsViewModel>()
+            .AddScoped<LoginViewModel>()
+            .AddScoped<UserAccountViewModel>();
     }
-
 
     public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfigurationRoot configurationRoot)
     {

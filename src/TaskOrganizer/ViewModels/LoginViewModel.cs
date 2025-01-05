@@ -38,15 +38,15 @@ public class LoginViewModel : BaseViewModel
         set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); }
     }
     public ICommand LoginCommand { get; }
-    public ICommand ResetAccoundCommand { get; }
+    public ICommand ResetAccountCommand { get; }
     public ICommand CreateAccountCommand { get; }
     public ICommand ShowPasswordCommand { get; }
     public LoginViewModel(IUserService userService, ILogger logger)
     {
-        LoginCommand = new RelayCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-        ResetAccoundCommand = new RelayCommand(ExecuteResetAccoundCommand);
-        CreateAccountCommand = new RelayCommand(ExecuteCreateAccountCommand);
-        ShowPasswordCommand = new RelayCommand(ExecuteShowPasswordCommand);
+        LoginCommand = new RelayCommand(ExecuteLoginCommand, CanExecuteLoginCommand) ?? throw new NullReferenceException();
+        ResetAccountCommand = new RelayCommand(ExecuteResetAccountCommand) ?? throw new NullReferenceException();
+        CreateAccountCommand = new RelayCommand(ExecuteCreateAccountCommand) ?? throw new NullReferenceException();
+        ShowPasswordCommand = new RelayCommand(ExecuteShowPasswordCommand) ?? throw new NullReferenceException();
         UserService = userService ?? throw new ArgumentNullException(nameof(userService));
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -61,7 +61,7 @@ public class LoginViewModel : BaseViewModel
         throw new NotImplementedException();
     }
 
-    private void ExecuteResetAccoundCommand(object obj)
+    private void ExecuteResetAccountCommand(object obj)
     {
         throw new NotImplementedException();
     }
@@ -81,10 +81,11 @@ public class LoginViewModel : BaseViewModel
             Logger.Information($"{_username} is authenticated");
             MainWindow mainWindow = App.Services.GetRequiredService<MainWindow>();
             mainWindow.DataContext= App.Services.GetRequiredService<MainViewModel>();
+            mainWindow.Show();
 
             LoginWindow loginWindow = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
             loginWindow?.Close();
-        }
+        } 
         else 
         {
             Logger.Information("Authentication failed...");

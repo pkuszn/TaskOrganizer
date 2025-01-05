@@ -34,15 +34,26 @@ public class MainViewModel : BaseViewModel
         BaseViewModel = taskViewModel ?? throw new ArgumentNullException(nameof(taskViewModel));
         UpdateViewCommand = new UpdateViewCommand(viewName =>
         {
-            BaseViewModel = viewName switch
-            {
-                TodoViewName => taskViewModel,
-                PomodoroViewName => pomodoroViewModel,
-                SettingsViewName => settingsViewModel,
-                LoginViewName => loginViewModel,
-                UserAccountViewName => userAccountViewModel,
-                _ => BaseViewModel
-            };
+            SwitchView(taskViewModel, pomodoroViewModel, settingsViewModel, loginViewModel, userAccountViewModel, viewName);
         });
+    }
+
+    private void SwitchView(
+        TaskViewModel taskViewModel, 
+        PomodoroViewModel pomodoroViewModel, 
+        SettingsViewModel settingsViewModel, 
+        LoginViewModel loginViewModel, 
+        UserAccountViewModel userAccountViewModel, 
+        string viewName)
+    {
+        BaseViewModel = viewName switch
+        {
+            TodoViewName => taskViewModel,
+            PomodoroViewName => pomodoroViewModel,
+            SettingsViewName => settingsViewModel,
+            LoginViewName => loginViewModel,
+            UserAccountViewName => userAccountViewModel,
+            _ => BaseViewModel
+        };
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -47,8 +46,8 @@ public partial class App : Application
                     .ConfigureOptions(config)
                     .BuildServiceProvider();
             })
-        .UseSerilog()
-        .Build();
+            .UseSerilog()
+            .Build();
 
         Services = Host.Services;
     }
@@ -71,13 +70,9 @@ public partial class App : Application
             Log.Debug("*** Database setup completed ***");
         }
 
-        //LoginWindow loginWindow = Host.Services.GetRequiredService<LoginWindow>();
-        //loginWindow.DataContext = Host.Services.GetRequiredService<LoginViewModel>();
-        //loginWindow.Show();
-
-        MainWindow mainWindow = Host.Services.GetRequiredService<MainWindow>();
-        mainWindow.DataContext = Host.Services.GetRequiredService<MainViewModel>();
-        mainWindow.Show();
+        LoginWindow loginWindow = Host.Services.GetRequiredService<LoginWindow>();
+        loginWindow.DataContext = Host.Services.GetRequiredService<LoginViewModel>();
+        loginWindow.Show();
 
         await Host.StartAsync();
         base.OnStartup(e);
