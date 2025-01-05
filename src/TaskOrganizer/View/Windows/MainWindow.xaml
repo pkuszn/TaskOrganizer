@@ -9,6 +9,20 @@
         xmlns:views="clr-namespace:TaskOrganizer.View.Windows" IsEnabled="True" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         d:Title="MainWindow" Height="800" Width="1440">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
+            <pages:TaskView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:PomodoroViewModel}">
+            <pages:PomodoroView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+            <pages:SettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
+            <pages:UserAccountView />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*"/>
@@ -109,7 +123,6 @@
             <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Text="Version: 0.0.1" Foreground="White" Margin="10" VerticalAlignment="Center" FontSize="10"/>
         </Grid>
 
-        <ContentControl Grid.Column="1" Content="{Binding BaseViewModel}"/>
+        <Frame Grid.Column="1" Content="{Binding BaseViewModel}" NavigationUIVisibility="Hidden"/>
     </Grid>
-
 </Window>
