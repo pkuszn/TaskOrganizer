@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
+using TaskOrganizer.Repository.Dtos;
 using TaskOrganizer.Repository.Interfaces;
 using TaskOrganizer.View.Windows;
 
@@ -100,7 +101,9 @@ public class LoginViewModel : BaseViewModel
             UserName = _username,
             Password = _password
         };
-        if (await UserService.AuthenticateUserAsync(credentials, CancellationToken.None))
+
+        AuthResult userAuthResult = await UserService.AuthenticateUserAsync(credentials, CancellationToken.None);
+        if (userAuthResult.IsAuthenticated)
         {
             Logger.Information($"{_username} is authenticated successfully.");
 
@@ -111,22 +114,36 @@ public class LoginViewModel : BaseViewModel
             App.Current.Windows.OfType<LoginWindow>().FirstOrDefault()?.Close();
             IsPasswordIncorrect = false;
         }
+        else if (userAuthResult.Result == Repository.Consts.Enums.AuthResultEnum.InvalidUsername)
+        {
+            Logger.Warning("Authentication failed. User not found. Please check your credentials.");
+            IsPasswordIncorrect = true;
+        }
+        else if (userAuthResult.Result == Repository.Consts.Enums.AuthResultEnum.InvalidPassword)
+        {
+            Logger.Warning("Authentication failed. Password is invalid. Please check your credentials.");
+            IsPasswordIncorrect = true;
+        }
         else
         {
-            Logger.Warning("Authentication failed. Please check your credentials.");
-            IsPasswordIncorrect = true;
+            throw new Exception("Unexpected");
+            //TODO
         }
     }
 
     private bool CanExecuteLoginCommand(object obj)
     {
-        bool isInvalid = !string.IsNullOrWhiteSpace(Username) && Username.Length > 3
-            && !string.IsNullOrWhiteSpace(Password) && Password.Length >= 3;
-
+        bool isInvalid = CredentialValidationPredicate();
         Logger.Information(isInvalid
             ? $"{Username} credentials are valid"
             : $"{Username} credentials are invalid");
 
         return isInvalid;
+    }
+
+    private bool CredentialValidationPredicate()
+    {
+        return !string.IsNullOrWhiteSpace(Username) && Username.Length > 3
+            && !string.IsNullOrWhiteSpace(Password) && Password.Length >= 3;
     }
 }
