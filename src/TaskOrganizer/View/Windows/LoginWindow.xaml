@@ -9,6 +9,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
         mc:Ignorable="d"
         xmlns:behaviors="clr-namespace:TaskOrganizer.Behaviors"
+        xmlns:converters="clr-namespace:TaskOrganizer.Converters"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -21,6 +22,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:MultiBooleanToVisibilityConverter x:Key="MultiBooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <Border CornerRadius="12">
@@ -70,7 +73,7 @@
                 <ToggleButton Style="{StaticResource ToggleButtonWindowHide}" Grid.Column="2"/>
                 <ToggleButton Style="{StaticResource ToggleButtonWindowFull}" Grid.Column="1"/>
 
-                <StackPanel Width="250" Grid.Row="2" Orientation="Vertical" Margin="0,35,0,0">
+                <StackPanel Width="250" Grid.Row="2" Grid.ColumnSpan="4" Orientation="Vertical" Margin="0,35,0,0">
                     <TextBlock Text="LOGIN" Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat" HorizontalAlignment="Center"/>
                     <TextBlock 
                         Text="Username" 
@@ -119,7 +122,27 @@
                         Background="Transparent"
                         VerticalContentAlignment="Center"
                         Margin="0,5,0,0"/>
-                    
+
+
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,15,0,0">
+                        <StackPanel.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiBooleanToVisibilityConverter}">
+                                <Binding Path="IsLoginAttempted"/>
+                                <Binding Path="IsPasswordIncorrect"/>
+                            </MultiBinding>
+                        </StackPanel.Visibility>
+                        <TextBlock 
+                            Text="The password is incorrect. Please, try again." 
+                            Foreground="Red" 
+                            FontSize="12" 
+                            FontWeight="Medium" 
+                            FontFamily="Montserrat"/>
+
+                    </StackPanel>
+
                     <Button
                         x:Name="loginBtn"
                         Foreground="White"

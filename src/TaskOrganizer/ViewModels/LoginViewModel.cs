@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
 using TaskOrganizer.Repository.Interfaces;
@@ -16,27 +17,50 @@ public class LoginViewModel : BaseViewModel
     private string _username;
     private string _password;
     private string _errorMessage;
-    private bool _isViewVisible = true;
+    private bool _isPasswordIncorrect = false;
+    private bool _isLoginAttempted = false;
     public string Username
     {
         get => _username; 
-        set { _username = value; OnPropertyChanged(nameof(Username)); }
+        set { _username = value; }
     }
     public string Password
     {
         get => _password;
-        set { _password = value; OnPropertyChanged(nameof(Password)); }
+        set { _password = value;}
     }
     public string ErrorMessage
     {
         get => _errorMessage;
         set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); }
     }
-    public bool IsViewVisible
+
+    public bool IsPasswordIncorrect
     {
-        get => _isViewVisible;
-        set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); }
+        get => _isPasswordIncorrect;
+        set
+        {
+            if (_isPasswordIncorrect != value)
+            {
+                _isPasswordIncorrect = value;
+                OnPropertyChanged(nameof(IsPasswordIncorrect));
+            }
+        }
     }
+
+    public bool IsLoginAttempted
+    {
+        get => _isLoginAttempted;
+        set
+        {
+            if (_isLoginAttempted != value)
+            {
+                _isLoginAttempted = value;
+                OnPropertyChanged(nameof(IsLoginAttempted));
+            }
+        }
+    }
+
     public ICommand LoginCommand { get; }
     public ICommand ResetAccountCommand { get; }
     public ICommand CreateAccountCommand { get; }
@@ -69,38 +93,40 @@ public class LoginViewModel : BaseViewModel
     private async void ExecuteLoginCommand(object obj)
     {
         Logger.Information("Authentication started...");
-        bool isAuthenticated = await UserService.AuthenticateUserAsync(new NetworkCredential
+        IsLoginAttempted = true;
+        NetworkCredential credentials = new()
         {
-            Domain="test",
-            UserName=_username,
-            Password=_password
-        }, new System.Threading.CancellationToken());
+            Domain = "test",
+            UserName = _username,
+            Password = _password
+        };
+        if (await UserService.AuthenticateUserAsync(credentials, CancellationToken.None))
+        {
+            Logger.Information($"{_username} is authenticated successfully.");
 
-        if (isAuthenticated)
-        {
-            Logger.Information($"{_username} is authenticated");
             MainWindow mainWindow = App.Services.GetRequiredService<MainWindow>();
-            mainWindow.DataContext= App.Services.GetRequiredService<MainViewModel>();
+            mainWindow.DataContext = App.Services.GetRequiredService<MainViewModel>();
             mainWindow.Show();
 
-            LoginWindow loginWindow = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
-            loginWindow?.Close();
-        } 
-        else 
+            App.Current.Windows.OfType<LoginWindow>().FirstOrDefault()?.Close();
+            IsPasswordIncorrect = false;
+        }
+        else
         {
-            Logger.Information("Authentication failed...");
+            Logger.Warning("Authentication failed. Please check your credentials.");
+            IsPasswordIncorrect = true;
         }
     }
 
     private bool CanExecuteLoginCommand(object obj)
     {
-        Logger.Information($"{nameof(_password)}: {_password}");
-        if (string.IsNullOrEmpty(Username) || Username.Length <= 3 || string.IsNullOrEmpty(Password) || Password.Length < 3)
-        {
-            Logger.Information($"{_username} credentials are invalid");
-            return false;
-        }
-        Logger.Information($"{_username} credentials are valid");
-        return true;
+        bool isInvalid = !string.IsNullOrWhiteSpace(Username) && Username.Length > 3
+            && !string.IsNullOrWhiteSpace(Password) && Password.Length >= 3;
+
+        Logger.Information(isInvalid
+            ? $"{Username} credentials are valid"
+            : $"{Username} credentials are invalid");
+
+        return isInvalid;
     }
 }
