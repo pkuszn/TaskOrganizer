@@ -1,9 +1,10 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskOrganizer.Repository.Dtos;
 
 namespace TaskOrganizer.Repository.Interfaces;
 public interface IUserService
 {
-    Task<bool> AuthenticateUserAsync(NetworkCredential credential, CancellationToken cancellationToken);
+    Task<AuthResult> AuthenticateUserAsync(NetworkCredential credential, CancellationToken cancellationToken);
 }

@@ -4,9 +4,9 @@ namespace TaskOrganizer.View.Pages;
 /// <summary>
 /// Interaction logic for TodoView.xaml
 /// </summary>
-public partial class TodoView : Page
+public partial class TaskView : Page
 {
-    public TodoView()
+    public TaskView()
     {
         InitializeComponent();
     }

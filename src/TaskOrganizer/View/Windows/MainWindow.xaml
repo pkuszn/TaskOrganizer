@@ -5,15 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskOrganizer"
         xmlns:viewmodels="clr-namespace:TaskOrganizer.ViewModels"
+        xmlns:pages="clr-namespace:TaskOrganizer.View.Pages"
         xmlns:views="clr-namespace:TaskOrganizer.View.Windows" IsEnabled="True" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        d:Title="MainWindow" Height="1024" Width="1440">
+        d:Title="MainWindow" Height="800" Width="1440">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
+            <pages:TaskView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:PomodoroViewModel}">
+            <pages:PomodoroView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+            <pages:SettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
+            <pages:UserAccountView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:AnalyticsViewModel}">
+            <pages:AnalyticsView />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="#3b4243  ">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#060531" Offset="0"></GradientStop>
+                    <GradientStop Color="#1B1446" Offset="0.75"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition/>
@@ -23,32 +47,93 @@
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
-                        <Setter Property="Width" Value="100"/>
-                        <Setter Property="Height" Value="40"/>
-                        <Setter Property="Background" Value=" #778487 "/>
+                        <Setter Property="Width" Value="80"/>
+                        <Setter Property="Height" Value="80"/>
+                        <Setter Property="Background" Value="#3498db"/>
                         <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="BorderBrush" Value="#2980b9"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="10"/>
                         <Setter Property="Margin" Value="10"/>
-                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="3" Background="#778487" BorderBrush="#778487" BorderThickness="0,1,1,0" >
-                                        <ContentPresenter x:Name="contentPresenter"/>
+                                    <Border x:Name="BorderElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                        <Grid>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal">
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BorderElement" 
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                        To="#462AD8" Duration="0:0:0.3" />
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="MouseOver">
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BorderElement" 
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                        To="#28AEED" Duration="0:0:0.3" />
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <ContentPresenter x:Name="contentPresenter"/>
+                                        </Grid>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
                     </Style>
                 </StackPanel.Resources>
-                <Button Content="Task" Command="{Binding UpdateViewCommand}" CommandParameter="Task"/>
-                <Button Content="Pomodoro" Command="{Binding UpdateViewCommand}" CommandParameter="Pomodoro"/>
-                <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings"/>
-                <Button Content="Login" Command="{Binding UpdateViewCommand}" CommandParameter="Login"/>
-                <Button Content="UserAccount" Command="{Binding UpdateViewCommand}" CommandParameter="UserAccount"/>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="Task">
+                    <Button.ToolTip>
+                        <ToolTip Content="Task"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/menu-task-icon.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="Pomodoro">
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomodoro"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/pomodoro-technique.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="Settings">
+                    <Button.ToolTip>
+                        <ToolTip Content="Settings"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/setting.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="UserAccount">
+                    <Button.ToolTip>
+                        <ToolTip Content="UserAccount"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/user.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="Analytics">
+                    <Button.ToolTip>
+                        <ToolTip Content="Analytics"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/bar-chart.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
             <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Text="Version: 0.0.1" Foreground="White" Margin="10" VerticalAlignment="Center" FontSize="10"/>
         </Grid>
 
-        <ContentControl Grid.Column="1" Content="{Binding BaseViewModel}"/>
+        <Frame Grid.Column="1" Content="{Binding BaseViewModel}" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

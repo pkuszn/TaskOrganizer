@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TaskOrganizer.AppConfiguration;
 using TaskOrganizer.Repository;
 using TaskOrganizer.Repository.Interfaces;
 using TaskOrganizer.Repository.Services;
+using TaskOrganizer.View.Windows;
 using TaskOrganizer.ViewModels;
 
 namespace TaskOrganizer.Extensions;
@@ -16,7 +19,8 @@ internal static class ServiceCollectionExtension
             .AddScoped<PomodoroViewModel>()
             .AddScoped<SettingsViewModel>()
             .AddScoped<LoginViewModel>()
-            .AddScoped<UserAccountViewModel>();
+            .AddScoped<UserAccountViewModel>()
+            .AddScoped<AnalyticsViewModel>();
     }
 
     public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfigurationRoot configurationRoot)
@@ -29,5 +33,18 @@ internal static class ServiceCollectionExtension
     {
         return services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>))
             .AddScoped<IUserService, UserService>();
+    }
+
+    public static IServiceCollection ConfigureWindows(this IServiceCollection services)
+    {
+       return services.AddScoped<LoginWindow>()
+            .AddScoped<MainWindow>();
+    }
+
+    public static IServiceCollection ConfigureDbContext(this IServiceCollection services, HostBuilderContext builder)
+    {
+        return services.AddDbContext<TaskOrganizerDbContext>(options =>
+            options.UseSqlite(builder.Configuration[$"{ConnectionStringOptions.SectionName}:Default"]),
+                ServiceLifetime.Scoped);
     }
 }

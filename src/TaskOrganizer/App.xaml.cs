@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -18,23 +17,15 @@ namespace TaskOrganizer;
 public partial class App : Application
 {
     private readonly IHost Host;
+    public static IServiceProvider Services { get; private set; }
     public App()
     {
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-            .ConfigureHostConfiguration(config =>
-            {
-                string environment = Environment.GetEnvironmentVariable("TASKORGANIZER_ENVIRONMENT") ?? "Development";
-                config.AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    { "ASPNETCORE_ENVIRONMENT", environment }
-                });
-            })
             .ConfigureServices((builder, services) =>
             {
                 IHostEnvironment env = builder.HostingEnvironment;
                 IConfigurationRoot config = new ConfigurationBuilder()
                     .SetBasePath(AppContext.BaseDirectory)
-                    .AddJsonFile("AppSettings.json", optional: false, reloadOnChange: true)
                     .AddJsonFile($"AppSettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true)
                     .Build();
 
@@ -46,26 +37,19 @@ public partial class App : Application
                         rollOnFileSizeLimit: true)
                     .CreateLogger();
 
-                services.AddSingleton(Log.Logger);
-
-                services.ConfigureServices();
-
-                services.ConfigureViewModels();
-
-                services.AddScoped<LoginWindow>();
-
-                services.AddAutoMapper(typeof(App));
-
-                services.AddDbContext<TaskOrganizerDbContext>(options =>
-                    options.UseSqlite(builder.Configuration[$"{ConnectionStringOptions.SectionName}:Default"]),
-                    ServiceLifetime.Scoped);
-
-                services.ConfigureOptions(config);
-
-                services.BuildServiceProvider();
+                services.AddSingleton(Log.Logger)
+                    .ConfigureServices()
+                    .ConfigureViewModels()
+                    .ConfigureWindows()
+                    .AddAutoMapper(typeof(App))
+                    .ConfigureDbContext(builder)
+                    .ConfigureOptions(config)
+                    .BuildServiceProvider();
             })
-        .UseSerilog()
-        .Build();
+            .UseSerilog()
+            .Build();
+
+        Services = Host.Services;
     }
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -74,15 +58,16 @@ public partial class App : Application
         {
             TaskOrganizerDbContext dbContext = scope.ServiceProvider.GetRequiredService<TaskOrganizerDbContext>();
             IHostEnvironment environment = Host.Services.GetRequiredService<IHostEnvironment>();
-            if (environment.IsProduction())
+            if (environment.IsDevelopment())
             {
+                //TODO: temp
                 List<User> users = [.. dbContext.Users];
                 foreach (User user in users)
                 {
-                    Log.Information($"User: {user.Login}");
+                    Log.Debug($"User: {user.Login}");
                 }
             }
-            Log.Information("*** Database setup completed ***");
+            Log.Debug("*** Database setup completed ***");
         }
 
         LoginWindow loginWindow = Host.Services.GetRequiredService<LoginWindow>();

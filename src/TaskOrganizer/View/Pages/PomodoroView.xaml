@@ -5,87 +5,250 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TaskOrganizer.View.Pages" xmlns:viewmodel="clr-namespace:TaskOrganizer.ViewModels" IsEnabled="True" d:DataContext="{d:DesignInstance Type=viewmodel:PomodoroViewModel}"
              mc:Ignorable="d" 
+             FontSize="12"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="GhostWhite">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="0.33*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.Resources>
-                    <DataTemplate x:Key="PomodoroTemplate">
-                        <Image Source="{Binding Path=ImageFilePath}"/>
-                    </DataTemplate>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <Border>
-                        <Label Content="Current task" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="20"/>
-                    </Border>
-                    <TextBlock Text="{Binding CurrentTask, FallbackValue=CURRENT}" HorizontalAlignment="Center"/>
-                    <Border Margin="20">
-                        <Label Content="Amount of time spent" HorizontalAlignment="Center" FontSize="20"/>
-                    </Border>
-                    <TextBlock Text="{Binding AmountOfPomodoros, FallbackValue=0}" HorizontalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="{Binding CurrentDate, FallbackValue=mm:dd:yyyy}" FontSize="10" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding CurrentTime, FallbackValue=mm:ss}" FontSize="10" HorizontalAlignment="Right"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1"  VerticalAlignment="Center">
-                    <TextBlock Text="{Binding StrTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50" Width="100" Margin="0,100,0,0">
-                    <Canvas>
-                        <ItemsControl Background="White">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding filePath}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Canvas>
-                </StackPanel>
-            </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.2*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0" Margin="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Select a value from the list" HorizontalAlignment="Center"/>
-                    <ComboBox Width="140" Height="20" IsEnabled="True"  Margin="0,-60,0,0" Text="{Binding CurrentPomodoroTick, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
-                        <ComboBoxItem>0.25</ComboBoxItem>
-                        <ComboBoxItem>1</ComboBoxItem>
-                        <ComboBoxItem>2</ComboBoxItem>
-                        <!-- Test value -->
-                        <ComboBoxItem>15</ComboBoxItem>
-                        <ComboBoxItem>30</ComboBoxItem>
-                        <ComboBoxItem>45</ComboBoxItem>
-                        <ComboBoxItem>60</ComboBoxItem>
-                    </ComboBox>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel.Resources>
-                            <Style TargetType="Button">
-                                <Setter Property="Height" Value="25"/>
-                                <Setter Property="MinWidth" Value="50"/>
-                            </Style>
-                        </StackPanel.Resources>
-                    </StackPanel>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="12" HorizontalAlignment="Left">Pomodoro timer settings</TextBlock>
+                        <Line Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill" Stroke="Gray" X2="2" StrokeThickness="1.5"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock VerticalAlignment="Center" FontSize="10" HorizontalAlignment="Left">Time (minutes)</TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0, 5, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.2*" />
+                                    <RowDefinition Height="0.8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, -10">Pomodoro</TextBlock>
+                                <ComboBox Grid.Row="1" Height="20">
+                                    <ComboBoxItem>10</ComboBoxItem>
+                                    <ComboBoxItem>15</ComboBoxItem>
+                                    <ComboBoxItem>20</ComboBoxItem>
+                                    <ComboBoxItem>25</ComboBoxItem>
+                                    <ComboBoxItem>30</ComboBoxItem>
+                                    <ComboBoxItem>35</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.2*" />
+                                    <RowDefinition Height="0.8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, -10">Short break</TextBlock>
+                                <ComboBox Grid.Row="1" Height="20">
+                                    <ComboBoxItem>2</ComboBoxItem>
+                                    <ComboBoxItem>5</ComboBoxItem>
+                                    <ComboBoxItem>7</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.2*" />
+                                    <RowDefinition Height="0.8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, -10">Long break</TextBlock>
+                                <ComboBox Grid.Row="1" Height="20">
+                                    <ComboBoxItem>5</ComboBoxItem>
+                                    <ComboBoxItem>10</ComboBoxItem>
+                                    <ComboBoxItem>15</ComboBoxItem>
+                                    <ComboBoxItem>20</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.70*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Left"  Text="Auto start breaks?"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <ToggleButton Height="20"></ToggleButton>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.70*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Auto start pomodoros?"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <ToggleButton Height="20"></ToggleButton>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.70*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center">Log brake interval</TextBlock>
+                        <ComboBox Grid.Column="1" Height="20">
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.70*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Top">Alarm sound</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.33*" />
+                                <RowDefinition Height="0.33*"/>
+                                <RowDefinition Height="0.33*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <ComboBox Height="20">
+                                    <ComboBoxItem>Test sound1</ComboBoxItem>
+                                    <ComboBoxItem>Test sound1</ComboBoxItem>
+                                    <ComboBoxItem>Test sound1</ComboBoxItem>
+                                    <ComboBoxItem>Test sound1</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Slider></Slider>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.70*"/>
+                                    <ColumnDefinition Width="0.30*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBlock FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center">Repeat</TextBlock>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <ComboBox Height="10">
+                                        <ComboBoxItem>1</ComboBoxItem>
+                                        <ComboBoxItem>2</ComboBoxItem>
+                                        <ComboBoxItem>3</ComboBoxItem>
+                                        <ComboBoxItem>4</ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.70*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Height="20" Grid.Column="1" Margin="2">Save</Button>
+                    </Grid>
                 </Grid>
-                
+
+                <Grid Grid.Column="1" Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.80*"/>
+                        <RowDefinition Height="0.20*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.25*"/>
+                            <RowDefinition Height="0.75*"/>
+                            <RowDefinition Height="0.25*"/>
+                            <RowDefinition Height="0.25*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center">Progress bar</TextBlock>
+                            <StatusBar Name="sbar" VerticalAlignment="Bottom" Background="Beige" Margin="5">
+                                <ProgressBar Height="20" Name="progressBar1">
+                                    <ProgressBar.Triggers>
+                                        <EventTrigger RoutedEvent="ProgressBar.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="progressBar1" Storyboard.TargetProperty="Value" From="0" To="100" Duration="0:0:25"  />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </ProgressBar.Triggers>
+                                </ProgressBar>
+                            </StatusBar>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding CurrentTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center">Current task section</TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center">Amount of pomodors</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.4*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Start</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Pause</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Stop/Done</TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="2" Margin="2">
+                    <TextBlock TextWrapping="Wrap">Task section with list of task to drag and drop to select the task than we want to processing now</TextBlock>
+                </Grid>
+
             </Grid>
         </Grid>
-        
     </Grid>
 </Page>

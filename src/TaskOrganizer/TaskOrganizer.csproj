@@ -6,9 +6,20 @@
     <StartupObject>TaskOrganizer.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="View\UserControls\**" />
+    <EmbeddedResource Remove="View\UserControls\**" />
+    <None Remove="View\UserControls\**" />
+    <Page Remove="View\UserControls\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Resources\Audio\audio.wav" />
     <None Remove="Resources\Icons\2eIs7363.jpg" />
+    <None Remove="Resources\Icons\bar-chart.png" />
+    <None Remove="Resources\Icons\menu-task-icon.png" />
+    <None Remove="Resources\Icons\pomodoro-technique.png" />
+    <None Remove="Resources\Icons\setting.png" />
     <None Remove="Resources\Icons\tomato.png" />
+    <None Remove="Resources\Icons\user.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="View\Resources\ToggleButton.xaml" />
@@ -17,9 +28,21 @@
     <Content Include="Resources\Audio\audio.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\bar-chart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\menu-task-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Icons\2eIs7363.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Icons\pomodoro-technique.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\setting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Icons\tomato.png" />
   </ItemGroup>
   <ItemGroup>
@@ -56,9 +79,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\UserControls\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Resources\Icons\user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="View\Resources\ToggleButton.xaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
