@@ -19,7 +19,8 @@ internal static class ServiceCollectionExtension
             .AddScoped<PomodoroViewModel>()
             .AddScoped<SettingsViewModel>()
             .AddScoped<LoginViewModel>()
-            .AddScoped<UserAccountViewModel>();
+            .AddScoped<UserAccountViewModel>()
+            .AddScoped<AnalyticsViewModel>();
     }
 
     public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfigurationRoot configurationRoot)

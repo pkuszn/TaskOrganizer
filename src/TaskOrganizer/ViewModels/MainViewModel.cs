@@ -12,6 +12,7 @@ public class MainViewModel : BaseViewModel
     private const string SettingsViewName = "Settings";
     private const string LoginViewName = "Login";
     private const string UserAccountViewName = "UserAccount";
+    private const string AnalyticsViewName = "Analytics";
     public ICommand UpdateViewCommand { get; }
     public BaseViewModel BaseViewModel
     {
@@ -29,12 +30,13 @@ public class MainViewModel : BaseViewModel
         PomodoroViewModel pomodoroViewModel, 
         SettingsViewModel settingsViewModel,
         LoginViewModel loginViewModel,
-        UserAccountViewModel userAccountViewModel)
+        UserAccountViewModel userAccountViewModel,
+        AnalyticsViewModel analyticsViewModel)
     {
         BaseViewModel = taskViewModel ?? throw new ArgumentNullException(nameof(taskViewModel));
         UpdateViewCommand = new UpdateViewCommand(viewName =>
         {
-            SwitchView(taskViewModel, pomodoroViewModel, settingsViewModel, loginViewModel, userAccountViewModel, viewName);
+            SwitchView(taskViewModel, pomodoroViewModel, settingsViewModel, loginViewModel, userAccountViewModel, analyticsViewModel, viewName);
         });
     }
 
@@ -44,6 +46,7 @@ public class MainViewModel : BaseViewModel
         SettingsViewModel settingsViewModel, 
         LoginViewModel loginViewModel, 
         UserAccountViewModel userAccountViewModel, 
+        AnalyticsViewModel analyticsViewModel,
         string viewName)
     {
         BaseViewModel = viewName switch
@@ -53,6 +56,7 @@ public class MainViewModel : BaseViewModel
             SettingsViewName => settingsViewModel,
             LoginViewName => loginViewModel,
             UserAccountViewName => userAccountViewModel,
+            AnalyticsViewName => analyticsViewModel,
             _ => BaseViewModel
         };
     }

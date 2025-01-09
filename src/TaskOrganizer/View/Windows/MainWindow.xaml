@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type viewmodels:UserAccountViewModel}">
             <pages:UserAccountView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:AnalyticsViewModel}">
+            <pages:AnalyticsView />
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -117,6 +120,14 @@
                     </Button.ToolTip>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Image Source="pack://application:,,,/Resources/Icons/user.png" Width="32" Height="32" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding UpdateViewCommand}" CommandParameter="Analytics">
+                    <Button.ToolTip>
+                        <ToolTip Content="Analytics"/>
+                    </Button.ToolTip>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Resources/Icons/bar-chart.png" Width="32" Height="32" />
                     </StackPanel>
                 </Button>
             </StackPanel>
