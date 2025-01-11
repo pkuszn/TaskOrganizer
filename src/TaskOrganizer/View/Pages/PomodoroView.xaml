@@ -211,7 +211,7 @@
                             </StatusBar>
                         </StackPanel>
                         <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding CurrentTime, FallbackValue=00m:00s}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding CurrentTimer}" FontSize="40" FontFamily="JetBrains Mono"  HorizontalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" VerticalAlignment="Center">
                             <TextBlock HorizontalAlignment="Center">Current task section</TextBlock>
@@ -234,6 +234,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Start</TextBlock>
+                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StartCommand}">Start</Button>
                             </StackPanel>
                             <StackPanel Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Pause</TextBlock>
