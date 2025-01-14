@@ -2,7 +2,6 @@
 using TaskOrganizer.Domain.Models;
 
 namespace TaskOrganizer.Repository;
-
 public class TaskOrganizerDbContext : DbContext
 {
     public DbSet<Task> Tasks { get; set; }

@@ -16,7 +16,7 @@ public class UserService : IUserService
         Repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
-    public async Task<AuthResult> AuthenticateUserAsync(NetworkCredential credential, CancellationToken cancellationToken)
+    public async Task<AuthResult> AuthenticateUserAsync(NetworkCredential credential)
     {
         if (string.IsNullOrWhiteSpace(credential?.UserName) || string.IsNullOrWhiteSpace(credential?.Password))
         {
@@ -27,7 +27,7 @@ public class UserService : IUserService
             };
         }
 
-        User user = await Repository.GetAsync(q => q.Login.Equals(credential.UserName), cancellationToken);
+        User user = await Repository.GetAsync(q => q.Login.Equals(credential.UserName));
         if (user == null)
         {
             return new AuthResult

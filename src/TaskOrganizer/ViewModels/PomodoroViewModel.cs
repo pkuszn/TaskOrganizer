@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TaskOrganizer.Commands;
+using TaskOrganizer.Domain.Models;
+using TaskOrganizer.Repository.Interfaces;
 
 namespace TaskOrganizer.ViewModels;
 
@@ -19,11 +22,14 @@ public class PomodoroViewModel : BaseViewModel
     private string _longBrakeInterval;
     private string _alarmSound;
     private string _alarmRepeatFrequency;
+
+    private DispatcherTimer PomodoroTimer;
+    private readonly ITaskService TaskService;
     public ICommand StartCommand { get; }
     public ICommand StopCommand { get; }
     public ICommand PauseCommand { get; }
     public ICommand ResetCommand { get; }
-    private DispatcherTimer PomodoroTimer;
+    public List<Task> Tasks { get; set; }
 
     #region Session Property
     public string CurrentProceededTask
@@ -176,16 +182,19 @@ public class PomodoroViewModel : BaseViewModel
     }
 
     #endregion
-    public PomodoroViewModel()
+    //TODO: sharing data between view models
+    public PomodoroViewModel(ITaskService taskService)
     {
+        TaskService = taskService ?? throw new ArgumentNullException(nameof(taskService));
         StartCommand = new RelayCommand(StartPomodoroSession);
         StopCommand = new RelayCommand(StopPomodoroSession);
         PauseCommand = new RelayCommand(PausePomodoroSession);
         ResetCommand = new RelayCommand(ResetTimer);
-        PomodoroTimer = InitializePomodoroTimer();         //TODO temporary
+        PomodoroTimer = InitializePomodoroTimer();         //TODO: temporary
         PomodoroSessionLength = "25";  
         _currentTimeSession = 25 * 60;
         CurrentTimer = "25:00";
+        BuildTaskAsync();
     }
 
     private DispatcherTimer InitializePomodoroTimer()
@@ -233,9 +242,14 @@ public class PomodoroViewModel : BaseViewModel
 
     private void StartPomodoroSession(object obj)
     {
-        //TODO temporary
+        //TODO: temporary
         _currentTimeSession = int.TryParse(PomodoroSessionLength, out int sessionLength) ? sessionLength * 60 : 25 * 60;
         CurrentTimer = "25:00";
         PomodoroTimer.Start();
+    }
+
+    private async void BuildTaskAsync()
+    {
+        Tasks = await TaskService.GetTasksAsync(1);
     }
 }

@@ -246,9 +246,27 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="2" Margin="2">
-                    <TextBlock TextWrapping="Wrap">Task section with list of task to drag and drop to select the task than we want to processing now</TextBlock>
-                </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">Tasks</TextBlock>
+                    <ItemsControl Grid.Row="1">
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
 
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Task"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBox Grid.Row="2" Text="Add task">
+
+                    </TextBox>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

@@ -12,6 +12,12 @@ public class Task : IObject<int>
     [Required]
     [Key]
     public int Id { get; set; }
+    [Column("name")]
+    [Required]
+    public string Name { get; set; }
+    [Column("id_user")]
+    [Required]
+    public int IdUser { get; set; }
     [Column("description")]
     public string Description { get; set; }
     [Column("created_date")]
