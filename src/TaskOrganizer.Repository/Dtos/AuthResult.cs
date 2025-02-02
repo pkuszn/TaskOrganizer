@@ -5,4 +5,5 @@ public readonly record struct AuthResult
 {
     public bool IsAuthenticated { get; init; }
     public AuthResultEnum Result { get; init; }
+    public int? IdUser { get; init; }
 }

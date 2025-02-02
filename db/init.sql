@@ -10,23 +10,51 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS task (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_pomodoro_session INTEGER NULL,
     name TEXT NOT NULL,
     id_user INTEGER NOT NULL,        
 	description TEXT NOT NULL,
 	created_date DATETIME NOT NULL,
-	finish_date DATETIME,
-    is_selected BOOLEAN NOT NULL DEFAULT 0,
+	finish_date DATETIME NULL,
     is_done BOOLEAN NOT NULL DEFAULT 0,
 	FOREIGN KEY (id_user) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS pomodoro (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    is_selected BOOLEAN NOT NULL DEFAULT 0,
-    time_spent INTEGER NOT NULL,
-    time DATETIME NOT NULL,
-    task_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    FOREIGN KEY (task_id) REFERENCES task(id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    id_pomodoro_session INTEGER NOT NULL,
+    interval INTEGER NOT NULL,
+    created_date DATETIME NOT NULL,
+    finish_date DATETIME NULL,
+    id_task INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    FOREIGN KEY (id_task) REFERENCES task(id),
+    FOREIGN KEY (id_user) REFERENCES user(id)
 );
+
+CREATE TABLE IF NOT EXISTS pomodoro_session(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_user INTEGER NOT NULL,
+    created_date DATETIME NOT NULL,
+    finish_date DATETIME NULL,
+    pomodoro_interval INTEGER NOT NULL,
+    short_break INTEGER NOT NULL,
+    long_break INTEGER NOT NULL,
+    auto_restart_break BOOLEAN NOT NULL,
+    auto_restart_pomodoro BOOLEAN NOT NULL,
+    long_brake_interval INTEGER NOT NULL,
+    id_alarm_sound INTEGER NOT NULL,
+    repeat BOOLEAN NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id)
+    FOREIGN KEY (id_alarm_sound) REFERENCES alarm(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS alarm(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    path TEXT NOT NULL
+);
+
+
+

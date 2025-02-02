@@ -3,9 +3,9 @@ using Serilog;
 using System;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Windows.Input;
 using TaskOrganizer.Commands;
+using TaskOrganizer.Helpers;
 using TaskOrganizer.Repository.Dtos;
 using TaskOrganizer.Repository.Interfaces;
 using TaskOrganizer.View.Windows;
@@ -102,7 +102,7 @@ public class LoginViewModel : BaseViewModel
             Password = _password
         };
 
-        AuthResult userAuthResult = await UserService.AuthenticateUserAsync(credentials, CancellationToken.None);
+        AuthResult userAuthResult = await UserService.AuthenticateUserAsync(credentials);
         if (userAuthResult.IsAuthenticated)
         {
             Logger.Information($"{_username} is authenticated successfully.");
@@ -111,6 +111,7 @@ public class LoginViewModel : BaseViewModel
             mainWindow.DataContext = App.Services.GetRequiredService<MainViewModel>();
             mainWindow.Show();
 
+            ApplicationContext.IdUser = (int)userAuthResult.IdUser;
             App.Current.Windows.OfType<LoginWindow>().FirstOrDefault()?.Close();
             IsPasswordIncorrect = false;
         }

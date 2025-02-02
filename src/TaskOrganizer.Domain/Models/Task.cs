@@ -12,6 +12,9 @@ public class Task : IObject<int>
     [Required]
     [Key]
     public int Id { get; set; }
+    [Column("id_pomodoro_session")]
+    [Required]
+    public int IdPomodoroSession { get; set; }
     [Column("name")]
     [Required]
     public string Name { get; set; }

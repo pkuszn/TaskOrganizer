@@ -3,19 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 using TaskOrganizer.Domain.Interfaces;
 using TaskOrganizer.Repository.Interfaces;
 
 namespace TaskOrganizer.Repository;
 
-public class BaseRepository<E, T> : IRepository<E, T>
+public abstract class BaseRepository<E, T> : IRepository<E, T>
     where E : class, IObject<T>
     where T : struct
 {
-    private readonly TaskOrganizerDbContext DbContext;
-
+    protected readonly TaskOrganizerDbContext DbContext;
     public BaseRepository(TaskOrganizerDbContext dbContext)
     {
         DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));

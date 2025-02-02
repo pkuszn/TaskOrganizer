@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskOrganizer.Repository.Interfaces;
 
 namespace TaskOrganizer.Repository.Services;
-public class TaskService : ITaskService
+public class TaskService : BaseRepository<Domain.Models.Task, int>, ITaskService
 {
-    private readonly TaskOrganizerDbContext DbContext;
-    public TaskService(TaskOrganizerDbContext dbContext)
-    {
-        DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-
-    }
+    public TaskService(TaskOrganizerDbContext dbContext) : base(dbContext) { }
     public async Task<Domain.Models.Task> GetTaskAsync(int idUser, int idTask)
     {
         return await DbContext.Tasks.FirstOrDefaultAsync(q => q.IdUser == idUser && q.Id == idTask);

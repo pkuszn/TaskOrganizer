@@ -12,12 +12,21 @@ public class Pomodoro : IObject<int>
     [Required]
     [Key]
     public int Id { get; set; }
-    [Column("time_spent")]
-    public int TimeSpent { get; set; }
-    [Column("time")]
-    public DateTime Time { get; set; }
-    [Column("task_id")]
-    public int TaskId { get; set; }
-    [Column("user_id")]
-    public int UserId { get; set; }
+    [Column("id_pomodoro_session")]
+    [Required]
+    public int IdPomodoroSession { get; set; }
+    [Column("interval")]
+    [Required]
+    public int Interval { get; set; }
+    [Column("created_date")]
+    [Required]
+    public DateTime CreatedDate { get; set; }
+    [Column("finish_date")]
+    public DateTime? FinishDate { get; set; }
+    [Column("id_user")]
+    [Required]
+    public int IdUser { get; set; }
+    [Column("id_task")]
+    [Required]
+    public int IdTask { get; set; }
 }

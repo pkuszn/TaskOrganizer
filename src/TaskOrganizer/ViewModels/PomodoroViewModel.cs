@@ -232,12 +232,12 @@ public class PomodoroViewModel : BaseViewModel
 
     private void PausePomodoroSession(object obj)
     {
-        throw new NotImplementedException();
+        PomodoroTimer.Stop();
     }
 
     private void StopPomodoroSession(object obj)
     {
-        throw new NotImplementedException();
+        PomodoroTimer.Stop();
     }
 
     private void StartPomodoroSession(object obj)

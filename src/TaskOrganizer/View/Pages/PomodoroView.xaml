@@ -233,14 +233,13 @@
                                 <ColumnDefinition Width="0.33*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Start</TextBlock>
                                 <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StartCommand}">Start</Button>
                             </StackPanel>
                             <StackPanel Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Pause</TextBlock>
+                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding PauseCommand}">Pause</Button>
                             </StackPanel>
                             <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Stop/Done</TextBlock>
+                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopCommand}">Stop/Done</Button>
                             </StackPanel>
                         </Grid>
                     </Grid>

@@ -31,8 +31,9 @@ internal static class ServiceCollectionExtension
 
     public static IServiceCollection ConfigureServices(this IServiceCollection services) 
     {
-        return services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>))
-            .AddScoped<IUserService, UserService>();
+        return services.AddScoped<IUserService, UserService>()
+            .AddScoped<ITaskService, TaskService>()
+            .AddScoped<IPomodoroService, PomodoroService>();
     }
 
     public static IServiceCollection ConfigureWindows(this IServiceCollection services)
