@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS task (
 	created_date DATETIME NOT NULL,
 	finish_date DATETIME NULL,
     is_done BOOLEAN NOT NULL DEFAULT 0,
+    id_task_category INTEGER NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES user(id) ON DELETE CASCADE
 );
 
@@ -51,10 +52,29 @@ CREATE TABLE IF NOT EXISTS pomodoro_session(
 
 
 CREATE TABLE IF NOT EXISTS alarm(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     path TEXT NOT NULL
 );
 
 
+CREATE TABLE IF NOT EXISTS pomodoro_interval(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    path TEXT NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS short_break(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE long_break(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE task_category(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
